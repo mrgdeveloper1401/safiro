@@ -20,9 +20,11 @@ class User(AbstractUser):
     is_passenger = models.BooleanField(default=False)
     is_driver = models.BooleanField(default=False)
     email = models.EmailField(blank=True, null=True)
+    first_name = None
+    last_name = None
 
     USERNAME_FIELD = 'phone'
-    REQUIRED_FIELDS = ('email', "first_name", "last_name", "username")
+    REQUIRED_FIELDS = ('email', "username")
 
     class Meta:
         db_table = 'auth_user'

@@ -19,8 +19,7 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('-id',)
     list_display_links = ("id", "phone", 'email')
     list_display = (
-        'id', 'phone', 'email', 'first_name', 'last_name',
-        'is_verify_phone', 'is_passenger', 'is_driver', 'is_active'
+        'id', 'phone', 'email', 'is_verify_phone', 'is_passenger', 'is_driver', 'is_active'
     )
     list_filter = (
         'is_active', 'is_staff', 'is_superuser',
@@ -34,7 +33,7 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('phone', 'password')
         }),
         (_('مشخصات شخصی'), {
-            'fields': ('first_name', 'last_name', 'email')
+            'fields': ('email',)
         }),
         (_('نقش‌ها و وضعیت'), {
             'fields': (
@@ -55,7 +54,7 @@ class UserAdmin(BaseUserAdmin):
             'classes': ('wide',),
             'fields': (
                 'phone', 'password1', 'password2',
-                'first_name', 'last_name', 'email',
+                'email',
                 'is_verify_phone', 'is_passenger', 'is_driver',
                 'is_active', 'is_staff', 'is_superuser'
             ),
@@ -98,10 +97,13 @@ class ImageAdmin(admin.ModelAdmin):
 class PassengerAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'first_name', 'last_name', 'is_active', 'created_at')
     list_filter = ('is_active',)
-    search_fields = ('user__phone', 'first_name', 'last_name')
+    search_fields = ('user__phone',)
+    search_help_text = _("برای سرچ میتوانید از شماره تلفن کاربر استفاده کنید")
     readonly_fields = ('created_at', 'updated_at')
     ordering = ('-id',)
-    autocomplete_fields = ('user', 'image')
+    # autocomplete_fields = ('user', 'image')
+    raw_id_fields = ("user", "image")
+    list_display_links = ("id", "user")
 
 
 @admin.register(Driver)
