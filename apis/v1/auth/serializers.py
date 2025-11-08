@@ -9,3 +9,8 @@ class RequestOtpSerializer(Serializer):
 class OtpVerifySerializer(Serializer):
     mobile_phone = serializers.CharField()
     otp = serializers.CharField()
+
+
+class LoginPhonePasswordSerializer(Serializer):
+    phone = mobile_phone = serializers.CharField()
+    password = serializers.CharField()

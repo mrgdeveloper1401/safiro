@@ -8,3 +8,10 @@ class AsyncRemoveAuthenticationPermissions(permissions.BasePermission):
         if request.user.is_authenticated:
             raise AuthenticationFailed()
         return True
+
+
+class SyncRemoveAuthenticationPermissions(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.is_authenticated:
+            raise AuthenticationFailed()
+        return True
