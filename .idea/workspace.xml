@@ -4,15 +4,44 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="" />
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="initial-project">
+      <change afterPath="$PROJECT_DIR$/apis/v1/driver/serializers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apis/v1/driver/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apis/v1/driver/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "mrgdeveloper1401"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:mrgdeveloper1401/safiro.git",
+    "accountId": "59e7f122-65a5-4803-938d-58be97adb4df"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -23,12 +52,20 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master"
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/mg/Desktop/django-projects/safiro/apis/v1/passenger"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apis/v1/passenger" />
+      <recent name="$PROJECT_DIR$/apis/v1/driver" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -44,6 +81,19 @@
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
     </task>
+    <task id="LOCAL-00001" summary="initial-project">
+      <option name="closed" value="true" />
+      <created>1762590620009</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1762590620009</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="initial-project" />
+    <option name="LAST_COMMIT_MESSAGE" value="initial-project" />
   </component>
 </project>

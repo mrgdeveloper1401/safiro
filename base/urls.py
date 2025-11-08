@@ -14,10 +14,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path
 from drf_spectacular.views import SpectacularAPIView
 from drf_spectacular_extras.views import SpectacularScalarView
+from django.conf.urls.static import static
 from decouple import config
 
 
@@ -36,3 +38,7 @@ SHOW_DEBUGGER_TOOLBAR = config("SHOW_DEBUGGER_TOOLBAR", cast=bool, default=True)
 if SHOW_DEBUGGER_TOOLBAR:
     from debug_toolbar.toolbar import debug_toolbar_urls
     urlpatterns += debug_toolbar_urls()
+
+DEBUG = config("DEBUG", cast=bool, default=True)
+if DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
