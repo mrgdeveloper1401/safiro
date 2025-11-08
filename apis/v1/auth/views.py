@@ -88,7 +88,8 @@ class OtpVerifyView(AsyncAPIView):
                 "mobile_phone",
                 "is_active",
                 "is_staff",
-                "is_verify_phone"
+                "is_verify_phone",
+                "is_passenger"
             ).afirst()
             if user.is_active is False:
                 return response(
@@ -106,6 +107,7 @@ class OtpVerifyView(AsyncAPIView):
                     "mobile": phone,
                     "is_staff": user.is_staff,
                     "is_verify_phone": user.is_verify_phone,
+                    "is_passenger": user.is_passenger,
                     "access_token": str(token.access_token),
                     "refresh_token": str(token),
                     "jwt": "Bearer",
@@ -151,6 +153,7 @@ class LoginPhonePasswordView(APIView):
                 "mobile": phone,
                 "is_verify_phone": user.is_verify_phone,
                 "is_staff": user.is_staff,
+                "is_passenger": user.is_passenger,
                 "access_token": str(token.access_token),
                 "refresh_token": str(token),
                 "jwt": "Bearer",
@@ -240,7 +243,7 @@ class VerifyForgetPasswordView(AsyncAPIView):
         else:
             # check user
             user = await sync_to_async(
-                User.objects.only("is_active", "is_staff", "is_verify_phone","phone").filter
+                User.objects.only("is_active", "is_staff", "is_verify_phone","phone", "is_passenger").filter
             )(phone=phone)
             user_first = await user.afirst()
             if user_first.is_active is False:
@@ -259,6 +262,7 @@ class VerifyForgetPasswordView(AsyncAPIView):
                     "mobile": phone,
                     "is_staff": user.is_staff,
                     "is_verify_phone": user.is_verify_phone,
+                    "is_passenger": user.is_passenger,
                     "access_token": str(token.access_token),
                     "refresh_token": str(token),
                     "jwt": "Bearer",
