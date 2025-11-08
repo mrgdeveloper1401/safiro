@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add field is_passenger">
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add api user_notifications">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/v1/auth/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/v1/auth/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/v1/auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/views.py" afterDir="false" />
@@ -147,7 +148,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762616243219</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="add api user_notifications">
+      <option name="closed" value="true" />
+      <created>1762616565995</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1762616565995</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -159,6 +168,7 @@
     <MESSAGE value="add api login_by_phone_password" />
     <MESSAGE value="add api verify_forget_password" />
     <MESSAGE value="add field is_passenger" />
-    <option name="LAST_COMMIT_MESSAGE" value="add field is_passenger" />
+    <MESSAGE value="add api user_notifications" />
+    <option name="LAST_COMMIT_MESSAGE" value="add api user_notifications" />
   </component>
 </project>

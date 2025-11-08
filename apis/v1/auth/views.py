@@ -18,12 +18,14 @@ from apis.v1.auth.serializers import (
     OtpVerifySerializer,
     LoginPhonePasswordSerializer,
     VerifyForgetPassword,
-    UserNotificationSerializer
+    UserNotificationSerializer,
+    DriverSerializer,
+    UploadImageSerializer
 )
 from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, SyncRemoveAuthenticationPermissions
 from apis.v1.utils.custom_response import response
 from apis.v1.utils.custome_throttle import OtpRateThrottle
-from auth_app.models import User, UserNotification
+from auth_app.models import User, UserNotification, Driver
 from base.settings import SIMPLE_JWT
 from base.utils.send_sms import send_sms
 
@@ -292,4 +294,33 @@ class UserNotificationView(mixins.ListModelMixin, mixins.RetrieveModelMixin, vie
             "body",
             "created_at",
             "updated_at",
+        )
+
+
+class UploadImageView(APIView):
+    serializer_class = UploadImageSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return response(success=True, result=serializer.data, error=False, status_code=status.HTTP_201_CREATED)
+
+
+class DriverView(viewsets.ModelViewSet):
+    serializer_class = DriverSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        return Driver.objects.filter(
+            user_id=self.request.user.id
+        ).only(
+            "first_name",
+            "last_name",
+            "image",
+            "nation_code",
+            "father_name",
+            "license_number",
+            "verification_status"
         )

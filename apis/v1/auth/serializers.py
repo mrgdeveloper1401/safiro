@@ -1,7 +1,7 @@
 from adrf.serializers import Serializer
 from rest_framework import serializers
 
-from auth_app.models import UserNotification
+from auth_app.models import UserNotification, Driver, Image
 
 
 class RequestOtpSerializer(Serializer):
@@ -14,7 +14,7 @@ class OtpVerifySerializer(Serializer):
 
 
 class LoginPhonePasswordSerializer(Serializer):
-    phone = mobile_phone = serializers.CharField()
+    phone = serializers.CharField()
     password = serializers.CharField()
 
 
@@ -35,3 +35,48 @@ class UserNotificationSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         )
+
+
+class DriverSerializer(serializers.ModelSerializer):
+    image = serializers.PrimaryKeyRelatedField(
+        queryset=Image.objects.only("id").filter(is_active=True),
+    )
+
+    class Meta:
+        model = Driver
+        fields = (
+            "id",
+            "first_name",
+            "last_name",
+            "image",
+            "nation_code",
+            "father_name",
+            "license_number",
+            "verification_status"
+        )
+        extra_kwargs = {
+            "verification_status": {"read_only": True},
+        }
+    def validate_image(self, data):
+        user_id = self.context['request'].user.id
+        owner_image = Image.objects.only("id").filter(id=data.id, created_by_id=user_id, is_active=True)
+        if not owner_image.exists():
+            raise serializers.ValidationError("image not found")
+        return data
+
+    def create(self, validated_data):
+        user_id = self.context['request'].user.id
+        return Driver.objects.create(user_id=user_id, **validated_data)
+
+
+class UploadImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = (
+            "id",
+            "image"
+        )
+
+    def create(self, validated_data):
+        user_id = self.context['request'].user.id
+        return Image.objects.create(created_by_id=user_id, **validated_data)
