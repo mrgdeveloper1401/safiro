@@ -6,8 +6,8 @@ from adrf.views import APIView as AsyncAPIView
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from django.core.cache import cache
-from rest_framework import status
-from rest_framework.exceptions import ValidationError
+from rest_framework import status, mixins, viewsets
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from pytz import timezone as pytz_timezone
@@ -17,12 +17,13 @@ from apis.v1.auth.serializers import (
     RequestOtpSerializer,
     OtpVerifySerializer,
     LoginPhonePasswordSerializer,
-    VerifyForgetPassword
+    VerifyForgetPassword,
+    UserNotificationSerializer
 )
 from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, SyncRemoveAuthenticationPermissions
 from apis.v1.utils.custom_response import response
 from apis.v1.utils.custome_throttle import OtpRateThrottle
-from auth_app.models import User
+from auth_app.models import User, UserNotification
 from base.settings import SIMPLE_JWT
 from base.utils.send_sms import send_sms
 
@@ -279,3 +280,16 @@ class VerifyForgetPasswordView(AsyncAPIView):
                     error=False,
                     status_code=200
                 )
+
+
+class UserNotificationView(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    serializer_class = UserNotificationSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        return UserNotification.objects.filter(user_id=self.request.user.id).only(
+            "title",
+            "body",
+            "created_at",
+            "updated_at",
+        )

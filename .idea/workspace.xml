@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add api verify_forget_password">
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add field is_passenger">
+      <change beforePath="$PROJECT_DIR$/apis/v1/auth/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/v1/auth/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +131,23 @@
       <option name="project" value="LOCAL" />
       <updated>1762615695754</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add api verify_forget_password">
+      <option name="closed" value="true" />
+      <created>1762616036374</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1762616036374</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add field is_passenger">
+      <option name="closed" value="true" />
+      <created>1762616243219</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1762616243219</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -140,6 +158,7 @@
     <MESSAGE value="add api request otp phone" />
     <MESSAGE value="add api login_by_phone_password" />
     <MESSAGE value="add api verify_forget_password" />
-    <option name="LAST_COMMIT_MESSAGE" value="add api verify_forget_password" />
+    <MESSAGE value="add field is_passenger" />
+    <option name="LAST_COMMIT_MESSAGE" value="add field is_passenger" />
   </component>
 </project>
