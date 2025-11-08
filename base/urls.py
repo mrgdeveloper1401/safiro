@@ -16,23 +16,26 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path
-from drf_spectacular.views import SpectacularAPIView
-from drf_spectacular_extras.views import SpectacularScalarView
+from django.urls import path, include
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+
 from django.conf.urls.static import static
 from decouple import config
 
 
 swagger_urls = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/schema/swagger-ui', SpectacularAPIView.as_view(), name='swagger-ui'),
-    # Add Scalar UI
-    path('api/schema/scalar/', SpectacularScalarView.as_view(url_name='schema'), name='scalar'),
+    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(), name='swagger-ui'),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(), name='redoc'),
+]
+
+v1_apis = [
+    path("v1/api/auth/", include("apis.v1.auth.urls", namespace="v1_auth")),
 ]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-] + swagger_urls
+] + swagger_urls + v1_apis
 
 SHOW_DEBUGGER_TOOLBAR = config("SHOW_DEBUGGER_TOOLBAR", cast=bool, default=True)
 if SHOW_DEBUGGER_TOOLBAR:
@@ -42,3 +45,10 @@ if SHOW_DEBUGGER_TOOLBAR:
 DEBUG = config("DEBUG", cast=bool, default=True)
 if DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+USE_SPECTACULAR_EXTRAS_SETTINGS = config("USE_SPECTACULAR_EXTRAS_SETTINGS", cast=bool, default=True)
+if USE_SPECTACULAR_EXTRAS_SETTINGS:
+    from drf_spectacular_extras.views import SpectacularScalarView
+    urlpatterns += [
+        path('api/schema/scalar/', SpectacularScalarView.as_view(url_name='schema'), name='scalar'),
+    ]

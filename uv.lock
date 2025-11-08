@@ -3,6 +3,20 @@ revision = 3
 requires-python = ">=3.12"
 
 [[package]]
+name = "adrf"
+version = "0.1.11"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "async-property" },
+    { name = "django" },
+    { name = "djangorestframework" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b1/71/5eee392e266a1d6603a6207ca8111192b21cb97fe7a326afc671a060bca7/adrf-0.1.11.tar.gz", hash = "sha256:03bfb677f5001104ffcc1405d45297913e9e63534b938469e7aba69fd50ccfb5", size = 17114, upload-time = "2025-10-25T09:10:16.4Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6a/e9/395583de343fcdf98df5fe8033320b20f532e4aea1fea9cb9df069dc515c/adrf-0.1.11-py3-none-any.whl", hash = "sha256:55665f582d8c9ad77ba012a442705a1c4dd556b733df7a987ad7b6a89432702f", size = 20089, upload-time = "2025-10-25T09:10:14.968Z" },
+]
+
+[[package]]
 name = "anyio"
 version = "4.11.0"
 source = { registry = "https://pypi.org/simple" }
@@ -32,6 +46,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/4a/e7/82da0a03e7ba5141f05cce0d302e6eed121ae055e0456ca228bf693984bc/asttokens-3.0.0.tar.gz", hash = "sha256:0dcd8baa8d62b0c1d118b399b2ddba3c4aff271d0d7a9e0d4c1681c79035bbc7", size = 61978, upload-time = "2024-11-30T04:30:14.439Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/25/8a/c46dcc25341b5bce5472c718902eb3d38600a903b14fa6aeecef3f21a46f/asttokens-3.0.0-py3-none-any.whl", hash = "sha256:e3078351a059199dd5138cb1c706e6430c05eff2ff136af5eb4790f9d28932e2", size = 26918, upload-time = "2024-11-30T04:30:10.946Z" },
+]
+
+[[package]]
+name = "async-property"
+version = "0.2.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/a7/12/900eb34b3af75c11b69d6b78b74ec0fd1ba489376eceb3785f787d1a0a1d/async_property-0.2.2.tar.gz", hash = "sha256:17d9bd6ca67e27915a75d92549df64b5c7174e9dc806b30a3934dc4ff0506380", size = 16523, upload-time = "2023-07-03T17:21:55.688Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c7/80/9f608d13b4b3afcebd1dd13baf9551c95fc424d6390e4b1cfd7b1810cd06/async_property-0.2.2-py2.py3-none-any.whl", hash = "sha256:8924d792b5843994537f8ed411165700b27b2bd966cefc4daeefc1253442a9d7", size = 9546, upload-time = "2023-07-03T17:21:54.293Z" },
 ]
 
 [[package]]
@@ -706,6 +729,7 @@ name = "safiro"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "adrf" },
     { name = "colorlog" },
     { name = "django" },
     { name = "django-cors-headers" },
@@ -730,6 +754,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "adrf", specifier = ">=0.1.11" },
     { name = "colorlog", specifier = ">=6.10.1" },
     { name = "django", specifier = ">=5.2.8" },
     { name = "django-cors-headers", specifier = ">=4.9.0" },

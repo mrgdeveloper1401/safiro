@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     # third_party package,
     'rest_framework',
     'rest_framework_simplejwt',
+    "drf_spectacular",
+    "drf_spectacular_sidecar",
 
     # third party app
     "auth_app"
@@ -126,10 +128,15 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # rest framework
+# rest config
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_THROTTLE_RATES': {
+        'otp': '1/minute',
+    },
 }
 
 # config debug toolbar

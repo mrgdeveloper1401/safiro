@@ -14,6 +14,7 @@ class DriverDocumentInline(admin.TabularInline):
     readonly_fields = ("doc_type",)
     can_delete = False
 
+
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
     ordering = ('-id',)
