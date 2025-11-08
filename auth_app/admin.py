@@ -83,6 +83,7 @@ class ImageAdmin(admin.ModelAdmin):
     list_per_page = 25
     raw_id_fields = ('created_by',)
     actions = ("disable_field", "enable_field")
+    list_display_links = ("id", "created_by")
 
     @admin.action(description="disable field")
     def disable_field(self, request, queryset):
