@@ -1,7 +1,7 @@
 from adrf.serializers import Serializer
 from rest_framework import serializers
 
-from auth_app.models import UserNotification, Driver, Image
+from auth_app.models import UserNotification, Driver, Image, DriverDocument
 
 
 class RequestOtpSerializer(Serializer):
@@ -80,3 +80,18 @@ class UploadImageSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user_id = self.context['request'].user.id
         return Image.objects.create(created_by_id=user_id, **validated_data)
+
+
+class DriverDocSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DriverDocument
+        fields = (
+            "id",
+            "doc_type",
+            "is_verified",
+            "verifier_note"
+        )
+        extra_kwargs = {
+            "is_verified": {"read_only": True},
+            "verifier_note": {'read_only': True}
+        }

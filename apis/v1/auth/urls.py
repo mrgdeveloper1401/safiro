@@ -8,7 +8,8 @@ from .views import (
     VerifyForgetPasswordView,
     UserNotificationView,
     DriverView,
-    UploadImageView
+    UploadImageView,
+    DriverDocView
 )
 
 app_name = "v1_auth"
@@ -16,6 +17,7 @@ app_name = "v1_auth"
 router = SimpleRouter()
 router.register("user_notification", UserNotificationView, basename="user_notification")
 router.register("driver", DriverView, basename="driver")
+router.register("driver_doc", DriverDocView, basename="driver_doc")
 
 urlpatterns = [
     path("request_otp_phone/", RequestOtpView.as_view(), name="request_otp_phone"),

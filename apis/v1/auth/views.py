@@ -20,12 +20,12 @@ from apis.v1.auth.serializers import (
     VerifyForgetPassword,
     UserNotificationSerializer,
     DriverSerializer,
-    UploadImageSerializer
+    UploadImageSerializer, DriverDocSerializer
 )
 from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, SyncRemoveAuthenticationPermissions
 from apis.v1.utils.custom_response import response
 from apis.v1.utils.custome_throttle import OtpRateThrottle
-from auth_app.models import User, UserNotification, Driver
+from auth_app.models import User, UserNotification, Driver, DriverDocument
 from base.settings import SIMPLE_JWT
 from base.utils.send_sms import send_sms
 
@@ -323,4 +323,19 @@ class DriverView(viewsets.ModelViewSet):
             "father_name",
             "license_number",
             "verification_status"
+        )
+
+
+class DriverDocView(viewsets.ModelViewSet):
+    serializer_class = DriverDocSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        return DriverDocument.objects.filter(
+            profile__user_id=self.request.user.id,
+            is_active=True
+        ).only(
+            "doc_type",
+            "is_verified",
+            "verifier_note",
         )

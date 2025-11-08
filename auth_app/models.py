@@ -142,6 +142,7 @@ class DriverDocument(ModifyMixin):
     doc_type = models.CharField(_("نوع مدارک"), max_length=50, choices=DocumentType.choices)
     is_verified = models.BooleanField(default=False)
     verifier_note = models.TextField(blank=True, null=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         unique_together = ("profile", "doc_type")
