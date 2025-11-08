@@ -14,3 +14,10 @@ class OtpVerifySerializer(Serializer):
 class LoginPhonePasswordSerializer(Serializer):
     phone = mobile_phone = serializers.CharField()
     password = serializers.CharField()
+
+
+class VerifyForgetPassword(Serializer):
+    phone = serializers.CharField()
+    password = serializers.CharField()
+    confirm_password = serializers.CharField()
+    code = serializers.CharField()
