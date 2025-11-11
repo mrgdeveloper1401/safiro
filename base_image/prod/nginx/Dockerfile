@@ -7,7 +7,7 @@ RUN cp /dev/null /etc/apk/repositories && \
     echo "https://mirror.mobinhost.com/alpine/v3.22/community" >> /etc/apk/repositories && \
     apk update && \
     apk upgrade && \
-    apk add bash curl openssl python3-certbot
+    apk add bash curl openssl
 
 RUN mkdir -p /var/www/static/ && \
     mkdir -p /etc/letsencrypt/live/servername.ir
