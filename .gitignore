@@ -13,3 +13,4 @@ general_log_django
 static
 media
 test_code.py
+postdb.env

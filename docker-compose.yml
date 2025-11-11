@@ -1,0 +1,49 @@
+services:
+  backend:
+    container_name: safiro
+    restart: always
+    volumes:
+      - static_files:/home/app/static
+    build:
+      context: .
+      dockerfile: base_image/prod/Dockerfile
+    ports:
+      - "8000:8000"
+    expose:
+      - 8000
+    env_file: ".env"
+
+  nginx:
+    container_name: safiro_nginx
+    restart: always
+    build:
+      context: .
+      dockerfile: base_image/prod/nginx/Dockerfile
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - static_files:/var/www/static
+    depends_on:
+      - backend
+
+  redis:
+    container_name: safiro_redis
+    image: docker.arvancloud.ir/redis:8.2-alpine
+    command: redis-server --save 60 1 --loglevel warning
+    expose:
+      - 6379
+
+  db:
+    container_name: safiro_postgres
+    env_file: "postdb.env"
+    restart: always
+    image: docker.arvancloud.ir/postgres:17-alpine
+    expose:
+      - 5432
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+
+volumes:
+  postgres_volume:
+  static_files:
