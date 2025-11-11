@@ -10,4 +10,4 @@ RUN cp /dev/null /etc/apk/repositories && \
 RUN mkdir -p /var/www/static/ && \
     mkdir -p /etc/letsencrypt/live/servername.ir/
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY /base_image/prod/nginx/nginx.conf /etc/nginx/nginx.conf
