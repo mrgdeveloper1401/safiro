@@ -10,4 +10,4 @@ RUN cp /dev/null /etc/apk/repositories && \
     apk add bash curl openssl python3-certbot
 
 RUN mkdir -p /var/www/static/ && \
-    mkdir -p /etc/letsencrypt/live/servername.ir/
+    mkdir -p /etc/letsencrypt/live/servername.ir
