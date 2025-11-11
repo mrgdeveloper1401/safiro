@@ -13,4 +13,4 @@ psycopg2-binary>=2.9.11
 python-decouple>=3.8
 pytz>=2025.2
 whitenoise>=6.11.0
-rf-spectacular-extras==0.1.0
+drf-spectacular-extras==0.1.0
