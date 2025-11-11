@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="edit package drf-spectacular-extras">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base_image/base/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/base_image/base/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add package uvicorn">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base_image/prod/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/base_image/prod/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base_image/prod/start.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/start.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +62,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/apis/v1/passenger" />
       <recent name="$PROJECT_DIR$/apis/v1/driver" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/scripts" />
     </key>
   </component>
   <component name="RunManager">
@@ -237,7 +239,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762891659015</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="add package uvicorn">
+      <option name="closed" value="true" />
+      <created>1762894311830</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1762894311830</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -256,6 +266,7 @@
     <MESSAGE value="." />
     <MESSAGE value="add config docker_base_image" />
     <MESSAGE value="edit package drf-spectacular-extras" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit package drf-spectacular-extras" />
+    <MESSAGE value="add package uvicorn" />
+    <option name="LAST_COMMIT_MESSAGE" value="add package uvicorn" />
   </component>
 </project>
