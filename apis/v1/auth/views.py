@@ -41,7 +41,7 @@ class RequestOtpView(AsyncAPIView):
 
         phone = serializer.validated_data["mobile_phone"]
 
-        user, created = await User.objects.aget_or_create(phone=phone, is_passenger=True, username=phone)
+        await User.objects.aget_or_create(phone=phone, is_passenger=True, username=phone)
 
         # generate otp
         otp_code = random.randint(100000, 999999)
@@ -51,7 +51,7 @@ class RequestOtpView(AsyncAPIView):
         await cache.aset(cache_key, otp_code, timeout=120)
 
         # send sms
-        await send_sms(phone, otp_code)
+        await send_sms(phone, str(otp_code))
 
         return response(
             success=True,

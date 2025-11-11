@@ -14,3 +14,5 @@ python-decouple>=3.8
 pytz>=2025.2
 whitenoise>=6.11.0
 drf-spectacular-extras==0.1.0
+uvicorn==0.38.0
+uvicorn-worker==0.4.0
