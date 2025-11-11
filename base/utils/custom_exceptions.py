@@ -19,8 +19,6 @@ def request_error(func):
             raise ConnectionErrorException()
         except httpx.NetworkError:
             raise NetworkErrorException()
-        except httpx.HTTPStatusError:
-            raise HttpStatusException()
         except Exception as e:
             raise ValidationError(str(e))
     return wrapper
