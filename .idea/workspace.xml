@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add volume certbot_www">
-      <change beforePath="$PROJECT_DIR$/dockerfile/prod/nginx/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/nginx/Dockerfile" afterDir="false" />
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="edit command">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -332,7 +332,31 @@
       <option name="project" value="LOCAL" />
       <updated>1762946432039</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary=".">
+      <option name="closed" value="true" />
+      <created>1762946903243</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1762946903243</updated>
+    </task>
+    <task id="LOCAL-00030" summary="edit command">
+      <option name="closed" value="true" />
+      <created>1762947150887</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1762947150887</updated>
+    </task>
+    <task id="LOCAL-00031" summary="edit command">
+      <option name="closed" value="true" />
+      <created>1762947300098</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1762947300098</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -354,12 +378,13 @@
     <MESSAGE value="production ready" />
     <MESSAGE value="edit path nginx.conf" />
     <MESSAGE value="change copy in Dockerfile nginx" />
-    <MESSAGE value="." />
     <MESSAGE value="remove package python3-certbot" />
     <MESSAGE value="add service certbot" />
     <MESSAGE value="add package graphviz and django-extensions" />
     <MESSAGE value="add email into service certbot" />
     <MESSAGE value="add volume certbot_www" />
-    <option name="LAST_COMMIT_MESSAGE" value="add volume certbot_www" />
+    <MESSAGE value="." />
+    <MESSAGE value="edit command" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit command" />
   </component>
 </project>
