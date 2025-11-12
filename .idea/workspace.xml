@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add email into service certbot" />
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add volume certbot_www">
+      <change beforePath="$PROJECT_DIR$/dockerfile/prod/nginx/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/nginx/Dockerfile" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -322,7 +324,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762946174018</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="add volume certbot_www">
+      <option name="closed" value="true" />
+      <created>1762946432039</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1762946432039</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -349,6 +359,7 @@
     <MESSAGE value="add service certbot" />
     <MESSAGE value="add package graphviz and django-extensions" />
     <MESSAGE value="add email into service certbot" />
-    <option name="LAST_COMMIT_MESSAGE" value="add email into service certbot" />
+    <MESSAGE value="add volume certbot_www" />
+    <option name="LAST_COMMIT_MESSAGE" value="add volume certbot_www" />
   </component>
 </project>

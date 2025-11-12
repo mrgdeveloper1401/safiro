@@ -1,6 +1,6 @@
 FROM docker.arvancloud.ir/nginx:1.29-alpine
 
-COPY /dockerfile/prod/nginx/nginx.conf /etc/nginx/nginx.conf
+#COPY /dockerfile/prod/nginx/nginx.conf /etc/nginx/nginx.conf
 
 RUN cp /dev/null /etc/apk/repositories && \
     mkdir -p /var/www/static/ && \
