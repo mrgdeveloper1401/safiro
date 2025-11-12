@@ -56,7 +56,7 @@ services:
       -d log.safiro.ir
       -d monitor.safiro.ir
       -d grafana.safiro.ir
-      --email you@example.com
+      --email mysum325g@gmail.com
       --agree-tos
       --non-interactive
 

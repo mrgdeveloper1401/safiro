@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add service certbot">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerfile/base/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/base/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerfile/base/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/base/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
-    </list>
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add package graphviz and django-extensions" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -313,7 +306,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762942882004</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="add package graphviz and django-extensions">
+      <option name="closed" value="true" />
+      <created>1762944751511</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1762944751511</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -338,6 +339,7 @@
     <MESSAGE value="." />
     <MESSAGE value="remove package python3-certbot" />
     <MESSAGE value="add service certbot" />
-    <option name="LAST_COMMIT_MESSAGE" value="add service certbot" />
+    <MESSAGE value="add package graphviz and django-extensions" />
+    <option name="LAST_COMMIT_MESSAGE" value="add package graphviz and django-extensions" />
   </component>
 </project>

@@ -10,4 +10,3 @@ RUN cp /dev/null /etc/apk/repositories && \
     apk add --no-cache bash postgresql17-client curl gcc python3-dev musl-dev linux-headers graphviz && \
     pip install --index-url https://mirror-pypi.runflare.com/simple --upgrade pip && \
     pip install --index-url https://mirror-pypi.runflare.com/simple -r requirements.txt
-
