@@ -47,12 +47,12 @@ services:
       - letsencrypt_var_lib:/var/lib/letsencrypt
       - certbot_www:/var/www/certbot
     command: >
-      certonly --standalone
+      certonly --webroot
+      --webroot-path /var/www/certbot
       -d api.safiro.ir
       -d flower.safiro.ir
-      -d phero.safiro.ir
+      -d pghero.safiro.ir
       -d pgadmin.safiro.ir
-      -d pannel.safiro.ir
       -d sentry.safiro.ir
       -d log.safiro.ir
       -d monitor.safiro.ir
