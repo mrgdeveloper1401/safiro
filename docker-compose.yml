@@ -26,8 +26,8 @@ services:
       - static_files:/var/www/static
       - letsencrypt_etc:/etc/letsencrypt
       - letsencrypt_var_lib:/var/lib/letsencrypt
-    depends_on:
-      - auth-backend
+#    depends_on:
+#      - auth-backend
 
   redis:
     container_name: safiro_redis
