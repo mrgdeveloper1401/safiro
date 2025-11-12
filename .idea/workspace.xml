@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="remove ssl other domain" />
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment=".">
+      <change beforePath="$PROJECT_DIR$/dockerfile/prod/nginx/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/nginx/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -378,7 +381,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762948394312</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary=".">
+      <option name="closed" value="true" />
+      <created>1762948955991</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1762948955991</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -403,10 +414,10 @@
     <MESSAGE value="add package graphviz and django-extensions" />
     <MESSAGE value="add email into service certbot" />
     <MESSAGE value="add volume certbot_www" />
-    <MESSAGE value="." />
     <MESSAGE value="edit command" />
     <MESSAGE value="remove depends on" />
     <MESSAGE value="remove ssl other domain" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove ssl other domain" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
 </project>
