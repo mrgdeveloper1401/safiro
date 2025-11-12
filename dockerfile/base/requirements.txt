@@ -19,3 +19,4 @@ uvicorn-worker==0.4.0
 ipython>=9.7.0
 boto3==1.40.71
 django-storages==1.14.6
+django-extensions==4.1
