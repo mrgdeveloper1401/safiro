@@ -45,6 +45,7 @@ services:
     volumes:
       - letsencrypt_etc:/etc/letsencrypt
       - letsencrypt_var_lib:/var/lib/letsencrypt
+      - certbot_www:/var/www/certbot
     command: >
       certonly --standalone
       -d api.safiro.ir
@@ -77,3 +78,4 @@ volumes:
   static_files:
   letsencrypt_etc:
   letsencrypt_var_lib:
+  certbot_www:
