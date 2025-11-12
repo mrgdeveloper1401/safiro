@@ -50,13 +50,6 @@ services:
       certonly --webroot
       --webroot-path /var/www/certbot
       -d api.safiro.ir
-      -d flower.safiro.ir
-      -d pghero.safiro.ir
-      -d pgadmin.safiro.ir
-      -d sentry.safiro.ir
-      -d log.safiro.ir
-      -d monitor.safiro.ir
-      -d grafana.safiro.ir
       --email mysum325g@gmail.com
       --agree-tos
       --non-interactive
