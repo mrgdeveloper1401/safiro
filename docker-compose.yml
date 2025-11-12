@@ -1,12 +1,12 @@
 services:
-  backend:
+  auth-backend:
     container_name: safiro
     restart: always
     volumes:
       - static_files:/home/app/static
     build:
       context: .
-      dockerfile: base_image/prod/Dockerfile
+      dockerfile: dockerfile/prod/Dockerfile
     ports:
       - "8000:8000"
     expose:
@@ -18,14 +18,16 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: base_image/prod/nginx/Dockerfile
+      dockerfile: dockerfile/prod/nginx/Dockerfile
     ports:
       - "443:443"
       - "80:80"
     volumes:
       - static_files:/var/www/static
+      - letsencrypt_etc:/etc/letsencrypt
+      - letsencrypt_var_lib:/var/lib/letsencrypt
     depends_on:
-      - backend
+      - auth-backend
 
   redis:
     container_name: safiro_redis
@@ -33,12 +35,38 @@ services:
     command: redis-server --save 60 1 --loglevel warning
     expose:
       - 6379
+    ports:
+      - "6379:6379"
+
+  certbot:
+    container_name: safiro_certbot
+    image: docker.arvancloud.ir/certbot/certbot
+    restart: always
+    volumes:
+      - letsencrypt_etc:/etc/letsencrypt
+      - letsencrypt_var_lib:/var/lib/letsencrypt
+    command: >
+      certonly --standalone
+      -d api.safiro.ir
+      -d flower.safiro.ir
+      -d phero.safiro.ir
+      -d pgadmin.safiro.ir
+      -d pannel.safiro.ir
+      -d sentry.safiro.ir
+      -d log.safiro.ir
+      -d monitor.safiro.ir
+      -d grafana.safiro.ir
+      --email you@example.com
+      --agree-tos
+      --non-interactive
 
   db:
     container_name: safiro_postgres
     env_file: "postdb.env"
     restart: always
     image: docker.arvancloud.ir/postgres:17-alpine
+    ports:
+      - "5432:5432"
     expose:
       - 5432
     volumes:
@@ -47,3 +75,5 @@ services:
 volumes:
   postgres_volume:
   static_files:
+  letsencrypt_etc:
+  letsencrypt_var_lib:

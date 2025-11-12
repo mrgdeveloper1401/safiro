@@ -1,13 +1,13 @@
 FROM docker.arvancloud.ir/nginx:1.29-alpine
 
-COPY /base_image/prod/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY /dockerfile/prod/nginx/nginx.conf /etc/nginx/nginx.conf
 
 RUN cp /dev/null /etc/apk/repositories && \
+    mkdir -p /var/www/static/ && \
+    mkdir -p /etc/letsencrypt/ && \
+    mkdir -p /var/lib/letsencrypt/ && \
     echo "https://mirror.mobinhost.com/alpine/v3.22/main" >> /etc/apk/repositories && \
     echo "https://mirror.mobinhost.com/alpine/v3.22/community" >> /etc/apk/repositories && \
     apk update && \
     apk upgrade && \
     apk add bash curl openssl
-
-RUN mkdir -p /var/www/static/ && \
-    mkdir -p /etc/letsencrypt/live/servername.ir

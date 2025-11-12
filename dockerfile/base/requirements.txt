@@ -16,3 +16,6 @@ whitenoise>=6.11.0
 drf-spectacular-extras==0.1.0
 uvicorn==0.38.0
 uvicorn-worker==0.4.0
+ipython>=9.7.0
+boto3==1.40.71
+django-storages==1.14.6

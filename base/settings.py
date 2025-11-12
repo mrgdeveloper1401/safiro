@@ -118,9 +118,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static'
-MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
+STATIC_ROOT = BASE_DIR / 'static' # when manage.py collect-static save static files
+
+# config storages
+STORAGES = {
+    'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
+    'staticfiles': {'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage'}
+}
+
+
+USE_DJANGO_STORAGES = config("USE_DJANGO_STORAGES", cast=bool, default=False)
+if USE_DJANGO_STORAGES:
+    STORAGES['default']['BACKEND'] = 'storages.backends.s3.S3Storage'
+else:
+    MEDIA_ROOT = BASE_DIR / 'media'  # upload file into dir
+    MEDIA_URL = '/media/'  # address in url
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -154,7 +166,7 @@ if SHOW_DEBUGGER_TOOLBAR:
 USE_SSL_CONFIG = config("USE_SSL_CONFIG", cast=bool, default=False)
 if USE_SSL_CONFIG:
     # Https/ssl settings
-    SECURE_SSL_REDIRECT = True # redirec http request into https request
+    SECURE_SSL_REDIRECT = True # redirect http request into https request
     USE_X_FORWARDED_HOST = True # use header x-forwarded-host
     USE_X_FORWARDED_PORT = True # use header x-forwarded-port
 
@@ -163,7 +175,7 @@ if USE_SSL_CONFIG:
     SECURE_HSTS_PRELOAD = True #
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True # active hsts into subdomain
 
-    # coockie
+    # cookie
     SESSION_COOKIE_SECURE = True # session cookie only https
     SESSION_COOKIE_DOMAIN = config("SESSION_COOKIE_DOMAIN", cast=str) # for example --> .example.com, domain cookie
     SESSION_COOKIE_HTTPONLY = True # prevent access with by javascript
@@ -211,18 +223,7 @@ if USE_WHITENOISE:
     MIDDLEWARE += [
         "whitenoise.middleware.WhiteNoiseMiddleware"
     ]
-
-# config storages
-STORAGES = {
-    'default':
-        {
-            'BACKEND': config("STORAGE_BACKEND", cast=str, default='django.core.files.storage.FileSystemStorage'),
-        },
-    'staticfiles':
-        {
-            'BACKEND': config("STORAGE_STATIC_FILES", cast=str, default='whitenoise.storage.CompressedManifestStaticFilesStorage'),
-        }
-}
+    STORAGES['staticfiles']['BACKEND'] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # config log
 USE_LOG = config("USE_LOG", cast=bool, default=True)
