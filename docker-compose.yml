@@ -49,8 +49,7 @@ services:
       - letsencrypt_var_lib:/var/lib/letsencrypt
       - certbot_www:/var/www/certbot
     command: >
-      certonly --webroot
-      --webroot-path /var/www/certbot
+      certonly --standalone
       -d api.safiro.ir
       --email mysum325g@gmail.com
       --agree-tos
