@@ -7,9 +7,9 @@ worker_class = "uvicorn.workers.UvicornWorker"
 worker_connections = 1000
 
 # Logging
-loglevel = "error"
+loglevel = "info"
 errorlog = "-"
-accesslog = "-"
+accesslog = None
 
 # Timeouts
 timeout = 60
