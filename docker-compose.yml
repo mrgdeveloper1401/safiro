@@ -1,4 +1,33 @@
 services:
+  db:
+    container_name: safiro_postgres
+    env_file: "postdb.env"
+    restart: always
+    image: docker.arvancloud.ir/postgres:17-alpine
+    ports:
+      - "5432:5432"
+    expose:
+      - 5432
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    depends_on:
+      - auth-backend
+    environment:
+      - POSTGRES_PASSWORD=${POSTDB_PASSWORD}
+      - POSTDB_NAME=${POSTDB_NAME}
+      - POSTDB_USER=${POSTDB_USER}
+
+  redis:
+    container_name: safiro_redis
+    image: docker.arvancloud.ir/redis:8.2-alpine
+    command: redis-server --save 60 1 --loglevel warning
+    expose:
+      - 6379
+    ports:
+      - "6379:6379"
+    depends_on:
+      - auth-backend
+
   auth-backend:
     container_name: safiro
     restart: always
@@ -27,35 +56,6 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt:ro
     depends_on:
       - auth-backend
-
-  redis:
-    container_name: safiro_redis
-    image: docker.arvancloud.ir/redis:8.2-alpine
-    command: redis-server --save 60 1 --loglevel warning
-    expose:
-      - 6379
-    ports:
-      - "6379:6379"
-    depends_on:
-      - auth-backend
-
-  db:
-    container_name: safiro_postgres
-    env_file: "postdb.env"
-    restart: always
-    image: docker.arvancloud.ir/postgres:17-alpine
-    ports:
-      - "5432:5432"
-    expose:
-      - 5432
-    volumes:
-      - postgres_volume:/var/lib/postgresql/data
-    depends_on:
-      - auth-backend
-    environment:
-      - POSTGRES_PASSWORD=${POSTDB_PASSWORD}
-      - POSTDB_NAME=${POSTDB_NAME}
-      - POSTDB_USER=${POSTDB_USER}
 
 volumes:
   postgres_volume:
