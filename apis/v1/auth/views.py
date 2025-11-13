@@ -20,14 +20,63 @@ from apis.v1.auth.serializers import (
     VerifyForgetPassword,
     UserNotificationSerializer,
     DriverSerializer,
-    UploadImageSerializer, DriverDocSerializer
+    UploadImageSerializer, DriverDocSerializer, SignUpByPhoneSerializer
 )
+from apis.v1.utils.custom_exceptions import UserExistsException, PasswordNotMathException
 from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, SyncRemoveAuthenticationPermissions
 from apis.v1.utils.custom_response import response
 from apis.v1.utils.custome_throttle import OtpRateThrottle
 from auth_app.models import User, UserNotification, Driver, DriverDocument
 from base.settings import SIMPLE_JWT
 from base.utils.send_sms import send_sms
+
+
+class SignUpByPhoneView(AsyncAPIView):
+    serializer_class = SignUpByPhoneSerializer
+    permission_classes = (AsyncRemoveAuthenticationPermissions,)
+
+    async def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        phone = serializer.data.get('phone')
+        password = serializer.data.get('password')
+        confirm_password = serializer.data.get('confirm_password')
+
+        # chek user
+        check_user = await sync_to_async(User.objects.only("is_passenger", "is_verify_phone", "is_active", "phone", "is_staff").filter)(phone=phone)
+        if await check_user.aexists():
+            raise UserExistsException()
+        else:
+            # check password
+            if password != confirm_password:
+                raise PasswordNotMathException()
+            # create user
+            await User.objects.acreate_user(username=phone, phone=phone, password=password)
+            # create token
+            get_user = await check_user.afirst()
+            token = RefreshToken.for_user(get_user)
+            iran_timezone = pytz_timezone("Asia/Tehran")
+            expire_timestamp = int(time.time()) + SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].seconds
+            expire_date = datetime.datetime.fromtimestamp(expire_timestamp, tz=iran_timezone)
+            data = {
+                "mobile": get_user.phone,
+                "is_staff": get_user.is_staff,
+                "is_verify_phone": get_user.is_verify_phone,
+                "is_passenger": get_user.is_passenger,
+                "access_token": str(token.access_token),
+                "refresh_token": str(token),
+                "jwt": "Bearer",
+                "expire_timestamp_access_token": expire_timestamp,
+                "expire_date_access_token": expire_date
+            }
+            # return data
+            return response(
+                success=True,
+                status_code=201,
+                error=False,
+                result=data
+            )
 
 
 class RequestOtpView(AsyncAPIView):

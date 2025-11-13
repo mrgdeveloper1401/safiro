@@ -2,6 +2,7 @@ from adrf.serializers import Serializer
 from rest_framework import serializers
 
 from auth_app.models import UserNotification, Driver, Image, DriverDocument
+from auth_app.validators import PhoneNumberValidator
 
 
 class RequestOtpSerializer(Serializer):
@@ -95,3 +96,9 @@ class DriverDocSerializer(serializers.ModelSerializer):
             "is_verified": {"read_only": True},
             "verifier_note": {'read_only': True}
         }
+
+
+class SignUpByPhoneSerializer(Serializer):
+    phone = serializers.CharField(validators=[PhoneNumberValidator()])
+    password = serializers.CharField()
+    confirm_password = serializers.CharField()

@@ -29,3 +29,15 @@ class HttpStatusException(APIException):
     status_code = 400
     default_detail = "کد خطای غیر منتظره"
     default_code = 4
+
+
+class UserExistsException(APIException):
+    status_code = 400
+    default_detail = "کاربر از قبل وجود دارد میتواند به حساب خود وارد شود"
+    default_code = 12
+
+
+class PasswordNotMathException(APIException):
+    status_code = 400
+    default_detail = "پسورد ها یکی نیستند"
+    default_code = 13
