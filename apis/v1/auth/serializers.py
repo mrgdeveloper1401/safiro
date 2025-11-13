@@ -102,3 +102,8 @@ class SignUpByPhoneSerializer(Serializer):
     phone = serializers.CharField(validators=[PhoneNumberValidator()])
     password = serializers.CharField()
     confirm_password = serializers.CharField()
+
+
+class LoginByPhoneSerializer(Serializer):
+    phone = serializers.CharField(validators=(PhoneNumberValidator(),))
+    password = serializers.CharField()

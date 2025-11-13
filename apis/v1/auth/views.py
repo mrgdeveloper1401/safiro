@@ -3,7 +3,7 @@ import random
 import time
 
 from adrf.views import APIView as AsyncAPIView
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, aauthenticate
 from django.contrib.auth.hashers import make_password
 from django.core.cache import cache
 from rest_framework import status, mixins, viewsets
@@ -20,7 +20,7 @@ from apis.v1.auth.serializers import (
     VerifyForgetPassword,
     UserNotificationSerializer,
     DriverSerializer,
-    UploadImageSerializer, DriverDocSerializer, SignUpByPhoneSerializer
+    UploadImageSerializer, DriverDocSerializer, SignUpByPhoneSerializer, LoginByPhoneSerializer
 )
 from apis.v1.utils.custom_exceptions import UserExistsException, PasswordNotMathException
 from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, SyncRemoveAuthenticationPermissions

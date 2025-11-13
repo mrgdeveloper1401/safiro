@@ -10,7 +10,7 @@ from .views import (
     DriverView,
     UploadImageView,
     DriverDocView,
-    SignUpByPhoneView
+    SignUpByPhoneView,
 )
 
 app_name = "v1_auth"
