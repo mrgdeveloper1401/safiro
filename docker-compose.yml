@@ -42,8 +42,8 @@ services:
     container_name: safiro_certbot
     image: docker.arvancloud.ir/certbot/certbot
     restart: always
-    depends_on:
-      - nginx
+#    depends_on:
+#      - nginx
     volumes:
       - letsencrypt_etc:/etc/letsencrypt
       - letsencrypt_var_lib:/var/lib/letsencrypt
