@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="better query in admin django">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="dont show access_log in static-nginx and gunicorn.conf.py" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -107,14 +105,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
-    </task>
-    <task id="LOCAL-00016" summary="edit package drf-spectacular-extras">
-      <option name="closed" value="true" />
-      <created>1762891659015</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1762891659015</updated>
     </task>
     <task id="LOCAL-00017" summary="add package uvicorn">
       <option name="closed" value="true" />
@@ -500,11 +490,18 @@
       <option name="project" value="LOCAL" />
       <updated>1763061679265</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="dont show access_log in static-nginx and gunicorn.conf.py">
+      <option name="closed" value="true" />
+      <created>1763063243836</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1763063243836</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove depends on" />
     <MESSAGE value="remove ssl other domain" />
     <MESSAGE value="remove service certbot" />
     <MESSAGE value="." />
@@ -529,6 +526,7 @@
     <MESSAGE value="add pool into database" />
     <MESSAGE value="add base nginx Dockerfile" />
     <MESSAGE value="better query in admin django" />
-    <option name="LAST_COMMIT_MESSAGE" value="better query in admin django" />
+    <MESSAGE value="dont show access_log in static-nginx and gunicorn.conf.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="dont show access_log in static-nginx and gunicorn.conf.py" />
   </component>
 </project>
