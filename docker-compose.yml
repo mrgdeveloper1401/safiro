@@ -25,8 +25,8 @@ services:
     volumes:
       - static_files:/var/www/static
       - /etc/letsencrypt:/etc/letsencrypt:ro
-#    depends_on:
-#      - auth-backend
+    depends_on:
+      - auth-backend
 
   redis:
     container_name: safiro_redis
@@ -36,6 +36,8 @@ services:
       - 6379
     ports:
       - "6379:6379"
+    depends_on:
+      - auth-backend
 
   db:
     container_name: safiro_postgres
@@ -48,6 +50,8 @@ services:
       - 5432
     volumes:
       - postgres_volume:/var/lib/postgresql/data
+    depends_on:
+      - auth-backend
 
 volumes:
   postgres_volume:

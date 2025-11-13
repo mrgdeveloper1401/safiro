@@ -7,10 +7,6 @@ from django.utils import timezone
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY', cast=str, default='hello_world')
 
@@ -67,7 +63,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'base.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -131,6 +126,15 @@ STORAGES = {
 USE_DJANGO_STORAGES = config("USE_DJANGO_STORAGES", cast=bool, default=False)
 if USE_DJANGO_STORAGES:
     STORAGES['default']['BACKEND'] = 'storages.backends.s3.S3Storage'
+    AWS_S3_REGION_NAME = 'eu-west-1'
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_QUERYSTRING_AUTH = False
+    AWS_ACCESS_KEY_ID = config('S3_ACCESS_KEY', cast=str)
+    AWS_SECRET_ACCESS_KEY = config('S3_SECRET_KEY', cast=str)
+    AWS_STORAGE_BUCKET_NAME = config('S3_BUCKET_NAME', cast=str)
+    AWS_S3_ENDPOINT_URL = config('S3_BUCKET_URL', cast=str)
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_S3_MAX_MEMORY_SIZE = 1024 * 1024 * 2
 else:
     MEDIA_ROOT = BASE_DIR / 'media'  # upload file into dir
     MEDIA_URL = '/media/'  # address in url
@@ -281,7 +285,7 @@ SIMPLE_JWT = {
     "SIGNING_KEY": config("SIGNING_KEY", cast=str, default="test_project"),
     "VERIFYING_KEY": "",
     "AUDIENCE": None,
-    "ISSUER": None,
+    "ISSUER": config("ISSUER", cast=str, default="127.0.0.1:8000"),
     "JSON_ENCODER": None,
     "JWK_URL": None,
     "LEEWAY": 0,
