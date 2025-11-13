@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="edit config asgi">
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add REDIS_MAX_CONNECTION">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -107,14 +107,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
-    </task>
-    <task id="LOCAL-00009" summary="add field is_passenger">
-      <option name="closed" value="true" />
-      <created>1762616243219</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1762616243219</updated>
     </task>
     <task id="LOCAL-00010" summary="add api user_notifications">
       <option name="closed" value="true" />
@@ -500,11 +492,18 @@
       <option name="project" value="LOCAL" />
       <updated>1763043514470</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="add REDIS_MAX_CONNECTION">
+      <option name="closed" value="true" />
+      <created>1763051386965</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1763051386966</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove package python3-certbot" />
     <MESSAGE value="add service certbot" />
     <MESSAGE value="add package graphviz and django-extensions" />
     <MESSAGE value="add email into service certbot" />
@@ -529,6 +528,7 @@
     <MESSAGE value="edit config nginx.conf" />
     <MESSAGE value="add pool into redis" />
     <MESSAGE value="edit config asgi" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit config asgi" />
+    <MESSAGE value="add REDIS_MAX_CONNECTION" />
+    <option name="LAST_COMMIT_MESSAGE" value="add REDIS_MAX_CONNECTION" />
   </component>
 </project>
