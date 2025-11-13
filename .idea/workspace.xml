@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add pool into redis">
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="edit config asgi">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/asgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/gunicorn.conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/gunicorn.conf.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,14 +107,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
-    </task>
-    <task id="LOCAL-00008" summary="add api verify_forget_password">
-      <option name="closed" value="true" />
-      <created>1762616036374</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1762616036374</updated>
     </task>
     <task id="LOCAL-00009" summary="add field is_passenger">
       <option name="closed" value="true" />
@@ -503,11 +492,18 @@
       <option name="project" value="LOCAL" />
       <updated>1763042383899</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="edit config asgi">
+      <option name="closed" value="true" />
+      <created>1763043514470</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1763043514470</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="change copy in Dockerfile nginx" />
     <MESSAGE value="remove package python3-certbot" />
     <MESSAGE value="add service certbot" />
     <MESSAGE value="add package graphviz and django-extensions" />
@@ -532,6 +528,7 @@
     <MESSAGE value="add more than format for zip" />
     <MESSAGE value="edit config nginx.conf" />
     <MESSAGE value="add pool into redis" />
-    <option name="LAST_COMMIT_MESSAGE" value="add pool into redis" />
+    <MESSAGE value="edit config asgi" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit config asgi" />
   </component>
 </project>

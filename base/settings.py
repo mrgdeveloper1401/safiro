@@ -204,13 +204,14 @@ if USE_SSL_CONFIG:
     X_FRAME_OPTIONS = "DENY" # prevent show iframe
 
 # cache config
+REDIS_MAX_CONNECTION = config("REDIS_MAX_CONNECTION", cast=int, default=100)
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "SOCKET_CONNECT_TIMEOUT": 5,
-            "CONNECTION_POOL_KWARGS": {"max_connections": 100, "retry_on_timeout": True},
+            "CONNECTION_POOL_KWARGS": {"max_connections": REDIS_MAX_CONNECTION, "retry_on_timeout": True},
         },
         "KEY_PREFIX": "safiro",
     }
