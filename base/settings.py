@@ -75,7 +75,10 @@ DATABASES = {
         "PASSWORD": config("POSTDB_PASSWORD", cast=str, default="postgres"),
         "HOST": config("POSTDB_HOST", cast=str, default="127.0.0.1"),
         "PORT": config("POSTDB_PORT", cast=int, default=5434),
-        "CONN_MAX_AGE": config("POSTDB_CONN_MAX_AGE", cast=int, default=150),
+        "OPTIONS": {
+            "pool": True
+        }
+        # "CONN_MAX_AGE": config("POSTDB_CONN_MAX_AGE", cast=int, default=150),
         # "DISABLE_SERVER_SIDE_CURSORS": config("DISABLE_SERVER_SIDE_CURSORS", cast=bool, default=False),
     }
 }

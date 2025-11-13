@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="new migrations">
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add api signup by phone">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/auth/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/auth/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/utils/custom_exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/utils/custom_exceptions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerfile/base/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/base/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,22 +111,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
-    </task>
-    <task id="LOCAL-00011" summary="add api upload image">
-      <option name="closed" value="true" />
-      <created>1762632002157</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1762632002157</updated>
-    </task>
-    <task id="LOCAL-00012" summary="add api driver_doc">
-      <option name="closed" value="true" />
-      <created>1762632492550</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1762632492550</updated>
     </task>
     <task id="LOCAL-00013" summary="remove CONN_MAX_AGE">
       <option name="closed" value="true" />
@@ -505,11 +488,26 @@
       <option name="project" value="LOCAL" />
       <updated>1763052320154</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="add api signup by phone">
+      <option name="closed" value="true" />
+      <created>1763056145982</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1763056145982</updated>
+    </task>
+    <task id="LOCAL-00061" summary="add api signup by phone">
+      <option name="closed" value="true" />
+      <created>1763056634649</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1763056634650</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add package graphviz and django-extensions" />
     <MESSAGE value="add email into service certbot" />
     <MESSAGE value="add volume certbot_www" />
     <MESSAGE value="edit command" />
@@ -534,6 +532,7 @@
     <MESSAGE value="edit config asgi" />
     <MESSAGE value="add REDIS_MAX_CONNECTION" />
     <MESSAGE value="new migrations" />
-    <option name="LAST_COMMIT_MESSAGE" value="new migrations" />
+    <MESSAGE value="add api signup by phone" />
+    <option name="LAST_COMMIT_MESSAGE" value="add api signup by phone" />
   </component>
 </project>
