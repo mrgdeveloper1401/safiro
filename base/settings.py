@@ -196,7 +196,7 @@ if USE_SSL_CONFIG:
     # Content Security Settings
     SECURE_CONTENT_TYPE_NOSNIFF = True # prevent mime sniffing
     SECURE_BROWSER_XSS_FILTER = True # active filter xss in browser
-    SECURE_REFERRER_POLICY = "strict-origin" # control information  on sourse request
+    SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin" # control information  on sourse request
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
     # Frame & Clickjacking Protection
@@ -209,7 +209,7 @@ CACHES = {
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "SOCKET_CONNECT_TIMEOUT": 5,
-            # "CONNECTION_POOL_KWARGS": {"max_connections": 100}
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100, "retry_on_timeout": True},
         },
         "KEY_PREFIX": "safiro",
     }

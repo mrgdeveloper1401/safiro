@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add more than format for zip">
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="edit config nginx.conf">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" afterDir="false" />
@@ -109,14 +109,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
-    </task>
-    <task id="LOCAL-00006" summary="add api login_by_phone_password">
-      <option name="closed" value="true" />
-      <created>1762612821442</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1762612821442</updated>
     </task>
     <task id="LOCAL-00007" summary="add api verify_forget_password">
       <option name="closed" value="true" />
@@ -502,11 +494,18 @@
       <option name="project" value="LOCAL" />
       <updated>1763039253326</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="edit config nginx.conf">
+      <option name="closed" value="true" />
+      <created>1763041495157</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1763041495157</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="production ready" />
     <MESSAGE value="edit path nginx.conf" />
     <MESSAGE value="change copy in Dockerfile nginx" />
     <MESSAGE value="remove package python3-certbot" />
@@ -531,6 +530,7 @@
     <MESSAGE value="add config ssl_session into nginx.conf" />
     <MESSAGE value="add gzip into nginx.conf" />
     <MESSAGE value="add more than format for zip" />
-    <option name="LAST_COMMIT_MESSAGE" value="add more than format for zip" />
+    <MESSAGE value="edit config nginx.conf" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit config nginx.conf" />
   </component>
 </project>
