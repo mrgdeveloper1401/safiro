@@ -75,6 +75,7 @@ DATABASES = {
         "HOST": config("POSTDB_HOST", cast=str, default="127.0.0.1"),
         "PORT": config("POSTDB_PORT", cast=int, default=5434),
         "CONN_MAX_AGE": config("POSTDB_CONN_MAX_AGE", cast=int, default=300),
+        # "DISABLE_SERVER_SIDE_CURSORS": config("DISABLE_SERVER_SIDE_CURSORS", cast=bool, default=False),
     }
 }
 
@@ -207,7 +208,10 @@ CACHES = {
         "BACKEND": "django_redis.cache.RedisCache",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
+            "SOCKET_CONNECT_TIMEOUT": 5,
+            # "CONNECTION_POOL_KWARGS": {"max_connections": 100}
+        },
+        "KEY_PREFIX": "safiro",
     }
 }
 if DEBUG:
