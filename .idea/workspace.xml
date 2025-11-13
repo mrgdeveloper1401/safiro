@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add base nginx Dockerfile">
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="better query in admin django">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/admin.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,14 +107,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
-    </task>
-    <task id="LOCAL-00015" summary="add config docker_base_image">
-      <option name="closed" value="true" />
-      <created>1762890440102</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1762890440102</updated>
     </task>
     <task id="LOCAL-00016" summary="edit package drf-spectacular-extras">
       <option name="closed" value="true" />
@@ -501,11 +492,18 @@
       <option name="project" value="LOCAL" />
       <updated>1763059393877</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="better query in admin django">
+      <option name="closed" value="true" />
+      <created>1763061679265</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1763061679265</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit command" />
     <MESSAGE value="remove depends on" />
     <MESSAGE value="remove ssl other domain" />
     <MESSAGE value="remove service certbot" />
@@ -530,6 +528,7 @@
     <MESSAGE value="add api signup by phone" />
     <MESSAGE value="add pool into database" />
     <MESSAGE value="add base nginx Dockerfile" />
-    <option name="LAST_COMMIT_MESSAGE" value="add base nginx Dockerfile" />
+    <MESSAGE value="better query in admin django" />
+    <option name="LAST_COMMIT_MESSAGE" value="better query in admin django" />
   </component>
 </project>
