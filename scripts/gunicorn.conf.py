@@ -12,9 +12,10 @@ errorlog = "-"
 accesslog = "-"
 
 # Timeouts
-timeout = 30
-keepalive = 2
-graceful_timeout = 30
+timeout = 60
+keepalive = 10
+graceful_timeout = 60
 
 # Process naming
 proc_name = "django_asgi"
+worker_tmp_dir = "/dev/shm"
