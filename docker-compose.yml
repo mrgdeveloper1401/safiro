@@ -24,8 +24,7 @@ services:
       - "80:80"
     volumes:
       - static_files:/var/www/static
-      - letsencrypt_etc:/etc/letsencrypt
-      - letsencrypt_var_lib:/var/lib/letsencrypt
+      - /etc/letsencrypt:/etc/letsencrypt:ro
 #    depends_on:
 #      - auth-backend
 
@@ -37,23 +36,6 @@ services:
       - 6379
     ports:
       - "6379:6379"
-
-  certbot:
-    container_name: safiro_certbot
-    image: docker.arvancloud.ir/certbot/certbot
-    restart: always
-#    depends_on:
-#      - nginx
-    volumes:
-      - letsencrypt_etc:/etc/letsencrypt
-      - letsencrypt_var_lib:/var/lib/letsencrypt
-      - certbot_www:/var/www/certbot
-    command: >
-      certonly --standalone
-      -d api.safiro.ir
-      --email mysum325g@gmail.com
-      --agree-tos
-      --non-interactive
 
   db:
     container_name: safiro_postgres
