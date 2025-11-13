@@ -52,6 +52,10 @@ services:
       - postgres_volume:/var/lib/postgresql/data
     depends_on:
       - auth-backend
+    environment:
+      - POSTGRES_PASSWORD=${POSTDB_PASSWORD}
+      - POSTDB_NAME=${POSTDB_NAME}
+      - POSTDB_USER=${POSTDB_USER}
 
 volumes:
   postgres_volume:

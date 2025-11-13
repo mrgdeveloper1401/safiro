@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="comment volume letsencrypt" />
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add package gunicorn into base_image">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -442,11 +445,18 @@
       <option name="project" value="LOCAL" />
       <updated>1763031530945</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="add package gunicorn into base_image">
+      <option name="closed" value="true" />
+      <created>1763031755753</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1763031755753</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add api login_by_phone_password" />
     <MESSAGE value="add api verify_forget_password" />
     <MESSAGE value="add field is_passenger" />
     <MESSAGE value="add api user_notifications" />
@@ -471,6 +481,7 @@
     <MESSAGE value="." />
     <MESSAGE value="add config s3" />
     <MESSAGE value="comment volume letsencrypt" />
-    <option name="LAST_COMMIT_MESSAGE" value="comment volume letsencrypt" />
+    <MESSAGE value="add package gunicorn into base_image" />
+    <option name="LAST_COMMIT_MESSAGE" value="add package gunicorn into base_image" />
   </component>
 </project>
