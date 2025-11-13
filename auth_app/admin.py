@@ -17,6 +17,7 @@ class DriverDocumentInline(admin.TabularInline):
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
+    filter_horizontal = ()
     ordering = ('-id',)
     list_display_links = ("id", "phone", 'email')
     list_display = (
@@ -42,9 +43,9 @@ class UserAdmin(BaseUserAdmin):
                 'is_active', 'is_staff', 'is_superuser'
             )
         }),
-        (_('دسترسی‌ها'), {
-            'fields': ('groups', 'user_permissions')
-        }),
+        # (_('دسترسی‌ها'), {
+        #     'fields': ('groups', 'user_permissions')
+        # }),
         (_('تاریخ‌ها'), {
             'fields': ('last_login', 'date_joined')
         }),
@@ -76,15 +77,31 @@ class UserAdmin(BaseUserAdmin):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'created_by', 'image_type', 'width', 'height', 'size', 'is_active', 'created_at')
-    list_filter = ('is_active', 'image_type')
+    list_display = ('id', 'created_by_id', "get_user_phone", 'image_type', 'width', 'height', 'size', 'is_active', 'created_at')
+    list_filter = ('is_active', )
     search_fields = ('created_by__phone',)
+    search_help_text = _("برای جست و جو میتوانید از شماره موبایل کاربر استفاده کنید")
     readonly_fields = ('created_at', 'updated_at')
     ordering = ('-id',)
     list_per_page = 25
     raw_id_fields = ('created_by',)
     actions = ("disable_field", "enable_field")
-    list_display_links = ("id", "created_by")
+    list_display_links = ("id", "created_by_id", "get_user_phone")
+
+    def get_user_phone(self, obj):
+        return obj.created_by.phone
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related("created_by").only(
+            "created_by_id__phone",
+            "image_type",
+            "width",
+            "height",
+            "is_active",
+            "created_at",
+            "updated_at",
+            "size"
+        )
 
     @admin.action(description="disable field")
     def disable_field(self, request, queryset):
@@ -97,7 +114,7 @@ class ImageAdmin(admin.ModelAdmin):
 
 @admin.register(Passenger)
 class PassengerAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'first_name', 'last_name', 'is_active', 'created_at')
+    list_display = ('id', 'user_id', "get_user_phone", 'first_name', 'last_name', 'is_active', 'created_at')
     list_filter = ('is_active',)
     search_fields = ('user__phone',)
     search_help_text = _("برای سرچ میتوانید از شماره تلفن کاربر استفاده کنید")
@@ -105,7 +122,21 @@ class PassengerAdmin(admin.ModelAdmin):
     ordering = ('-id',)
     # autocomplete_fields = ('user', 'image')
     raw_id_fields = ("user", "image")
-    list_display_links = ("id", "user")
+    list_display_links = ("id", "user_id", "get_user_phone")
+
+    def get_user_phone(self, obj):
+        return obj.user.phone
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related("user").only(
+            "user__phone",
+            "first_name",
+            "last_name",
+            "is_active",
+            "created_at",
+            "updated_at",
+            "image_id"
+        )
 
 
 @admin.register(Driver)
@@ -134,6 +165,21 @@ class DriverAdmin(admin.ModelAdmin):
         return obj.user.phone
     user_phone.short_description = "شماره تلفن"
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related("user").only(
+            "first_name",
+            "last_name",
+            "user__phone",
+            "image_id",
+            "is_active",
+            "created_at",
+            "updated_at",
+            "license_number",
+            "nation_code",
+            "verification_status",
+            "father_name"
+        )
+
     def verification_status_colored(self, obj):
         color_map = {
             VerificationStatus.SUBMITTED: "gray",
@@ -152,22 +198,53 @@ class DriverAdmin(admin.ModelAdmin):
 @admin.register(DriverDocument)
 class DriverDocumentAdmin(admin.ModelAdmin):
     raw_id_fields = ("profile",)
-    list_display = ("id", "profile", "doc_type", "is_verified", "verifier_note", "created_at")
+    list_display = ("id", "profile_id", "get_profile_phone", "doc_type", "is_verified", "verifier_note", "created_at")
     list_filter = ("doc_type", "is_verified")
-    search_fields = ("profile__user__phone", "profile__first_name", "profile__last_name")
+    search_fields = ("profile__user__phone",)
+    search_help_text = _("برای جست و جو میتوانید از شماره موبایل کاربر استفاده کنید")
     ordering = ("-id",)
+    list_display_links = ("id", "profile_id", "get_profile_phone")
+
+    def get_profile_phone(self, obj):
+        return obj.profile.user.phone
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related("profile__user").only(
+            "profile__user__phone",
+            "doc_type",
+            "is_verified",
+            "verifier_note",
+            "created_at",
+            "updated_at",
+            "is_active"
+        )
 
 
 @admin.register(UserNotification)
 class UserNotificationAdmin(admin.ModelAdmin):
     raw_id_fields = ("user",)
-    list_display = ('id', 'user', 'title', 'is_active', 'created_at')
+    list_display = ('id', 'user_id', "get_user_phone", 'title', 'is_active', 'created_at')
     list_filter = ('is_active',)
-    search_fields = ('user__phone', 'title', 'body')
+    search_fields = ('user__phone', )
+    search_help_text = _("برای جست و جو میتوانید از شماره موبایل کاربر استفاده کنید")
     readonly_fields = ('created_at', 'updated_at')
     ordering = ('-id',)
     list_per_page = 25
     actions = ("disable_field", "enable_field")
+    list_display_links = ("id", "user_id", "get_user_phone")
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related("user").only(
+            "user__phone",
+            "title",
+            "body",
+            "is_active",
+            "created_at",
+            "updated_at",
+        )
+
+    def get_user_phone(self, obj):
+        return obj.user.phone
 
     @admin.action(description="disable field")
     def disable_field(self, request, queryset):
