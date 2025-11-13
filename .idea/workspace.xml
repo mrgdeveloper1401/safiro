@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="remove config ssl_dhparam ssl_dhparam" />
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="edit ssl_certificate and ssl_certificate_key">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -490,11 +492,18 @@
       <option name="project" value="LOCAL" />
       <updated>1763032953831</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="edit ssl_certificate and ssl_certificate_key">
+      <option name="closed" value="true" />
+      <created>1763033023634</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1763033023634</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove CONN_MAX_AGE" />
     <MESSAGE value="add config docker_base_image" />
     <MESSAGE value="edit package drf-spectacular-extras" />
     <MESSAGE value="add package uvicorn" />
@@ -519,6 +528,7 @@
     <MESSAGE value="edit path gunicorn conf" />
     <MESSAGE value="edit upstream" />
     <MESSAGE value="remove config ssl_dhparam ssl_dhparam" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove config ssl_dhparam ssl_dhparam" />
+    <MESSAGE value="edit ssl_certificate and ssl_certificate_key" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit ssl_certificate and ssl_certificate_key" />
   </component>
 </project>
