@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="edit ssl_certificate and ssl_certificate_key">
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add config ssl_session into nginx.conf">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,14 +108,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
-    </task>
-    <task id="LOCAL-00001" summary="initial-project">
-      <option name="closed" value="true" />
-      <created>1762590620009</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1762590620009</updated>
     </task>
     <task id="LOCAL-00002" summary="edit mode">
       <option name="closed" value="true" />
@@ -500,11 +493,18 @@
       <option name="project" value="LOCAL" />
       <updated>1763033023634</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="add config ssl_session into nginx.conf">
+      <option name="closed" value="true" />
+      <created>1763035240301</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1763035240303</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add config docker_base_image" />
     <MESSAGE value="edit package drf-spectacular-extras" />
     <MESSAGE value="add package uvicorn" />
     <MESSAGE value="production ready" />
@@ -529,6 +529,7 @@
     <MESSAGE value="edit upstream" />
     <MESSAGE value="remove config ssl_dhparam ssl_dhparam" />
     <MESSAGE value="edit ssl_certificate and ssl_certificate_key" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit ssl_certificate and ssl_certificate_key" />
+    <MESSAGE value="add config ssl_session into nginx.conf" />
+    <option name="LAST_COMMIT_MESSAGE" value="add config ssl_session into nginx.conf" />
   </component>
 </project>
