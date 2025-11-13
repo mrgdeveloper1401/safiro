@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add package gunicorn into base_image">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-    </list>
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="edit order" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -453,12 +450,26 @@
       <option name="project" value="LOCAL" />
       <updated>1763031755753</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="add enviroment into service db">
+      <option name="closed" value="true" />
+      <created>1763032179902</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1763032179902</updated>
+    </task>
+    <task id="LOCAL-00045" summary="edit order">
+      <option name="closed" value="true" />
+      <created>1763032602325</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1763032602325</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add api verify_forget_password" />
-    <MESSAGE value="add field is_passenger" />
     <MESSAGE value="add api user_notifications" />
     <MESSAGE value="add api upload image" />
     <MESSAGE value="add api driver_doc" />
@@ -482,6 +493,8 @@
     <MESSAGE value="add config s3" />
     <MESSAGE value="comment volume letsencrypt" />
     <MESSAGE value="add package gunicorn into base_image" />
-    <option name="LAST_COMMIT_MESSAGE" value="add package gunicorn into base_image" />
+    <MESSAGE value="add enviroment into service db" />
+    <MESSAGE value="edit order" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit order" />
   </component>
 </project>
