@@ -34,4 +34,5 @@ dev = [
     "django-debug-toolbar>=6.1.0",
     "drf-spectacular-extras>=0.1.0",
     "ipdb>=0.13.13",
+    "requests>=2.32.5",
 ]
