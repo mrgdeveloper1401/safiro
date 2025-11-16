@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="dont show access_log in static-nginx and gunicorn.conf.py">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add home_page template">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,19 +46,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.send_sms.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHELLCHECK.PATH": "/home/mg/.local/share/JetBrains/PyCharm2025.2/Shell Script/shellcheck",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/mg/Desktop/django-projects/safiro/staticfiles/assets"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.send_sms.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHELLCHECK.PATH&quot;: &quot;/home/mg/.local/share/JetBrains/PyCharm2025.2/Shell Script/shellcheck&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/mg/Desktop/django-projects/safiro/staticfiles/assets&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/staticfiles/assets" />
@@ -113,14 +112,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
-    </task>
-    <task id="LOCAL-00019" summary="production ready">
-      <option name="closed" value="true" />
-      <created>1762896348085</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1762896348085</updated>
     </task>
     <task id="LOCAL-00020" summary="edit path nginx.conf">
       <option name="closed" value="true" />
@@ -506,11 +497,18 @@
       <option name="project" value="LOCAL" />
       <updated>1763063649477</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="add home_page template">
+      <option name="closed" value="true" />
+      <created>1763218553384</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1763218553385</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove ssl other domain" />
     <MESSAGE value="remove service certbot" />
     <MESSAGE value="." />
     <MESSAGE value="add config s3" />
@@ -535,6 +533,7 @@
     <MESSAGE value="add base nginx Dockerfile" />
     <MESSAGE value="better query in admin django" />
     <MESSAGE value="dont show access_log in static-nginx and gunicorn.conf.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="dont show access_log in static-nginx and gunicorn.conf.py" />
+    <MESSAGE value="add home_page template" />
+    <option name="LAST_COMMIT_MESSAGE" value="add home_page template" />
   </component>
 </project>
