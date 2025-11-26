@@ -93,6 +93,9 @@ class Driver(ModifyMixin):
 
 
 class DriverDocument(ModifyMixin):
+    """
+    مدارک راننده
+    """
     profile = models.ForeignKey(_("راننده"), Driver, on_delete=models.PROTECT, related_name="documents")
     doc_type = models.CharField(_("نوع مدارک"), max_length=50, choices=DocumentType.choices)
     is_verified = models.BooleanField(_("تایید شده!"), default=False)
@@ -105,6 +108,9 @@ class DriverDocument(ModifyMixin):
 
 
 class UserNotification(ModifyMixin):
+    """
+    نوتیفیکیشن
+    """
     user = models.ForeignKey(_("کاربر"), User, on_delete=models.PROTECT, related_name="user_notifications")
     title = models.CharField(_("عنوان"), max_length=200)
     body = models.TextField(_("متن"))
