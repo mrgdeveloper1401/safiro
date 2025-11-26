@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.db import models
 
 from auth_app.enums import VerificationStatus, DocumentType
+from base.utils.uuid import uuid_7_timestamp
 
 
 class ModifyMixin(models.Model):
@@ -14,7 +15,18 @@ class ModifyMixin(models.Model):
         abstract = True
 
 
+class ActiveMixin(models.Model):
+    is_active = models.BooleanField(_("حذف"), default=True)
+
+    class Meta:
+        abstract = True
+
+
 class User(AbstractUser):
+    """
+    کاربر
+    """
+    id = models.UUIDField(primary_key=True, default=uuid_7_timestamp, editable=False, verbose_name=_("کلید اصلی"))
     phone = models.CharField(_("شماره تلفن"), max_length=15, unique=True)
     is_verify_phone = models.BooleanField(_("شماره تایید شده!"), default=False)
     is_passenger = models.BooleanField(_("ایا مسافر هست!"), default=False)
@@ -30,14 +42,21 @@ class User(AbstractUser):
         db_table = 'auth_user'
 
 
-class Image(ModifyMixin):
+class Image(ModifyMixin, ActiveMixin):
+    """
+    عکس
+    """
     image = models.ImageField(_("عکس"), upload_to='images/%Y/%m/%d')
-    created_by = models.ForeignKey(_("توسط چه کسی ایجاد شده"), User, on_delete=models.PROTECT, related_name="user_images")
+    created_by = models.ForeignKey(
+        verbose_name=_("توسط چه کسی ایجاد شده"),
+        to=User,
+        on_delete=models.PROTECT,
+        related_name="user_images"
+    )
     width = models.IntegerField(_("عرض"), blank=True, null=True)
     height = models.IntegerField(_("ارتفاع"), blank=True, null=True)
     size = models.IntegerField(_("حجم عکس"), blank=True, null=True)
     image_type = models.CharField(_("فورمت عکس"), max_length=10, blank=True, null=True)
-    is_active = models.BooleanField(_("نمایش برای کاربر"), default=True)
 
     class Meta:
         db_table = 'auth_image'
@@ -50,37 +69,54 @@ class Image(ModifyMixin):
         super().save(*args, **kwargs)
 
 
-class Passenger(ModifyMixin):
+class Passenger(ModifyMixin, ActiveMixin):
     """
     مسافر
     """
-    user = models.OneToOneField(_("کاربر"), User, on_delete=models.PROTECT, related_name='passenger')
-    first_name = models.CharField(_("نام"), max_length=100)
-    last_name = models.CharField(_("نام خوانوادگی"), max_length=100)
-    image = models.ForeignKey(_("عکس کاربر"), Image, on_delete=models.SET_NULL, null=True, blank=True)
-    is_active = models.BooleanField(_("نمایش برای کاربر"), default=True)
+    id = models.UUIDField(primary_key=True, default=uuid_7_timestamp, editable=False, verbose_name=_("کلید اصلی"))
+    user = models.OneToOneField(
+        verbose_name=_("کاربر"),
+        to=User,
+        on_delete=models.PROTECT,
+        related_name="user_passengers"
+        )
+    first_name = models.CharField(_("نام"), max_length=100, blank=True)
+    last_name = models.CharField(_("نام خوانوادگی"), max_length=100, blank=True)
+    image = models.ForeignKey(
+        verbose_name=_("عکس کاربر"),
+        to=Image,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True
+    )
 
     class Meta:
         db_table = 'auth_passenger'
 
 
-class Driver(ModifyMixin):
+class Driver(ModifyMixin, ActiveMixin):
     """
     راننده
     """
+    id = models.UUIDField(primary_key=True, default=uuid_7_timestamp, editable=False)
     first_name = models.CharField(_("نام"), max_length=100)
     last_name = models.CharField(_("خوانوادگی"), max_length=100)
     user = models.OneToOneField(
-        User,
+        verbose_name=_("کاربر"),
+        to=User,
         on_delete=models.PROTECT,
-        related_name='drivers',
-        verbose_name=_("کاربر")
+        related_name="user_driver"
     )
-    image = models.ForeignKey(Image, on_delete=models.PROTECT, verbose_name=_("عکس پروفایل"))
-    is_active = models.BooleanField(_("قابل نمایش برای کاربر"), default=True)
-    nation_code = models.CharField(_("کد ملی"), max_length=10)
-    father_name = models.CharField(_("نام پدر"), max_length=50)
-    license_number = models.CharField(_("شماره پلاک"), max_length=20)
+    image = models.ForeignKey(
+        Image,
+        on_delete=models.PROTECT,
+        verbose_name=_("عکس پروفایل"),
+        blank=True,
+        null=True
+    )
+    nation_code = models.CharField(_("کد ملی"), max_length=10, blank=True)
+    father_name = models.CharField(_("نام پدر"), max_length=50, blank=True)
+    license_number = models.CharField(_("شماره پلاک"), max_length=20, blank=True)
     verification_status = models.CharField(
         _("تایید پروفایل"),
         max_length=10,
@@ -92,29 +128,38 @@ class Driver(ModifyMixin):
         db_table = 'auth_driver_profile'
 
 
-class DriverDocument(ModifyMixin):
+class DriverDocument(ModifyMixin, ActiveMixin):
     """
     مدارک راننده
     """
-    profile = models.ForeignKey(_("راننده"), Driver, on_delete=models.PROTECT, related_name="documents")
+    id = models.UUIDField(primary_key=True, default=uuid_7_timestamp, editable=False)
+    profile = models.ForeignKey(
+        verbose_name=_("راننده"),
+        on_delete=models.PROTECT,
+        related_name="profile_docs",
+        to=Driver,
+    )
     doc_type = models.CharField(_("نوع مدارک"), max_length=50, choices=DocumentType.choices)
     is_verified = models.BooleanField(_("تایید شده!"), default=False)
     verifier_note = models.TextField(_("یادداشت"), blank=True, null=True)
-    is_active = models.BooleanField(_("قابل نمایش برای راننده"), default=True)
 
     class Meta:
         unique_together = ("profile", "doc_type")
         db_table = "auth_driver_document"
 
 
-class UserNotification(ModifyMixin):
+class UserNotification(ModifyMixin, ActiveMixin):
     """
     نوتیفیکیشن
     """
-    user = models.ForeignKey(_("کاربر"), User, on_delete=models.PROTECT, related_name="user_notifications")
+    user = models.ForeignKey(
+        verbose_name=_("کاربر"),
+        to=User,
+        on_delete=models.PROTECT,
+        related_name="user_notifications"
+    )
     title = models.CharField(_("عنوان"), max_length=200)
     body = models.TextField(_("متن"))
-    is_active = models.BooleanField(_("قابل نمایش برای کاربر"), default=True)
 
     class Meta:
         db_table = 'auth_user_notification'

@@ -56,7 +56,7 @@ class UserAdmin(BaseUserAdmin):
             'classes': ('wide',),
             'fields': (
                 'phone', 'password1', 'password2',
-                'email',
+                'email', "username",
                 'is_verify_phone', 'is_passenger', 'is_driver',
                 'is_active', 'is_staff', 'is_superuser'
             ),
@@ -121,7 +121,7 @@ class PassengerAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'updated_at')
     ordering = ('-id',)
     # autocomplete_fields = ('user', 'image')
-    raw_id_fields = ("user", "image")
+    raw_id_fields = ("image", "user")
     list_display_links = ("id", "user_id", "get_user_phone")
 
     def get_user_phone(self, obj):
@@ -158,7 +158,7 @@ class DriverAdmin(admin.ModelAdmin):
     inlines = (DriverDocumentInline,)
     ordering = ("-id",)
     readonly_fields = ("created_at", "updated_at")
-    raw_id_fields = ("user", "image")
+    raw_id_fields = ("image", "user")
     list_display_links = ("id", "first_name", "last_name", "nation_code")
 
     def user_phone(self, obj):
@@ -197,7 +197,6 @@ class DriverAdmin(admin.ModelAdmin):
 
 @admin.register(DriverDocument)
 class DriverDocumentAdmin(admin.ModelAdmin):
-    raw_id_fields = ("profile",)
     list_display = ("id", "profile_id", "get_profile_phone", "doc_type", "is_verified", "verifier_note", "created_at")
     list_filter = ("doc_type", "is_verified")
     search_fields = ("profile__user__phone",)

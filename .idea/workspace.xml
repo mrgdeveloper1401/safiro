@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="edit address in footer">
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment=".">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0002_remove_user_first_name_remove_user_last_name.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0003_driverdocument_is_active.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/auth_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,30 +116,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
-    </task>
-    <task id="LOCAL-00024" summary="remove package python3-certbot">
-      <option name="closed" value="true" />
-      <created>1762896726473</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1762896726473</updated>
-    </task>
-    <task id="LOCAL-00025" summary="add service certbot">
-      <option name="closed" value="true" />
-      <created>1762942882004</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1762942882004</updated>
-    </task>
-    <task id="LOCAL-00026" summary="add package graphviz and django-extensions">
-      <option name="closed" value="true" />
-      <created>1762944751511</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1762944751511</updated>
     </task>
     <task id="LOCAL-00027" summary="add email into service certbot">
       <option name="closed" value="true" />
@@ -508,12 +485,34 @@
       <option name="project" value="LOCAL" />
       <updated>1763313693222</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="add verbose in model">
+      <option name="closed" value="true" />
+      <created>1764146168643</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1764146168643</updated>
+    </task>
+    <task id="LOCAL-00074" summary="add verbose in model">
+      <option name="closed" value="true" />
+      <created>1764146275693</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1764146275693</updated>
+    </task>
+    <task id="LOCAL-00075" summary=".">
+      <option name="closed" value="true" />
+      <created>1764146294452</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1764146294452</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add package gunicorn into base_image" />
-    <MESSAGE value="add enviroment into service db" />
     <MESSAGE value="edit order" />
     <MESSAGE value="edit path gunicorn conf" />
     <MESSAGE value="edit upstream" />
@@ -537,6 +536,8 @@
     <MESSAGE value="edit log in gunicorn.conf.py" />
     <MESSAGE value="edit worker_processes" />
     <MESSAGE value="edit address in footer" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit address in footer" />
+    <MESSAGE value="add verbose in model" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
 </project>
