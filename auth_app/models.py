@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 
-from auth_app.enums import DriverType, Province, VerificationStatus, DocumentType
+from auth_app.enums import VerificationStatus, DocumentType
 
 
 class ModifyMixin(models.Model):
