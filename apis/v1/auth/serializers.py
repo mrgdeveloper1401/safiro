@@ -15,7 +15,11 @@ class OtpVerifySerializer(AdrfSerializer):
 
 
 class LoginPhonePasswordSerializer(serializers.Serializer):
-    phone = serializers.CharField()
+    phone = serializers.CharField(
+        validators=(
+            PhoneNumberValidator(),
+        )
+    )
     password = serializers.CharField()
 
 

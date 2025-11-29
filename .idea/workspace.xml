@@ -4,19 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="edit pk">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/safiro.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/safiro.iml" afterDir="false" />
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="change python-version and edit view signup_phone_password">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.python-version" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/auth/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/utils/custom_permissions.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/utils/custom_permissions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/validators.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/validators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,14 +111,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
-    </task>
-    <task id="LOCAL-00028" summary="add volume certbot_www">
-      <option name="closed" value="true" />
-      <created>1762946432039</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1762946432039</updated>
     </task>
     <task id="LOCAL-00029" summary=".">
       <option name="closed" value="true" />
@@ -515,11 +496,18 @@
       <option name="project" value="LOCAL" />
       <updated>1764155591266</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="change python-version and edit view signup_phone_password">
+      <option name="closed" value="true" />
+      <created>1764442640887</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1764442640888</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit path gunicorn conf" />
     <MESSAGE value="edit upstream" />
     <MESSAGE value="remove config ssl_dhparam ssl_dhparam" />
     <MESSAGE value="edit ssl_certificate and ssl_certificate_key" />
@@ -544,6 +532,7 @@
     <MESSAGE value="add verbose in model" />
     <MESSAGE value="." />
     <MESSAGE value="edit pk" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit pk" />
+    <MESSAGE value="change python-version and edit view signup_phone_password" />
+    <option name="LAST_COMMIT_MESSAGE" value="change python-version and edit view signup_phone_password" />
   </component>
 </project>
