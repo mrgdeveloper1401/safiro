@@ -41,3 +41,9 @@ class PasswordNotMathException(APIException):
     status_code = 400
     default_detail = "پسورد ها یکی نیستند"
     default_code = 13
+
+
+class OldPasswordNotMathException(APIException):
+    status_code = 400
+    default_detail = "پسورد قبلی شما با پسورد الان یکی نیست "
+    default_code = 13

@@ -3,7 +3,7 @@ import random
 import time
 
 from adrf.views import APIView as AsyncAPIView
-from django.contrib.auth import authenticate, aauthenticate
+from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from django.core.cache import cache
 from rest_framework import status, mixins, viewsets
@@ -20,11 +20,10 @@ from apis.v1.auth.serializers import (
     VerifyForgetPassword,
     UserNotificationSerializer,
     DriverSerializer,
-    UploadImageSerializer, DriverDocSerializer, SignUpByPhoneSerializer, LoginByPhoneSerializer
+    UploadImageSerializer, DriverDocSerializer, SignUpByPhoneSerializer, ResetPasswordSerializer
 )
 from apis.v1.utils.custom_exceptions import UserExistsException, PasswordNotMathException
-from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, SyncRemoveAuthenticationPermissions, \
-    NotAuthenticated
+from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, NotAuthenticated
 from apis.v1.utils.custom_response import response
 from apis.v1.utils.custome_throttle import OtpRateThrottle
 from auth_app.models import User, UserNotification, Driver, DriverDocument
@@ -362,20 +361,24 @@ class UploadImageView(APIView):
 
 
 class DriverView(viewsets.ModelViewSet):
+    """
+    ثبت نام راننده و مشاهده اطلاعات ثبت نامی
+    """
     serializer_class = DriverSerializer
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         return Driver.objects.filter(
             user_id=self.request.user.id
-        ).only(
+        ).select_related("image").only(
             "first_name",
             "last_name",
             "image",
             "nation_code",
             "father_name",
             "license_number",
-            "verification_status"
+            "verification_status",
+            "image__image"
         )
 
 
@@ -387,8 +390,30 @@ class DriverDocView(viewsets.ModelViewSet):
         return DriverDocument.objects.filter(
             profile__user_id=self.request.user.id,
             is_active=True
-        ).only(
+        ).select_related("image").only(
             "doc_type",
             "is_verified",
             "verifier_note",
+            "image__image"
+        )
+
+
+class ResetPasswordView(APIView):
+    """
+    رسیت پسورد
+    """
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ResetPasswordSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+
+        result = {
+            "message": "پسورد شما با موفقیت تغییر یافت"
+        }
+        return response(
+            success=True,
+            result=result,
+            error=False
         )

@@ -153,7 +153,7 @@ class DriverAdmin(admin.ModelAdmin):
         "created_at",
     )
     list_filter = ("verification_status", "is_active")
-    search_fields = ("nation_code",)
+    search_fields = ("nation_code", "license_number")
     search_help_text = _("برای جست و جو میتوانید از شماره ملی کاربر استفاده کنید")
     inlines = (DriverDocumentInline,)
     ordering = ("-id",)
@@ -203,6 +203,7 @@ class DriverDocumentAdmin(admin.ModelAdmin):
     search_help_text = _("برای جست و جو میتوانید از شماره موبایل کاربر استفاده کنید")
     ordering = ("-id",)
     list_display_links = ("id", "profile_id", "get_profile_phone")
+    raw_id_fields = ("profile", "image")
 
     def get_profile_phone(self, obj):
         return obj.profile.user.phone

@@ -1,4 +1,3 @@
-from puremagic import what as image_what
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.db import models
@@ -62,11 +61,15 @@ class Image(ModifyMixin, ActiveMixin):
         db_table = 'auth_image'
 
     def save(self, *args, **kwargs):
-        self.image_type = image_what(self.image)
+        self.image_type = self.image.url.split(".")[-1]
         self.width = self.image.width
         self.height = self.image.height
         self.size = self.image.size
         super().save(*args, **kwargs)
+
+    @property
+    def get_image_url(self):
+        return self.image.url
 
 
 class Passenger(ModifyMixin, ActiveMixin):
@@ -114,9 +117,9 @@ class Driver(ModifyMixin, ActiveMixin):
         blank=True,
         null=True
     )
-    nation_code = models.CharField(_("کد ملی"), max_length=10, blank=True)
+    nation_code = models.CharField(_("کد ملی"), max_length=10, blank=True, unique=True)
     father_name = models.CharField(_("نام پدر"), max_length=50, blank=True)
-    license_number = models.CharField(_("شماره پلاک"), max_length=20, blank=True)
+    license_number = models.CharField(_("شماره پلاک"), max_length=20, blank=True, unique=True)
     verification_status = models.CharField(
         _("تایید پروفایل"),
         max_length=10,
@@ -140,6 +143,13 @@ class DriverDocument(ModifyMixin, ActiveMixin):
         to=Driver,
     )
     doc_type = models.CharField(_("نوع مدارک"), max_length=50, choices=DocumentType.choices)
+    image = models.ForeignKey(
+        verbose_name=_("عکس"),
+        on_delete=models.PROTECT,
+        related_name="image_driver_docs",
+        to="Image",
+        null=True, # TODO, when clean migration remove these field
+    )
     is_verified = models.BooleanField(_("تایید شده!"), default=False)
     verifier_note = models.TextField(_("یادداشت"), blank=True, null=True)
 
