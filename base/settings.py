@@ -285,8 +285,6 @@ if USE_LOG:
 
 # jwt config
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=config("ACCESS_TOKEN_LIFETIME", cast=int, default=1200)),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=config("REFRESH_TOKEN_LIFETIME", cast=int, default=30)),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": True,
@@ -315,6 +313,13 @@ SIMPLE_JWT = {
     "TOKEN_VERIFY_SERIALIZER": "rest_framework_simplejwt.serializers.TokenVerifySerializer",
     "TOKEN_BLACKLIST_SERIALIZER": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",
 }
+if DEBUG:
+    SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'] = timedelta(days=30)
+else:
+    ACCESS_TOKEN_LIFETIME = config("ACCESS_TOKEN_LIFETIME", cast=int, default=timedelta(minutes=120))
+    REFRESH_TOKEN_LIFETIME = config("REFRESH_TOKEN_LIFETIME", cast=int, default=timedelta(days=30))
+    SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'] = timedelta(minutes=ACCESS_TOKEN_LIFETIME)
+    SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'] = timedelta(minutes=ACCESS_TOKEN_LIFETIME)
 
 # swagger config
 SPECTACULAR_SETTINGS = {

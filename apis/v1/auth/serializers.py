@@ -1,25 +1,25 @@
-from adrf.serializers import Serializer
+from adrf.serializers import Serializer as AdrfSerializer
 from rest_framework import serializers
 
 from auth_app.models import UserNotification, Driver, Image, DriverDocument
 from auth_app.validators import PhoneNumberValidator
 
 
-class RequestOtpSerializer(Serializer):
+class RequestOtpSerializer(AdrfSerializer):
     mobile_phone = serializers.CharField()
 
 
-class OtpVerifySerializer(Serializer):
+class OtpVerifySerializer(AdrfSerializer):
     mobile_phone = serializers.CharField()
     otp = serializers.CharField()
 
 
-class LoginPhonePasswordSerializer(Serializer):
+class LoginPhonePasswordSerializer(serializers.Serializer):
     phone = serializers.CharField()
     password = serializers.CharField()
 
 
-class VerifyForgetPassword(Serializer):
+class VerifyForgetPassword(AdrfSerializer):
     phone = serializers.CharField()
     password = serializers.CharField()
     confirm_password = serializers.CharField()
@@ -98,12 +98,18 @@ class DriverDocSerializer(serializers.ModelSerializer):
         }
 
 
-class SignUpByPhoneSerializer(Serializer):
+# class SignUpByPhoneSerializer(AdrfSerializer):
+#     phone = serializers.CharField(validators=[PhoneNumberValidator()])
+#     password = serializers.CharField()
+#     confirm_password = serializers.CharField()
+
+
+class SignUpByPhoneSerializer(serializers.Serializer):
     phone = serializers.CharField(validators=[PhoneNumberValidator()])
     password = serializers.CharField()
     confirm_password = serializers.CharField()
 
 
-class LoginByPhoneSerializer(Serializer):
+class LoginByPhoneSerializer(AdrfSerializer):
     phone = serializers.CharField(validators=(PhoneNumberValidator(),))
     password = serializers.CharField()

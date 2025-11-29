@@ -23,7 +23,8 @@ from apis.v1.auth.serializers import (
     UploadImageSerializer, DriverDocSerializer, SignUpByPhoneSerializer, LoginByPhoneSerializer
 )
 from apis.v1.utils.custom_exceptions import UserExistsException, PasswordNotMathException
-from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, SyncRemoveAuthenticationPermissions
+from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, SyncRemoveAuthenticationPermissions, \
+    NotAuthenticated
 from apis.v1.utils.custom_response import response
 from apis.v1.utils.custome_throttle import OtpRateThrottle
 from auth_app.models import User, UserNotification, Driver, DriverDocument
@@ -32,10 +33,13 @@ from base.utils.send_sms import send_sms
 
 
 class SignUpByPhoneView(AsyncAPIView):
+    """
+    ثبت نام با شماره همراه و پسورد
+    """
     serializer_class = SignUpByPhoneSerializer
-    permission_classes = (AsyncRemoveAuthenticationPermissions,)
+    permission_classes = (NotAuthenticated,)
 
-    async def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -44,17 +48,17 @@ class SignUpByPhoneView(AsyncAPIView):
         confirm_password = serializer.data.get('confirm_password')
 
         # chek user
-        check_user = await sync_to_async(User.objects.only("is_passenger", "is_verify_phone", "is_active", "phone", "is_staff").filter)(phone=phone)
-        if await check_user.aexists():
+        check_user =  User.objects.only("is_passenger", "is_verify_phone", "is_active", "phone", "is_staff").filter(phone=phone)
+        if check_user.exists():
             raise UserExistsException()
         else:
             # check password
             if password != confirm_password:
                 raise PasswordNotMathException()
             # create user
-            await User.objects.acreate_user(username=phone, phone=phone, password=password)
+            User.objects.create_user(username=phone, phone=phone, password=password)
             # create token
-            get_user = await check_user.afirst()
+            get_user =  check_user.first()
             token = RefreshToken.for_user(get_user)
             iran_timezone = pytz_timezone("Asia/Tehran")
             expire_timestamp = int(time.time()) + SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].seconds
@@ -177,7 +181,7 @@ class OtpVerifyView(AsyncAPIView):
 
 class LoginPhonePasswordView(APIView):
     serializer_class = LoginPhonePasswordSerializer
-    permission_classes = (SyncRemoveAuthenticationPermissions, )
+    permission_classes = (NotAuthenticated, )
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)

@@ -1,4 +1,4 @@
-import imghdr
+from puremagic import what as image_what
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.db import models
@@ -62,7 +62,7 @@ class Image(ModifyMixin, ActiveMixin):
         db_table = 'auth_image'
 
     def save(self, *args, **kwargs):
-        self.image_type = imghdr.what(self.image)
+        self.image_type = image_what(self.image)
         self.width = self.image.width
         self.height = self.image.height
         self.size = self.image.size

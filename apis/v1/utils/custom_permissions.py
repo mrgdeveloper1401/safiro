@@ -15,3 +15,10 @@ class SyncRemoveAuthenticationPermissions(permissions.BasePermission):
         if request.user.is_authenticated:
             raise AuthenticationFailed()
         return True
+
+
+class NotAuthenticated(permissions.BasePermission):
+    message = "کاربر لاگین شده نمیتواند دسترسی پیدا کند"
+
+    def has_permission(self, request, view):
+        return not request.user.is_authenticated

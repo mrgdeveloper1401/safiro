@@ -2,5 +2,5 @@ from django.core.validators import RegexValidator
 
 
 class PhoneNumberValidator(RegexValidator):
-    message = "Enter a valid phone number. phone number must be digit and between 9 or 15 digits."
+    message = "شماره تماس باید بین ۹ رقم یا ۱۵ رقم باشد و به صورت عددی باشد"
     regex = r"\d{9,15}$"
