@@ -6,7 +6,6 @@ from adrf.views import APIView as AsyncAPIView
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from django.core.cache import cache
-from django.db import transaction
 from rest_framework import status, mixins, viewsets
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
@@ -91,6 +90,9 @@ class SignUpByPhoneView(AsyncAPIView):
 
 
 class RequestOtpView(AsyncAPIView):
+    """
+    درخواست کد برای ورود به حساب
+    """
     serializer_class = RequestOtpSerializer
     permission_classes = (AsyncRemoveAuthenticationPermissions,)
     throttle_classes = (OtpRateThrottle,)
@@ -105,8 +107,8 @@ class RequestOtpView(AsyncAPIView):
 
         # generate otp
         otp_code = random.randint(100000, 999999)
-        ip = request.META.get("REMOTE_ADDR", "X_FORWARDED_FOR")
-        cache_key = f"otp_{phone}_{ip}"
+        ip = get_client_ip(request)
+        cache_key = f"otp_{phone}_{ip}_{otp_code}"
 
         await cache.aset(cache_key, otp_code, timeout=120)
 
@@ -125,6 +127,9 @@ class RequestOtpView(AsyncAPIView):
 
 
 class OtpVerifyView(AsyncAPIView):
+    """
+    اعتبار سنجی کد برای ورود به حساب کاربری
+    """
     serializer_class = OtpVerifySerializer
     permission_classes = (AsyncRemoveAuthenticationPermissions,)
 
@@ -136,8 +141,8 @@ class OtpVerifyView(AsyncAPIView):
         otp = serializer.validated_data['otp']
 
         # get in redis
-        get_ip = request.META.get('REMOTE_ADDR', "X-FORWARDED-FOR")
-        redis_key = f'{phone}_{get_ip}_{otp}'
+        get_ip = get_client_ip(request)
+        redis_key = f'otp_{phone}_{get_ip}_{otp}'
         get_redis_key = await cache.aget(redis_key)
         if get_redis_key is None:
             return response(
@@ -147,8 +152,8 @@ class OtpVerifyView(AsyncAPIView):
                 status_code=404
             )
         else:
-            user = await User.objects.filter(mobile_phone=phone).only(
-                "mobile_phone",
+            user = await User.objects.filter(phone=phone).only(
+                "phone",
                 "is_active",
                 "is_staff",
                 "is_verify_phone",
@@ -178,7 +183,7 @@ class OtpVerifyView(AsyncAPIView):
                     "expire_date_access_token": expire_date
                 }
                 await cache.adelete(redis_key)
-                await User.objects.filter(mobile_phone=phone).aupdate(is_verify_phone=True) # update is_verify_phone user
+                await User.objects.filter(phone=phone).aupdate(is_verify_phone=True) # update is_verify_phone user
                 return response(
                     success=True,
                     result=data,
@@ -252,7 +257,7 @@ class RequestForgetPasswordView(AsyncAPIView):
         else:
             # set key in redis
             otp_code = random.randint(100000, 999999)
-            ip = request.META.get("REMOTE_ADDR", "unknown")
+            ip = get_client_ip(request)
             cache_key = f"otp_{phone}_{ip}_{otp_code}"
             await cache.aset(cache_key, otp_code, timeout=120)
 
@@ -292,7 +297,7 @@ class VerifyForgetPasswordView(AsyncAPIView):
             )
 
         # check otp
-        get_ip = request.META.get("REMOTE_ADDR", "X-FORWARDED-FOR")
+        get_ip = get_client_ip(request)
         redis_key = f'otp_{phone}_{get_ip}_{code}'
         check_key = await cache.aget(redis_key)
         if check_key is None:
