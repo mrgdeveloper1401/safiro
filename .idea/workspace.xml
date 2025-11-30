@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add package uuid-extension">
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add api request_verify_phone">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/auth/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/auth/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auth_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0002_alter_driver_father_name_alter_driver_image_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0003_alter_driver_license_number_alter_driver_nation_code.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0004_driverdocument_image.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/auth_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -117,22 +116,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
-    </task>
-    <task id="LOCAL-00032" summary="edit command">
-      <option name="closed" value="true" />
-      <created>1762947819934</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1762947819934</updated>
-    </task>
-    <task id="LOCAL-00033" summary="remove depends on">
-      <option name="closed" value="true" />
-      <created>1762948025207</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1762948025207</updated>
     </task>
     <task id="LOCAL-00034" summary="remove ssl other domain">
       <option name="closed" value="true" />
@@ -510,12 +493,26 @@
       <option name="project" value="LOCAL" />
       <updated>1764450164832</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="add model adn admin PhoneNumberValidator">
+      <option name="closed" value="true" />
+      <created>1764505752567</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1764505752568</updated>
+    </task>
+    <task id="LOCAL-00082" summary="add api request_verify_phone">
+      <option name="closed" value="true" />
+      <created>1764509103470</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1764509103470</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add config ssl_session into nginx.conf" />
-    <MESSAGE value="add gzip into nginx.conf" />
     <MESSAGE value="add more than format for zip" />
     <MESSAGE value="edit config nginx.conf" />
     <MESSAGE value="add pool into redis" />
@@ -539,6 +536,8 @@
     <MESSAGE value="add validator in serializer loginByPhonePassworsd" />
     <MESSAGE value="add field image into driver_doc" />
     <MESSAGE value="add package uuid-extension" />
-    <option name="LAST_COMMIT_MESSAGE" value="add package uuid-extension" />
+    <MESSAGE value="add model adn admin PhoneNumberValidator" />
+    <MESSAGE value="add api request_verify_phone" />
+    <option name="LAST_COMMIT_MESSAGE" value="add api request_verify_phone" />
   </component>
 </project>

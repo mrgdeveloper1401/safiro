@@ -6,6 +6,7 @@ from adrf.views import APIView as AsyncAPIView
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from django.core.cache import cache
+from django.db import transaction
 from rest_framework import status, mixins, viewsets
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
@@ -25,13 +26,15 @@ from apis.v1.auth.serializers import (
     DriverDocSerializer,
     SignUpByPhoneSerializer,
     ResetPasswordSerializer,
-    RequestLogVerifyPhoneSerializer
+    RequestLogVerifyPhoneSerializer,
+    VerifyRequestVerifiedPhoneSerializer
 )
 from apis.v1.utils.custom_exceptions import UserExistsException, PasswordNotMathException, AccountIsVerified
 from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, NotAuthenticated
 from apis.v1.utils.custom_response import response
 from apis.v1.utils.custome_throttle import OtpRateThrottle
-from auth_app.models import User, UserNotification, Driver, DriverDocument, RequestLogVerifyPhone
+from apis.v1.utils.get_ip import get_client_ip
+from auth_app.models import User, UserNotification, Driver, DriverDocument, RequestLog
 from base.settings import SIMPLE_JWT
 from base.utils.send_sms import send_sms
 
@@ -439,7 +442,7 @@ class RequestLogVerifyPhoneView(AsyncAPIView):
 
         # save log
         user_agent = request.META.get("HTTP_USER_AGENT", "")
-        await RequestLogVerifyPhone.objects.acreate(phone=phone, ip_address=ip, user_agent=user_agent)
+        await RequestLog.objects.acreate(phone=phone, ip_address=ip, user_agent=user_agent)
 
         # check
         user = await User.objects.filter(
@@ -456,7 +459,7 @@ class RequestLogVerifyPhoneView(AsyncAPIView):
             else:
                 # generate otp
                 otp_code = random.randint(100000, 999999)
-                cache_key = f"otp_{phone}_{ip}"
+                cache_key = f"otp_{phone}_{ip}_{otp_code}"
 
                 # set in redis
                 await cache.aset(cache_key, otp_code, timeout=120)
@@ -474,3 +477,79 @@ class RequestLogVerifyPhoneView(AsyncAPIView):
                     error=False,
                     status_code=status.HTTP_200_OK
                 )
+
+
+class VerifyRequestVerifiedPhoneView(AsyncAPIView):
+    """
+    تایید شماره همراه
+    """
+    serializer_class = VerifyRequestVerifiedPhoneSerializer
+
+    async def post(self, request):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+
+        phone = serializer.validated_data["phone"]
+        code = serializer.validated_data["code"]
+
+        # cache key
+        ip = get_client_ip(request)
+        redis_key = f"otp_{phone}_{ip}_{code}"
+
+        # get in redis
+        get_redis_key = await cache.aget(redis_key)
+        if get_redis_key is None:
+            return response(
+                success=False,
+                result={},
+                error="کد اشتباه هست یا منقضی شده هست",
+                status_code=404
+            )
+
+        try:
+            # get user
+            user = await User.objects.filter(
+                is_active=True,
+                phone=phone,
+            ).only("id", "is_verify_phone", "is_staff", "is_passenger", "is_active").afirst()
+
+            if not user:
+                raise NotFound("حساب کاربری پیدا نشد")
+
+            # check is_verify phone
+            if user.is_verify_phone:
+                raise AccountIsVerified()
+
+            # update user
+            await User.objects.filter(id=user.id).aupdate(is_verify_phone=True)
+
+            # remove redis key
+            await cache.adelete(redis_key)
+
+            token = await sync_to_async(lambda: RefreshToken.for_user(user))()
+
+            iran_timezone = pytz_timezone("Asia/Tehran")
+            expire_timestamp = int(time.time()) + SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].seconds
+            expire_date = datetime.datetime.fromtimestamp(expire_timestamp, tz=iran_timezone)
+
+            data = {
+                "mobile": phone,
+                "is_staff": user.is_staff,
+                "is_verify_phone": True,
+                "is_passenger": user.is_passenger,
+                "access_token": str(token.access_token),
+                "refresh_token": str(token),
+                "jwt": "Bearer",
+                "expire_timestamp_access_token": expire_timestamp,
+                "expire_date_access_token": expire_date
+            }
+
+            return response(
+                success=True,
+                result=data,
+                error=False,
+            )
+
+        except (NotFound, AccountIsVerified) as e:
+            await cache.adelete(redis_key)  # remove otp when raise exception
+            raise e

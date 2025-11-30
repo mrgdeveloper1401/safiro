@@ -12,7 +12,8 @@ from .views import (
     DriverDocView,
     SignUpByPhoneView,
     ResetPasswordView,
-    RequestLogVerifyPhoneView
+    RequestLogVerifyPhoneView,
+    VerifyRequestVerifiedPhoneView
 )
 
 app_name = "v1_auth"
@@ -30,6 +31,7 @@ urlpatterns = [
     path("request_forget_password/", RequestForgetPasswordView.as_view(), name='request_forget_password'),
     path("verify_forget_password/", VerifyForgetPasswordView.as_view(), name='verify_forget_password'),
     path("request_verify_phone/", RequestLogVerifyPhoneView.as_view(), name='request_verify_phone'),
+    path("verify_verify_phone/", VerifyRequestVerifiedPhoneView.as_view(), name='verify_verify_phone'),
     path("reset_password/", ResetPasswordView.as_view(), name="reset_password"),
     path("upload_image/", UploadImageView.as_view(), name="upload_image"),
 ] + router.urls

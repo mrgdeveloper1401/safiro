@@ -194,3 +194,12 @@ class RequestLogVerifyPhoneSerializer(AdrfSerializer):
             PhoneNumberValidator(),
         )
     )
+
+
+class VerifyRequestVerifiedPhoneSerializer(AdrfSerializer):
+    phone = serializers.CharField(
+        validators=(
+            PhoneNumberValidator(),
+        )
+    )
+    code = serializers.CharField()

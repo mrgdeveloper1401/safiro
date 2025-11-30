@@ -176,7 +176,7 @@ class UserNotification(ModifyMixin, ActiveMixin):
         db_table = 'auth_user_notification'
 
 
-class RequestLogVerifyPhone(ModifyMixin, ActiveMixin):
+class RequestLog(ModifyMixin, ActiveMixin):
     phone = models.CharField(
         _("شماره همراه"),
         max_length=15,
@@ -184,7 +184,6 @@ class RequestLogVerifyPhone(ModifyMixin, ActiveMixin):
             PhoneNumberValidator(),
         )
     )
-    is_accept = models.BooleanField(_("تایید شده!"), default=False)
     ip_address = models.GenericIPAddressField(_("ای اپی کاربر"), null=True) # TODO, when clean migration remove attribute null
     user_agent = models.TextField(_("شناسه مرورگر"), null=True, blank=True)
     BEHAVIOR_TYPES = (
@@ -204,4 +203,4 @@ class RequestLogVerifyPhone(ModifyMixin, ActiveMixin):
     )
 
     class Meta:
-        db_table = 'auth_request_log_verify_phone'
+        db_table = 'auth_request_log'
