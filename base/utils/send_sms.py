@@ -28,6 +28,6 @@ async def send_sms(phone: str, code: str):
         return response.json()
 
 
-async def main():
-    sms = await send_sms(phone="09391640664", code="123456")
-    return sms
+# async def main():
+#     sms = await send_sms(phone="09391640664", code="123456")
+#     return sms

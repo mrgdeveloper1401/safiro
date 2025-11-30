@@ -4,13 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add api request_verify_phone">
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="update view forget_password">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/auth/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/auth/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/v1/auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/driver/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/driver/serializers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/driver/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/driver/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/passenger/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/passenger/serializers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/passenger/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/passenger/views.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/auth_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/utils/send_sms.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/utils/send_sms.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,86 +122,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
-    </task>
-    <task id="LOCAL-00034" summary="remove ssl other domain">
-      <option name="closed" value="true" />
-      <created>1762948394312</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1762948394312</updated>
-    </task>
-    <task id="LOCAL-00035" summary=".">
-      <option name="closed" value="true" />
-      <created>1762948955991</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1762948955991</updated>
-    </task>
-    <task id="LOCAL-00036" summary=".">
-      <option name="closed" value="true" />
-      <created>1762949115788</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1762949115789</updated>
-    </task>
-    <task id="LOCAL-00037" summary=".">
-      <option name="closed" value="true" />
-      <created>1763028281886</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1763028281887</updated>
-    </task>
-    <task id="LOCAL-00038" summary=".">
-      <option name="closed" value="true" />
-      <created>1763028399288</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1763028399288</updated>
-    </task>
-    <task id="LOCAL-00039" summary="remove service certbot">
-      <option name="closed" value="true" />
-      <created>1763029573179</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1763029573180</updated>
-    </task>
-    <task id="LOCAL-00040" summary=".">
-      <option name="closed" value="true" />
-      <created>1763029650460</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1763029650460</updated>
-    </task>
-    <task id="LOCAL-00041" summary="add config s3">
-      <option name="closed" value="true" />
-      <created>1763031448493</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1763031448493</updated>
-    </task>
-    <task id="LOCAL-00042" summary="comment volume letsencrypt">
-      <option name="closed" value="true" />
-      <created>1763031530945</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1763031530945</updated>
-    </task>
-    <task id="LOCAL-00043" summary="add package gunicorn into base_image">
-      <option name="closed" value="true" />
-      <created>1763031755753</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1763031755753</updated>
     </task>
     <task id="LOCAL-00044" summary="add enviroment into service db">
       <option name="closed" value="true" />
@@ -509,18 +435,90 @@
       <option name="project" value="LOCAL" />
       <updated>1764509103470</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="add api verify_verify_phone">
+      <option name="closed" value="true" />
+      <created>1764513625768</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1764513625768</updated>
+    </task>
+    <task id="LOCAL-00084" summary="clean migrations">
+      <option name="closed" value="true" />
+      <created>1764514382024</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1764514382024</updated>
+    </task>
+    <task id="LOCAL-00085" summary="edit ip">
+      <option name="closed" value="true" />
+      <created>1764515333802</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1764515333802</updated>
+    </task>
+    <task id="LOCAL-00086" summary=".">
+      <option name="closed" value="true" />
+      <created>1764515696799</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1764515696799</updated>
+    </task>
+    <task id="LOCAL-00087" summary=".">
+      <option name="closed" value="true" />
+      <created>1764515843446</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1764515843446</updated>
+    </task>
+    <task id="LOCAL-00088" summary="edit get_ip in view get_client_ip">
+      <option name="closed" value="true" />
+      <created>1764516050383</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1764516050384</updated>
+    </task>
+    <task id="LOCAL-00089" summary="bug fix: rename view">
+      <option name="closed" value="true" />
+      <created>1764516304435</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1764516304436</updated>
+    </task>
+    <task id="LOCAL-00090" summary="remove: redis_key in view VerifyRequestVerifiedPhoneView">
+      <option name="closed" value="true" />
+      <created>1764516357489</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1764516357489</updated>
+    </task>
+    <task id="LOCAL-00091" summary="update view request and verify phone">
+      <option name="closed" value="true" />
+      <created>1764530669965</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1764530669965</updated>
+    </task>
+    <task id="LOCAL-00092" summary="update view forget_password">
+      <option name="closed" value="true" />
+      <created>1764531877745</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1764531877745</updated>
+    </task>
+    <option name="localTasksCounter" value="93" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add more than format for zip" />
-    <MESSAGE value="edit config nginx.conf" />
-    <MESSAGE value="add pool into redis" />
-    <MESSAGE value="edit config asgi" />
-    <MESSAGE value="add REDIS_MAX_CONNECTION" />
-    <MESSAGE value="new migrations" />
-    <MESSAGE value="add api signup by phone" />
-    <MESSAGE value="add pool into database" />
     <MESSAGE value="add base nginx Dockerfile" />
     <MESSAGE value="better query in admin django" />
     <MESSAGE value="dont show access_log in static-nginx and gunicorn.conf.py" />
@@ -530,7 +528,6 @@
     <MESSAGE value="edit worker_processes" />
     <MESSAGE value="edit address in footer" />
     <MESSAGE value="add verbose in model" />
-    <MESSAGE value="." />
     <MESSAGE value="edit pk" />
     <MESSAGE value="change python-version and edit view signup_phone_password" />
     <MESSAGE value="add validator in serializer loginByPhonePassworsd" />
@@ -538,6 +535,15 @@
     <MESSAGE value="add package uuid-extension" />
     <MESSAGE value="add model adn admin PhoneNumberValidator" />
     <MESSAGE value="add api request_verify_phone" />
-    <option name="LAST_COMMIT_MESSAGE" value="add api request_verify_phone" />
+    <MESSAGE value="add api verify_verify_phone" />
+    <MESSAGE value="clean migrations" />
+    <MESSAGE value="edit ip" />
+    <MESSAGE value="." />
+    <MESSAGE value="edit get_ip in view get_client_ip" />
+    <MESSAGE value="bug fix: rename view" />
+    <MESSAGE value="remove: redis_key in view VerifyRequestVerifiedPhoneView" />
+    <MESSAGE value="update view request and verify phone" />
+    <MESSAGE value="update view forget_password" />
+    <option name="LAST_COMMIT_MESSAGE" value="update view forget_password" />
   </component>
 </project>

@@ -33,6 +33,7 @@ from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermission
 from apis.v1.utils.custom_response import response
 from apis.v1.utils.custome_throttle import OtpRateThrottle
 from apis.v1.utils.get_ip import get_client_ip
+from apis.v1.utils.paginations import CustomPagination
 from auth_app.models import User, UserNotification, Driver, DriverDocument, RequestLog
 from base.settings import SIMPLE_JWT
 from base.utils.send_sms import send_sms
@@ -350,8 +351,13 @@ class VerifyForgetPasswordView(AsyncAPIView):
 
 
 class UserNotificationView(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    """
+    pagination --> max_item in page --> 1000 \n
+    default item in page --> 20
+    """
     serializer_class = UserNotificationSerializer
     permission_classes = (IsAuthenticated,)
+    pagination_class = CustomPagination
 
     def get_queryset(self):
         return UserNotification.objects.filter(user_id=self.request.user.id).only(

@@ -173,6 +173,7 @@ class UserNotification(ModifyMixin, ActiveMixin):
     body = models.TextField(_("متن"))
 
     class Meta:
+        ordering = ("id",)
         db_table = 'auth_user_notification'
 
 
