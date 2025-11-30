@@ -493,7 +493,7 @@ class VerifyRequestVerifiedPhoneView(AsyncAPIView):
         code = serializer.validated_data["code"]
 
         # cache key
-        ip = request.META.get("X_FORWARDED_FOR", "REMOTE_ADDR")
+        ip = get_client_ip(request)
         redis_key = f"otp_{phone}_{ip}_{code}"
 
         # get in redis
