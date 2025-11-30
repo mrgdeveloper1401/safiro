@@ -46,4 +46,10 @@ class PasswordNotMathException(APIException):
 class OldPasswordNotMathException(APIException):
     status_code = 400
     default_detail = "پسورد قبلی شما با پسورد الان یکی نیست "
-    default_code = 13
+    default_code = 14
+
+
+class AccountIsVerified(APIException):
+    status_code = 400
+    default_detail = "حساب شما قبلا تایید شده هست "
+    default_code = 15

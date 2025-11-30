@@ -186,3 +186,11 @@ class ResetPasswordSerializer(serializers.Serializer):
                 # update password
                 user.update(password=new_password)
         return attrs
+
+
+class RequestLogVerifyPhoneSerializer(AdrfSerializer):
+    phone = serializers.CharField(
+        validators=(
+            PhoneNumberValidator(),
+        )
+    )

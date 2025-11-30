@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from django.core.cache import cache
 from rest_framework import status, mixins, viewsets
+from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -20,13 +21,17 @@ from apis.v1.auth.serializers import (
     VerifyForgetPassword,
     UserNotificationSerializer,
     DriverSerializer,
-    UploadImageSerializer, DriverDocSerializer, SignUpByPhoneSerializer, ResetPasswordSerializer
+    UploadImageSerializer,
+    DriverDocSerializer,
+    SignUpByPhoneSerializer,
+    ResetPasswordSerializer,
+    RequestLogVerifyPhoneSerializer
 )
-from apis.v1.utils.custom_exceptions import UserExistsException, PasswordNotMathException
+from apis.v1.utils.custom_exceptions import UserExistsException, PasswordNotMathException, AccountIsVerified
 from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, NotAuthenticated
 from apis.v1.utils.custom_response import response
 from apis.v1.utils.custome_throttle import OtpRateThrottle
-from auth_app.models import User, UserNotification, Driver, DriverDocument
+from auth_app.models import User, UserNotification, Driver, DriverDocument, RequestLogVerifyPhone
 from base.settings import SIMPLE_JWT
 from base.utils.send_sms import send_sms
 
@@ -97,7 +102,7 @@ class RequestOtpView(AsyncAPIView):
 
         # generate otp
         otp_code = random.randint(100000, 999999)
-        ip = request.META.get("REMOTE_ADDR", "unknown")
+        ip = request.META.get("REMOTE_ADDR", "X_FORWARDED_FOR")
         cache_key = f"otp_{phone}_{ip}"
 
         await cache.aset(cache_key, otp_code, timeout=120)
@@ -417,3 +422,55 @@ class ResetPasswordView(APIView):
             result=result,
             error=False
         )
+
+
+class RequestLogVerifyPhoneView(AsyncAPIView):
+    """
+    درخواست تایید شماره همراه
+    """
+    serializer_class = RequestLogVerifyPhoneSerializer
+
+    async def post(self, request):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+
+        phone = serializer.validated_data["phone"]
+        ip = request.META.get("REMOTE_ADDR", "X_FORWARDED_FOR")
+
+        # save log
+        user_agent = request.META.get("HTTP_USER_AGENT", "")
+        await RequestLogVerifyPhone.objects.acreate(phone=phone, ip_address=ip, user_agent=user_agent)
+
+        # check
+        user = await User.objects.filter(
+            phone=phone,
+            is_active=True
+        ).only("is_verify_phone").afirst()
+        # check user dose exists
+        if not user:
+            raise NotFound("حساب کاربری با این شماره وجود ندارد")
+        else:
+            # check user is verified?
+            if user.is_verify_phone:
+                raise AccountIsVerified()
+            else:
+                # generate otp
+                otp_code = random.randint(100000, 999999)
+                cache_key = f"otp_{phone}_{ip}"
+
+                # set in redis
+                await cache.aset(cache_key, otp_code, timeout=120)
+
+                # send sms
+                await send_sms(phone, str(otp_code))
+
+                return response(
+                    success=True,
+                    result={
+                        "mobile": phone,
+                        "exp_time": int(time.time() + 120),
+                        "message": "کد تایید برای شما ارسال شد"
+                    },
+                    error=False,
+                    status_code=status.HTTP_200_OK
+                )

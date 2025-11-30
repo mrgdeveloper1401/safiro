@@ -184,7 +184,24 @@ class RequestLogVerifyPhone(ModifyMixin, ActiveMixin):
             PhoneNumberValidator(),
         )
     )
-    is_accept = models.BooleanField(default=False)
+    is_accept = models.BooleanField(_("تایید شده!"), default=False)
+    ip_address = models.GenericIPAddressField(_("ای اپی کاربر"), null=True) # TODO, when clean migration remove attribute null
+    user_agent = models.TextField(_("شناسه مرورگر"), null=True, blank=True)
+    BEHAVIOR_TYPES = (
+        ('multiple_failed_attempts', _("تلاش‌های ناموفق متعدد")),
+        ('rapid_requests', _("درخواست‌های سریع")),
+        ('suspicious_location', _("موقعیت جغرافیایی مشکوک")),
+        ('unusual_activity', _("فعالیت غیرعادی")),
+        ('brute_force', _("حمله brute force")),
+        ('account_takeover', _("تصاحب حساب")),
+        ('credential_stuffing', _("پرکردن اعتبار")),
+    )
+    behavior_type = models.CharField(
+        _("نوع رفتار مشکوک"),
+        max_length=50,
+        choices=BEHAVIOR_TYPES,
+        null=True # TODO, when clean migration remove attribute null
+    )
 
     class Meta:
         db_table = 'auth_request_log_verify_phone'

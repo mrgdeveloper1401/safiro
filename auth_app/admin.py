@@ -17,6 +17,7 @@ class DriverDocumentInline(admin.TabularInline):
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
+    list_editable = ("is_active", "is_verify_phone", "is_passenger", "is_driver")
     filter_horizontal = ()
     ordering = ('-id',)
     list_display_links = ("id", "phone", 'email')
@@ -257,8 +258,8 @@ class UserNotificationAdmin(admin.ModelAdmin):
 
 @admin.register(RequestLogVerifyPhone)
 class RequestLogVerifyAdmin(admin.ModelAdmin):
-    list_display = ("phone", "id", "is_accept", "created_at", "updated_at", "is_active")
+    list_display = ("phone", "id", "is_accept", "created_at", "updated_at", "is_active", "ip_address", "behavior_type")
     search_fields = ("phone",)
     search_help_text = _("برای جست و جو میتوانید از شماره موبایل کاربر استفاده کنید")
-    list_filter = ("created_at", "is_accept", "is_active")
+    list_filter = ("created_at", "is_accept", "is_active", "behavior_type")
     list_per_page = 20
