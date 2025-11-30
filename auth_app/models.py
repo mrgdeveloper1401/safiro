@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.db import models
 
 from auth_app.enums import VerificationStatus, DocumentType
+from auth_app.validators import PhoneNumberValidator
 from base.utils.uuid import uuid_7_timestamp
 
 
@@ -173,3 +174,17 @@ class UserNotification(ModifyMixin, ActiveMixin):
 
     class Meta:
         db_table = 'auth_user_notification'
+
+
+class RequestLogVerifyPhone(ModifyMixin, ActiveMixin):
+    phone = models.CharField(
+        _("شماره همراه"),
+        max_length=15,
+        validators=(
+            PhoneNumberValidator(),
+        )
+    )
+    is_accept = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'auth_request_log_verify_phone'

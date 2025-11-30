@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add validator in serializer loginByPhonePassworsd">
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add package uuid-extension">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/auth/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/auth/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/utils/custom_exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/utils/custom_exceptions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auth_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0002_alter_driver_father_name_alter_driver_image_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0003_alter_driver_license_number_alter_driver_nation_code.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0004_driverdocument_image.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/auth_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,20 +50,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.send_sms.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHELLCHECK.PATH": "/home/mg/.local/share/JetBrains/PyCharm2025.2/Shell Script/shellcheck",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/mg/Desktop/django-projects/safiro/staticfiles/assets",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.send_sms.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHELLCHECK.PATH&quot;: &quot;/home/mg/.local/share/JetBrains/PyCharm2025.2/Shell Script/shellcheck&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/mg/Desktop/django-projects/safiro/staticfiles/assets&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/staticfiles/assets" />
@@ -117,22 +117,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
-    </task>
-    <task id="LOCAL-00030" summary="edit command">
-      <option name="closed" value="true" />
-      <created>1762947150887</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1762947150887</updated>
-    </task>
-    <task id="LOCAL-00031" summary="edit command">
-      <option name="closed" value="true" />
-      <created>1762947300098</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1762947300098</updated>
     </task>
     <task id="LOCAL-00032" summary="edit command">
       <option name="closed" value="true" />
@@ -510,12 +494,26 @@
       <option name="project" value="LOCAL" />
       <updated>1764444975711</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="add field image into driver_doc">
+      <option name="closed" value="true" />
+      <created>1764449879465</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1764449879465</updated>
+    </task>
+    <task id="LOCAL-00080" summary="add package uuid-extension">
+      <option name="closed" value="true" />
+      <created>1764450164832</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1764450164832</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove config ssl_dhparam ssl_dhparam" />
-    <MESSAGE value="edit ssl_certificate and ssl_certificate_key" />
     <MESSAGE value="add config ssl_session into nginx.conf" />
     <MESSAGE value="add gzip into nginx.conf" />
     <MESSAGE value="add more than format for zip" />
@@ -539,6 +537,8 @@
     <MESSAGE value="edit pk" />
     <MESSAGE value="change python-version and edit view signup_phone_password" />
     <MESSAGE value="add validator in serializer loginByPhonePassworsd" />
-    <option name="LAST_COMMIT_MESSAGE" value="add validator in serializer loginByPhonePassworsd" />
+    <MESSAGE value="add field image into driver_doc" />
+    <MESSAGE value="add package uuid-extension" />
+    <option name="LAST_COMMIT_MESSAGE" value="add package uuid-extension" />
   </component>
 </project>

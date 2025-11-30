@@ -4,7 +4,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from .enums import VerificationStatus
-from .models import User, Image, Passenger, Driver, UserNotification, DriverDocument
+from .models import User, Image, Passenger, Driver, UserNotification, DriverDocument, RequestLogVerifyPhone
 
 
 class DriverDocumentInline(admin.TabularInline):
@@ -253,3 +253,12 @@ class UserNotificationAdmin(admin.ModelAdmin):
     @admin.action(description="enable field")
     def enable_field(self, request, queryset):
         queryset.update(is_active=True)
+
+
+@admin.register(RequestLogVerifyPhone)
+class RequestLogVerifyAdmin(admin.ModelAdmin):
+    list_display = ("phone", "id", "is_accept", "created_at", "updated_at", "is_active")
+    search_fields = ("phone",)
+    search_help_text = _("برای جست و جو میتوانید از شماره موبایل کاربر استفاده کنید")
+    list_filter = ("created_at", "is_accept", "is_active")
+    list_per_page = 20
