@@ -243,10 +243,10 @@ class RequestForgetPasswordView(AsyncAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        phone = serializer.validated_data["phone"]
+        phone = serializer.validated_data["mobile_phone"]
 
         # check user dose exists
-        user = await sync_to_async(User.objects.only("is_active"))(phone=phone, is_active=True)
+        user = await sync_to_async(lambda: User.objects.only("is_active").filter(phone=phone, is_active=True))()
         if not await user.aexists():
             return response(
                 success=False,
@@ -258,11 +258,11 @@ class RequestForgetPasswordView(AsyncAPIView):
             # set key in redis
             otp_code = random.randint(100000, 999999)
             ip = get_client_ip(request)
-            cache_key = f"otp_{phone}_{ip}_{otp_code}"
+            cache_key = f"reset_password_{phone}_{ip}_{otp_code}"
             await cache.aset(cache_key, otp_code, timeout=120)
 
             # send sms
-            await send_sms(phone, otp_code)
+            await send_sms(phone, str(otp_code))
             return response(
                 success=True,
                 result={
@@ -298,7 +298,7 @@ class VerifyForgetPasswordView(AsyncAPIView):
 
         # check otp
         get_ip = get_client_ip(request)
-        redis_key = f'otp_{phone}_{get_ip}_{code}'
+        redis_key = f'reset_password_{phone}_{get_ip}_{code}'
         check_key = await cache.aget(redis_key)
         if check_key is None:
             return response(
@@ -322,15 +322,15 @@ class VerifyForgetPasswordView(AsyncAPIView):
                     status_code=404
                 )
             else:
-                token = RefreshToken.for_user(user)
+                token = RefreshToken.for_user(user_first)
                 iran_timezone = pytz_timezone("Asia/Tehran")
                 expire_timestamp = int(time.time()) + SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].seconds
                 expire_date = datetime.datetime.fromtimestamp(expire_timestamp, tz=iran_timezone)
                 data = {
                     "mobile": phone,
-                    "is_staff": user.is_staff,
-                    "is_verify_phone": user.is_verify_phone,
-                    "is_passenger": user.is_passenger,
+                    "is_staff": user_first.is_staff,
+                    "is_verify_phone": user_first.is_verify_phone,
+                    "is_passenger": user_first.is_passenger,
                     "access_token": str(token.access_token),
                     "refresh_token": str(token),
                     "jwt": "Bearer",
