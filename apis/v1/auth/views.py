@@ -427,7 +427,7 @@ class ResetPasswordView(APIView):
         )
 
 
-class get_client_ip(AsyncAPIView):
+class RequestLogVerifyPhoneView(AsyncAPIView):
     """
     درخواست تایید شماره همراه
     """
@@ -501,7 +501,7 @@ class VerifyRequestVerifiedPhoneView(AsyncAPIView):
         if get_redis_key is None:
             return response(
                 success=False,
-                result={},
+                result={"redis_key": redis_key},
                 error="کد اشتباه هست یا منقضی شده هست",
                 status_code=404
             )
