@@ -26,7 +26,7 @@ from apis.v1.auth.serializers import (
     SignUpByPhoneSerializer,
     ResetPasswordSerializer,
     RequestLogVerifyPhoneSerializer,
-    VerifyRequestVerifiedPhoneSerializer
+    VerifyRequestVerifiedPhoneSerializer, UserStatusSerializer
 )
 from apis.v1.utils.custom_exceptions import UserExistsException, PasswordNotMathException, AccountIsVerified
 from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, NotAuthenticated
@@ -564,3 +564,34 @@ class VerifyRequestVerifiedPhoneView(AsyncAPIView):
         except (NotFound, AccountIsVerified) as e:
             await cache.adelete(redis_key)  # remove otp when raise exception
             raise e
+
+
+class UpdateUserStatusView(APIView):
+    """
+    زمانی که کاربر ثبت نام کرد اگر خواست وضعیت رانننده یا مسافر رو مشخص کنه
+    """
+    serializer_class = UserStatusSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def patch(self, request):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+
+        # user
+        user = User.objects.filter(is_active=True, id=request.user.id).only("phone", "is_driver", "is_passenger").first()
+
+        # update status
+        update_fields = []
+        for field in ['is_driver', 'is_passenger']:
+            if field in serializer.validated_data:
+                setattr(user, field, serializer.validated_data[field])
+                update_fields.append(field)
+
+        if update_fields:
+            user.save(update_fields=update_fields)
+
+        return response(
+            success=True,
+            error=False,
+            result=serializer.validated_data
+        )

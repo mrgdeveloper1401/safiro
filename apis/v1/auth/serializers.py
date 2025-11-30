@@ -203,3 +203,8 @@ class VerifyRequestVerifiedPhoneSerializer(AdrfSerializer):
         )
     )
     code = serializers.CharField()
+
+
+class UserStatusSerializer(serializers.Serializer):
+    is_driver = serializers.BooleanField(required=False)
+    is_passenger = serializers.BooleanField(required=False)
