@@ -184,7 +184,7 @@ class RequestLog(ModifyMixin, ActiveMixin):
             PhoneNumberValidator(),
         )
     )
-    ip_address = models.GenericIPAddressField(_("ای اپی کاربر"), null=True) # TODO, when clean migration remove attribute null
+    ip_address = models.GenericIPAddressField(_("ای اپی کاربر"))
     user_agent = models.TextField(_("شناسه مرورگر"), null=True, blank=True)
     BEHAVIOR_TYPES = (
         ('multiple_failed_attempts', _("تلاش‌های ناموفق متعدد")),
@@ -198,8 +198,7 @@ class RequestLog(ModifyMixin, ActiveMixin):
     behavior_type = models.CharField(
         _("نوع رفتار مشکوک"),
         max_length=50,
-        choices=BEHAVIOR_TYPES,
-        null=True # TODO, when clean migration remove attribute null
+        choices=BEHAVIOR_TYPES
     )
 
     class Meta:
