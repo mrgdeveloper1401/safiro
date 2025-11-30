@@ -427,7 +427,7 @@ class ResetPasswordView(APIView):
         )
 
 
-class RequestLogVerifyPhoneView(AsyncAPIView):
+class get_client_ip(AsyncAPIView):
     """
     درخواست تایید شماره همراه
     """
@@ -438,7 +438,7 @@ class RequestLogVerifyPhoneView(AsyncAPIView):
         serializer.is_valid(raise_exception=True)
 
         phone = serializer.validated_data["phone"]
-        ip = request.META.get("REMOTE_ADDR", "X_FORWARDED_FOR")
+        ip = get_client_ip(request)
 
         # save log
         user_agent = request.META.get("HTTP_USER_AGENT", "")
@@ -501,7 +501,7 @@ class VerifyRequestVerifiedPhoneView(AsyncAPIView):
         if get_redis_key is None:
             return response(
                 success=False,
-                result={"redis_key": redis_key},
+                result={},
                 error="کد اشتباه هست یا منقضی شده هست",
                 status_code=404
             )
