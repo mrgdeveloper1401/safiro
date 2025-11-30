@@ -501,7 +501,7 @@ class VerifyRequestVerifiedPhoneView(AsyncAPIView):
         if get_redis_key is None:
             return response(
                 success=False,
-                result={"redis_key": redis_key},
+                result={},
                 error="کد اشتباه هست یا منقضی شده هست",
                 status_code=404
             )
