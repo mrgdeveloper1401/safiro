@@ -180,7 +180,8 @@ class DriverAdmin(admin.ModelAdmin):
             "license_number",
             "nation_code",
             "verification_status",
-            "father_name"
+            "father_name",
+            "note"
         )
 
     def verification_status_colored(self, obj):

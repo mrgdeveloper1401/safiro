@@ -128,6 +128,7 @@ class Driver(ModifyMixin, ActiveMixin):
         choices=VerificationStatus.choices,
         default=VerificationStatus.SUBMITTED,
     )
+    note = models.TextField(_("یادداشت"), blank=True, null=True)
 
     class Meta:
         db_table = 'auth_driver_profile'

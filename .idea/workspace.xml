@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add api update_user_status">
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add: required field nation_code, license_number">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/v1/auth/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/utils/custom_exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/utils/custom_exceptions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auth_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/signals.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,38 +116,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
-    </task>
-    <task id="LOCAL-00046" summary="edit path gunicorn conf">
-      <option name="closed" value="true" />
-      <created>1763032710587</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1763032710587</updated>
-    </task>
-    <task id="LOCAL-00047" summary="edit upstream">
-      <option name="closed" value="true" />
-      <created>1763032828274</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1763032828274</updated>
-    </task>
-    <task id="LOCAL-00048" summary="remove config ssl_dhparam ssl_dhparam">
-      <option name="closed" value="true" />
-      <created>1763032953831</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1763032953831</updated>
-    </task>
-    <task id="LOCAL-00049" summary="edit ssl_certificate and ssl_certificate_key">
-      <option name="closed" value="true" />
-      <created>1763033023634</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1763033023634</updated>
     </task>
     <task id="LOCAL-00050" summary="add config ssl_session into nginx.conf">
       <option name="closed" value="true" />
@@ -508,14 +477,42 @@
       <option name="project" value="LOCAL" />
       <updated>1764536598640</updated>
     </task>
-    <option name="localTasksCounter" value="95" />
+    <task id="LOCAL-00095" summary="add: field is_active">
+      <option name="closed" value="true" />
+      <created>1764577375550</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1764577375550</updated>
+    </task>
+    <task id="LOCAL-00096" summary="update response driver">
+      <option name="closed" value="true" />
+      <created>1764579410990</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1764579410990</updated>
+    </task>
+    <task id="LOCAL-00097" summary="remove: status code in view DriverView">
+      <option name="closed" value="true" />
+      <created>1764579740783</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1764579740783</updated>
+    </task>
+    <task id="LOCAL-00098" summary="add: required field nation_code, license_number">
+      <option name="closed" value="true" />
+      <created>1764580236279</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1764580236279</updated>
+    </task>
+    <option name="localTasksCounter" value="99" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="dont show access_log in static-nginx and gunicorn.conf.py" />
-    <MESSAGE value="add home_page template" />
-    <MESSAGE value="edit index.html" />
-    <MESSAGE value="edit log in gunicorn.conf.py" />
     <MESSAGE value="edit worker_processes" />
     <MESSAGE value="edit address in footer" />
     <MESSAGE value="add verbose in model" />
@@ -537,6 +534,10 @@
     <MESSAGE value="update view forget_password" />
     <MESSAGE value="add pagination in notification" />
     <MESSAGE value="add api update_user_status" />
-    <option name="LAST_COMMIT_MESSAGE" value="add api update_user_status" />
+    <MESSAGE value="add: field is_active" />
+    <MESSAGE value="update response driver" />
+    <MESSAGE value="remove: status code in view DriverView" />
+    <MESSAGE value="add: required field nation_code, license_number" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: required field nation_code, license_number" />
   </component>
 </project>

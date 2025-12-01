@@ -63,13 +63,15 @@ class DriverSerializer(serializers.ModelSerializer):
             "nation_code",
             "father_name",
             "license_number",
-            "verification_status"
+            "verification_status",
+            "note"
         )
         extra_kwargs = {
             "verification_status": {"read_only": True},
             "is_active": {"read_only": True},
             "nation_code": {"required": True},
-            "license_number": {"required": True}
+            "license_number": {"required": True},
+            "note": {"read_only": True},
         }
 
     def validate_image(self, data):
