@@ -71,3 +71,9 @@ class DriverAlreadyExistsException(APIException):
     status_code = 400
     default_detail = "شما قبلا پروفایل راننده ایجاد کرده‌اید"
     default_code = 18
+
+
+class NotActiveAccount(APIException):
+    status_code = 403
+    default_code = 19
+    default_detail = "حساب شما مسدود میباشد برای پیگیری با واحد پشتیبانی تماس بگیرید"

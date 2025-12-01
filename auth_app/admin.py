@@ -124,6 +124,7 @@ class PassengerAdmin(admin.ModelAdmin):
     # autocomplete_fields = ('user', 'image')
     raw_id_fields = ("image", "user")
     list_display_links = ("id", "user_id", "get_user_phone")
+    list_editable = ("is_active",)
 
     def get_user_phone(self, obj):
         return obj.user.phone
@@ -154,6 +155,7 @@ class DriverAdmin(admin.ModelAdmin):
         "created_at",
     )
     list_filter = ("verification_status", "is_active")
+    list_editable = ("is_active",)
     search_fields = ("nation_code", "license_number")
     search_help_text = _("برای جست و جو میتوانید از شماره ملی کاربر استفاده کنید")
     inlines = (DriverDocumentInline,)

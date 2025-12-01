@@ -9,6 +9,7 @@ from django.core.cache import cache
 from rest_framework import status, mixins, viewsets
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.status import HTTP_204_NO_CONTENT
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from pytz import timezone as pytz_timezone
@@ -29,7 +30,7 @@ from apis.v1.auth.serializers import (
     VerifyRequestVerifiedPhoneSerializer, UserStatusSerializer
 )
 from apis.v1.utils.custom_exceptions import UserExistsException, PasswordNotMathException, AccountIsVerified
-from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, NotAuthenticated
+from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, NotAuthenticated, IsActiveAccount
 from apis.v1.utils.custom_response import response
 from apis.v1.utils.custome_throttle import OtpRateThrottle
 from apis.v1.utils.get_ip import get_client_ip
@@ -379,12 +380,18 @@ class UploadImageView(APIView):
         return response(success=True, result=serializer.data, error=False, status_code=status.HTTP_201_CREATED)
 
 
-class DriverView(viewsets.ModelViewSet):
+class DriverView(
+    viewsets.GenericViewSet,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.CreateModelMixin
+):
     """
     ثبت نام راننده و مشاهده اطلاعات ثبت نامی
     """
     serializer_class = DriverSerializer
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsActiveAccount,)
 
     def get_queryset(self):
         return Driver.objects.filter(
@@ -400,6 +407,21 @@ class DriverView(viewsets.ModelViewSet):
             "verification_status",
             "image__image"
         )
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        if not queryset.exists():
+            result = {
+                "message": "شما حساب راننده رو ندارید اگه تمایل به فعال سازی میتوانید ان را درخواست بدید"
+            }
+            return response(
+                success=True,
+                error=False,
+                result=result,
+                status_code=HTTP_204_NO_CONTENT
+            )
+        serializer = self.get_serializer(queryset, many=True)
+        return response(success=True, error=False, result=serializer.data)
 
 
 class DriverDocView(viewsets.ModelViewSet):

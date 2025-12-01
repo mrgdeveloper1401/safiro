@@ -17,7 +17,7 @@ class ModifyMixin(models.Model):
 
 
 class ActiveMixin(models.Model):
-    is_active = models.BooleanField(_("حذف"), default=True)
+    is_active = models.BooleanField(_("فعال"), default=True)
 
     class Meta:
         abstract = True
@@ -30,7 +30,7 @@ class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid_7_timestamp, editable=False, verbose_name=_("کلید اصلی"))
     phone = models.CharField(_("شماره تلفن"), max_length=15, unique=True)
     is_verify_phone = models.BooleanField(_("شماره تایید شده!"), default=False)
-    is_passenger = models.BooleanField(_("ایا مسافر هست!"), default=False)
+    is_passenger = models.BooleanField(_("ایا مسافر هست!"), default=True, db_default=True)
     is_driver = models.BooleanField(_("ایا راننده هست!"), default=False)
     email = models.EmailField(_("ایمیل"), blank=True, null=True)
     first_name = None
