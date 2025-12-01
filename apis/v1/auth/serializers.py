@@ -105,8 +105,11 @@ class DriverSerializer(serializers.ModelSerializer):
                 raise LicenseNumberAlreadyExistsException()
 
     def to_representation(self, instance):
+        request = self.context['request']
         data = super().to_representation(instance)
         data['image'] = instance.image.get_image_url if instance.image else None
+        if request.method in ("PUT", "PATCH"):
+            data.pop("note", None)
         return data
 
 

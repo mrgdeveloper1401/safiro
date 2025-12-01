@@ -9,10 +9,3 @@ def create_passenger_or_driver(sender, instance, created, **kwargs):
         passenger, _ = Passenger.objects.get_or_create(user=instance)
     if instance.is_driver:
         driver, _ = Driver.objects.get_or_create(user=instance)
-
-#
-# @receiver(post_save, sender=Driver)
-# def update_verification_status(sender, instance, **kwargs):
-#     if instance.verification_status in ("approved", "rejected"):
-#         instance.verification_status = "submitted"
-#         instance.save()
