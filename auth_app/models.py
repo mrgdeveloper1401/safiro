@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 
@@ -70,7 +71,7 @@ class Image(ModifyMixin, ActiveMixin):
 
     @property
     def get_image_url(self):
-        return self.image.url
+        return self.image.url if self.image else None
 
 
 class Passenger(ModifyMixin, ActiveMixin):
@@ -118,9 +119,9 @@ class Driver(ModifyMixin, ActiveMixin):
         blank=True,
         null=True
     )
-    nation_code = models.CharField(_("کد ملی"), max_length=10, blank=True, unique=True)
+    nation_code = models.CharField(_("کد ملی"), max_length=10, null=True, unique=True)
     father_name = models.CharField(_("نام پدر"), max_length=50, blank=True)
-    license_number = models.CharField(_("شماره پلاک"), max_length=20, blank=True, unique=True)
+    license_number = models.CharField(_("شماره پلاک"), max_length=20, null=True, unique=True)
     verification_status = models.CharField(
         _("تایید پروفایل"),
         max_length=10,

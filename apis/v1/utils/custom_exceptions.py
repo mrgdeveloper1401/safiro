@@ -53,3 +53,21 @@ class AccountIsVerified(APIException):
     status_code = 400
     default_detail = "حساب شما قبلا تایید شده هست "
     default_code = 15
+
+
+class NationCodeAlreadyExistsException(APIException):
+    status_code = 400
+    default_detail = "کد ملی تکراری میباشد"
+    default_code = 16
+
+
+class LicenseNumberAlreadyExistsException(APIException):
+    status_code = 400
+    default_detail = "شماره پلاک تکراری میباشد"
+    default_code = 17
+
+
+class DriverAlreadyExistsException(APIException):
+    status_code = 400
+    default_detail = "شما قبلا پروفایل راننده ایجاد کرده‌اید"
+    default_code = 18

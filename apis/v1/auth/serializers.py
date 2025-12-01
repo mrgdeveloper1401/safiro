@@ -1,8 +1,11 @@
 from adrf.serializers import Serializer as AdrfSerializer
+from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.exceptions import NotFound
 
-from apis.v1.utils.custom_exceptions import PasswordNotMathException, OldPasswordNotMathException
+from apis.v1.utils.custom_exceptions import PasswordNotMathException, OldPasswordNotMathException, \
+    NationCodeAlreadyExistsException, LicenseNumberAlreadyExistsException, DriverAlreadyExistsException
+from apis.v1.utils.custom_response import response
 from auth_app.models import UserNotification, Driver, Image, DriverDocument, User
 from auth_app.validators import PhoneNumberValidator
 
@@ -73,12 +76,31 @@ class DriverSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
-        user_id = self.context['request'].user.id
-        return Driver.objects.create(user_id=user_id, **validated_data)
+        try:
+            user_id = self.context['request'].user.id
+            return Driver.objects.create(user_id=user_id, **validated_data)
+        except IntegrityError as e:
+            error_ms = str(e)
+            if "nation_code" in error_ms:
+                raise NationCodeAlreadyExistsException()
+            if "license_number" in error_ms:
+                raise LicenseNumberAlreadyExistsException()
+            if "profile_user_id" in error_ms:
+                raise DriverAlreadyExistsException()
+
+    def update(self, instance, validated_data):
+        try:
+            return super().update(instance, validated_data)
+        except IntegrityError as e:
+            error_ms = str(e)
+            if "nation_code" in error_ms:
+                raise NationCodeAlreadyExistsException()
+            if "license_number" in error_ms:
+                raise LicenseNumberAlreadyExistsException()
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['image'] = str(instance.image.get_image_url)
+        data['image'] = instance.image.get_image_url if instance.image else None
         return data
 
 

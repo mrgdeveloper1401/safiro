@@ -4,19 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="update view forget_password">
+    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add api update_user_status">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/driver/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/driver/serializers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/driver/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/driver/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/passenger/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/passenger/serializers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/passenger/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/passenger/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/auth/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/utils/custom_exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/utils/custom_exceptions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auth_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/utils/send_sms.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/utils/send_sms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,22 +115,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762529573380</updated>
-    </task>
-    <task id="LOCAL-00044" summary="add enviroment into service db">
-      <option name="closed" value="true" />
-      <created>1763032179902</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1763032179902</updated>
-    </task>
-    <task id="LOCAL-00045" summary="edit order">
-      <option name="closed" value="true" />
-      <created>1763032602325</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1763032602325</updated>
     </task>
     <task id="LOCAL-00046" summary="edit path gunicorn conf">
       <option name="closed" value="true" />
@@ -515,12 +492,26 @@
       <option name="project" value="LOCAL" />
       <updated>1764531877745</updated>
     </task>
-    <option name="localTasksCounter" value="93" />
+    <task id="LOCAL-00093" summary="add pagination in notification">
+      <option name="closed" value="true" />
+      <created>1764534140511</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1764534140511</updated>
+    </task>
+    <task id="LOCAL-00094" summary="add api update_user_status">
+      <option name="closed" value="true" />
+      <created>1764536598640</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1764536598640</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add base nginx Dockerfile" />
-    <MESSAGE value="better query in admin django" />
     <MESSAGE value="dont show access_log in static-nginx and gunicorn.conf.py" />
     <MESSAGE value="add home_page template" />
     <MESSAGE value="edit index.html" />
@@ -544,6 +535,8 @@
     <MESSAGE value="remove: redis_key in view VerifyRequestVerifiedPhoneView" />
     <MESSAGE value="update view request and verify phone" />
     <MESSAGE value="update view forget_password" />
-    <option name="LAST_COMMIT_MESSAGE" value="update view forget_password" />
+    <MESSAGE value="add pagination in notification" />
+    <MESSAGE value="add api update_user_status" />
+    <option name="LAST_COMMIT_MESSAGE" value="add api update_user_status" />
   </component>
 </project>
