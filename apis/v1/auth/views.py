@@ -9,7 +9,7 @@ from django.core.cache import cache
 from rest_framework import status, mixins, viewsets
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.status import HTTP_204_NO_CONTENT
+from rest_framework.status import HTTP_202_ACCEPTED
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from pytz import timezone as pytz_timezone
@@ -418,7 +418,7 @@ class DriverView(
                 success=True,
                 error=False,
                 result=result,
-                status_code=HTTP_204_NO_CONTENT
+                status_code=HTTP_202_ACCEPTED
             )
         serializer = self.get_serializer(queryset, many=True)
         return response(success=True, error=False, result=serializer.data)
