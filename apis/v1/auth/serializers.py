@@ -56,6 +56,7 @@ class DriverSerializer(serializers.ModelSerializer):
         model = Driver
         fields = (
             "id",
+            'is_active',
             "first_name",
             "last_name",
             "image",
@@ -66,6 +67,7 @@ class DriverSerializer(serializers.ModelSerializer):
         )
         extra_kwargs = {
             "verification_status": {"read_only": True},
+            "is_active": {"read_only": True},
         }
 
     def validate_image(self, data):

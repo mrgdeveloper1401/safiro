@@ -388,10 +388,11 @@ class DriverView(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Driver.objects.filter(
-            user_id=self.request.user.id
+            user_id=self.request.user.id,
         ).select_related("image").only(
             "first_name",
             "last_name",
+            "is_active",
             "image",
             "nation_code",
             "father_name",
