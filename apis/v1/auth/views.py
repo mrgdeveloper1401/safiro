@@ -431,6 +431,7 @@ class DriverView(
             raise PermissionDenied("لطفا تا مشخص شدن وضعیت ارسال صبر کنید")
         else:
             instance.verification_status = "submitted"
+            instance.note = None
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
