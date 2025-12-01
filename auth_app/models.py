@@ -138,7 +138,6 @@ class DriverDocument(ModifyMixin, ActiveMixin):
     """
     مدارک راننده
     """
-    id = models.UUIDField(primary_key=True, default=uuid_7_timestamp, editable=False)
     profile = models.ForeignKey(
         verbose_name=_("راننده"),
         on_delete=models.PROTECT,
@@ -150,8 +149,7 @@ class DriverDocument(ModifyMixin, ActiveMixin):
         verbose_name=_("عکس"),
         on_delete=models.PROTECT,
         related_name="image_driver_docs",
-        to="Image",
-        null=True, # TODO, when clean migration remove these field
+        to="Image"
     )
     is_verified = models.BooleanField(_("تایید شده!"), default=False)
     verifier_note = models.TextField(_("یادداشت"), blank=True, null=True)

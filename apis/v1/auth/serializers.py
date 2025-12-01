@@ -151,8 +151,8 @@ class DriverDocSerializer(serializers.ModelSerializer):
             is_active=True,
             id=data.id,
             created_by_id=user_id
-        ).order_by("id")
-        if not img.exists():
+        ).exists()
+        if not img:
             raise NotFound("عکس مربوطه پیدا نشد")
         return data
 
@@ -163,8 +163,9 @@ class DriverDocSerializer(serializers.ModelSerializer):
         if not driver_profile.exists():
             raise NotFound("راننده پیدا نشد")
         # create driver doc
+        driver_profile = driver_profile.first()
         return DriverDocument.objects.create(
-            profile_id=driver_profile.first().id,
+            profile_id=driver_profile.id,
             **validated_data
         )
 

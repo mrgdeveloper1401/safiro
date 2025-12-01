@@ -445,6 +445,15 @@ class DriverView(
 
 
 class DriverDocView(viewsets.ModelViewSet):
+    """
+    مدارک ارسالی \n
+    'id_front', _('جلوی کارت شناسایی')
+    'id_back', _('پشت کارت شناسایی')
+    'car_front', _('جلوی خودرو')
+    'car_back', _('پشت خودرو')
+    'insurance', _('بیمه')
+    'identity_verif', _('تایید هویت')
+    """
     serializer_class = DriverDocSerializer
     permission_classes = (IsAuthenticated,)
 
