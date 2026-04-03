@@ -28,7 +28,8 @@ from apis.v1.auth.serializers import (
     SignUpByPhoneSerializer,
     ResetPasswordSerializer,
     VerifyRequestVerifiedPhoneSerializer,
-    UserStatusSerializer
+    UserStatusSerializer,
+    PassengerSerializer,
 )
 from apis.v1.utils.custom_exceptions import UserExistsException, PasswordNotMathException, AccountIsVerified, \
     NotActiveAccount
@@ -37,7 +38,7 @@ from apis.v1.utils.custom_response import response
 from apis.v1.utils.custome_throttle import OtpRateThrottle
 from apis.v1.utils.get_ip import get_client_ip
 from apis.v1.utils.paginations import CustomPagination
-from apps.auth_app.models import User, UserNotification, Driver, DriverDocument
+from apps.auth_app.models import User, UserNotification, Driver, DriverDocument, Passenger
 from base.settings import SIMPLE_JWT
 from apps.auth_app.tasks import send_otp_sms_celery
 from base.utils.generate import generate_otp, generate_token
@@ -480,6 +481,7 @@ class ResetPasswordView(APIView):
 
 class UserTypeView(APIView):
     permission_classes = (IsAuthenticated,)
+    serializer_class = UserStatusSerializer
 
     def get(self, request):
         data = {
@@ -492,6 +494,35 @@ class UserTypeView(APIView):
             error=False,
             status_code=200
         )
+
+
+class PassengerViewSet(
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
+    serializer_class = PassengerSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        fields = (
+            "user__username",
+            "user__first_name",
+            "user__last_name",
+            "user__phone",
+            "user__is_verify_phone",
+            "user__email",
+            "image__image",
+            "created_at",
+            "updated_at",
+        )
+        return Passenger.objects.filter(
+            user_id=self.request.user.id
+        ).select_related(
+            "user",
+            "image"
+        ).only(*fields)
 
 
 # class RequestLogVerifyPhoneView(AsyncAPIView):

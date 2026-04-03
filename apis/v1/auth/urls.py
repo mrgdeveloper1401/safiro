@@ -14,7 +14,8 @@ from .views import (
     ResetPasswordView,
     VerifyRequestVerifiedPhoneView,
     UpdateUserStatusView,
-    UserTypeView
+    UserTypeView,
+    PassengerViewSet
 )
 
 app_name = "v1_auth"
@@ -23,6 +24,7 @@ router = SimpleRouter()
 router.register("user_notification", UserNotificationView, basename="user_notification")
 router.register("driver", DriverView, basename="driver")
 router.register("driver_doc", DriverDocView, basename="driver_doc")
+router.register("passenger", PassengerViewSet, basename="passenger")
 
 urlpatterns = [
     path("request_otp_phone/", RequestOtpView.as_view(), name="request_otp_phone"),
@@ -36,5 +38,5 @@ urlpatterns = [
     # path("verify_verify_phone/", VerifyRequestVerifiedPhoneView.as_view(), name='verify_verify_phone'),
     # path("update_user_status/", UpdateUserStatusView.as_view(), name="update_user_status"),
     # path("reset_password/", ResetPasswordView.as_view(), name="reset_password"),
-    # path("upload_image/", UploadImageView.as_view(), name="upload_image"),
+    path("upload_image/", UploadImageView.as_view(), name="upload_image"),
 ] + router.urls

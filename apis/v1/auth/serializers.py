@@ -10,7 +10,7 @@ from apis.v1.utils.custom_exceptions import (
     LicenseNumberAlreadyExistsException,
     DriverAlreadyExistsException
 )
-from apps.auth_app.models import UserNotification, Driver, Image, DriverDocument, User
+from apps.auth_app.models import UserNotification, Driver, Image, DriverDocument, User, Passenger
 from apps.auth_app.validators import PhoneNumberValidator
 
 
@@ -112,6 +112,35 @@ class DriverSerializer(serializers.ModelSerializer):
         if request.method in ("PUT", "PATCH"):
             data.pop("note", None)
         return data
+
+
+class UserPassengerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "phone",
+            "username",
+            "email",
+            "is_verify_phone",
+            "first_name",
+            "last_name",
+        )
+        extra_kwargs = {
+            "phone": {'read_only': True},
+            "is_verify_phone": {'read_only': True},
+        }
+
+
+class PassengerSerializer(serializers.ModelSerializer):
+    user = UserPassengerSerializer()
+    image = serializers.PrimaryKeyRelatedField(
+        queryset=Image.objects.only("id").filter(is_active=True),
+    )
+
+    class Meta:
+        model = Passenger
+        fields = '__all__'
 
 
 class UploadImageSerializer(serializers.ModelSerializer):
