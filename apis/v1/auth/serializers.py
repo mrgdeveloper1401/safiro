@@ -3,19 +3,23 @@ from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.exceptions import NotFound
 
-from apis.v1.utils.custom_exceptions import PasswordNotMathException, OldPasswordNotMathException, \
-    NationCodeAlreadyExistsException, LicenseNumberAlreadyExistsException, DriverAlreadyExistsException
-from apis.v1.utils.custom_response import response
-from auth_app.models import UserNotification, Driver, Image, DriverDocument, User
-from auth_app.validators import PhoneNumberValidator
+from apis.v1.utils.custom_exceptions import (
+    PasswordNotMathException,
+    OldPasswordNotMathException,
+    NationCodeAlreadyExistsException,
+    LicenseNumberAlreadyExistsException,
+    DriverAlreadyExistsException
+)
+from apps.auth_app.models import UserNotification, Driver, Image, DriverDocument, User
+from apps.auth_app.validators import PhoneNumberValidator
 
 
-class RequestOtpSerializer(AdrfSerializer):
-    mobile_phone = serializers.CharField()
+class RequestOtpSerializer(serializers.Serializer):
+    mobile_phone = serializers.CharField(validators=(PhoneNumberValidator(),))
 
 
-class OtpVerifySerializer(AdrfSerializer):
-    mobile_phone = serializers.CharField()
+class OtpVerifySerializer(serializers.Serializer):
+    mobile_phone = serializers.CharField(validators=(PhoneNumberValidator(),))
     otp = serializers.CharField()
 
 

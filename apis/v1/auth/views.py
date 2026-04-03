@@ -6,6 +6,7 @@ from adrf.views import APIView as AsyncAPIView
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from django.core.cache import cache
+from django.utils import timezone
 from rest_framework import status, mixins, viewsets
 from rest_framework.exceptions import NotFound, PermissionDenied
 from rest_framework.permissions import IsAuthenticated
@@ -26,18 +27,20 @@ from apis.v1.auth.serializers import (
     DriverDocSerializer,
     SignUpByPhoneSerializer,
     ResetPasswordSerializer,
-    RequestLogVerifyPhoneSerializer,
-    VerifyRequestVerifiedPhoneSerializer, UserStatusSerializer
+    VerifyRequestVerifiedPhoneSerializer,
+    UserStatusSerializer
 )
-from apis.v1.utils.custom_exceptions import UserExistsException, PasswordNotMathException, AccountIsVerified
+from apis.v1.utils.custom_exceptions import UserExistsException, PasswordNotMathException, AccountIsVerified, \
+    NotActiveAccount
 from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, NotAuthenticated, IsActiveAccount
 from apis.v1.utils.custom_response import response
 from apis.v1.utils.custome_throttle import OtpRateThrottle
 from apis.v1.utils.get_ip import get_client_ip
 from apis.v1.utils.paginations import CustomPagination
-from auth_app.models import User, UserNotification, Driver, DriverDocument, RequestLog
+from apps.auth_app.models import User, UserNotification, Driver, DriverDocument
 from base.settings import SIMPLE_JWT
-from base.utils.send_sms import send_sms
+from apps.auth_app.tasks import send_otp_sms_celery
+from base.utils.generate import generate_otp
 
 
 class SignUpByPhoneView(AsyncAPIView):
@@ -91,51 +94,61 @@ class SignUpByPhoneView(AsyncAPIView):
             )
 
 
-class RequestOtpView(AsyncAPIView):
+class RequestOtpView(APIView):
     """
     درخواست کد برای ورود به حساب
     """
     serializer_class = RequestOtpSerializer
-    permission_classes = (AsyncRemoveAuthenticationPermissions,)
+    permission_classes = (NotAuthenticated,)
     throttle_classes = (OtpRateThrottle,)
 
-    async def post(self, request):
+    def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         phone = serializer.validated_data["mobile_phone"]
 
-        await User.objects.aget_or_create(phone=phone, is_passenger=True, username=phone)
+        fields = ("is_active", "is_driver", "is_passenger", "is_verify_phone", "phone")
+        user = User.objects.filter(phone=phone).only(*fields).first()
+        if not user:
+            user = User.objects.create_user(username=phone, phone=phone)
+        elif not user.is_active:
+            raise NotActiveAccount()
 
         # generate otp
-        otp_code = random.randint(100000, 999999)
+        otp_code = generate_otp()
         ip = get_client_ip(request)
         cache_key = f"otp_{phone}_{ip}_{otp_code}"
 
-        await cache.aset(cache_key, otp_code, timeout=120)
+        cache.set(cache_key, otp_code, timeout=120)
 
         # send sms
-        await send_sms(phone, str(otp_code))
+        # send_otp_sms_celery.delay(phone, str(otp_code))
 
         return response(
             success=True,
             result={
                 "mobile": phone,
-                "exp_time": int(time.time() + 120)
+                "is_passenger": user.is_passenger,
+                "is_driver": user.is_driver,
+                "is_verify_phone": user.is_verify_phone,
+                "is_active": user.is_active,
+                "exp_time": int(time.time() + 120),
+                "exp_datetime": timezone.now() + datetime.timedelta(minutes=2)
             },
             error=False,
             status_code=status.HTTP_200_OK
         )
 
 
-class OtpVerifyView(AsyncAPIView):
+class OtpVerifyView(APIView):
     """
     اعتبار سنجی کد برای ورود به حساب کاربری
     """
     serializer_class = OtpVerifySerializer
-    permission_classes = (AsyncRemoveAuthenticationPermissions,)
+    permission_classes = (NotAuthenticated,)
 
-    async def post(self, request):
+    def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -145,7 +158,7 @@ class OtpVerifyView(AsyncAPIView):
         # get in redis
         get_ip = get_client_ip(request)
         redis_key = f'otp_{phone}_{get_ip}_{otp}'
-        get_redis_key = await cache.aget(redis_key)
+        get_redis_key = cache.get(redis_key)
         if get_redis_key is None:
             return response(
                 success=False,
@@ -154,28 +167,24 @@ class OtpVerifyView(AsyncAPIView):
                 status_code=404
             )
         else:
-            user = await User.objects.filter(phone=phone).only(
+            user = User.objects.filter(phone=phone).only(
                 "phone",
                 "is_active",
-                "is_staff",
                 "is_verify_phone",
-                "is_passenger"
-            ).afirst()
-            if user.is_active is False:
-                return response(
-                    success=False,
-                    result={},
-                    error="حساب کاربری شما مسدود هست",
-                    status_code=404
-                )
+                "is_passenger",
+                "is_driver"
+            ).first()
+            if not user.is_active:
+                raise NotActiveAccount()
             else:
+                user.is_verify_phone = True
+                user.save()
                 token = RefreshToken.for_user(user)
                 iran_timezone = pytz_timezone("Asia/Tehran")
                 expire_timestamp = int(time.time()) + SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].seconds
                 expire_date = datetime.datetime.fromtimestamp(expire_timestamp, tz=iran_timezone)
                 data = {
                     "mobile": phone,
-                    "is_staff": user.is_staff,
                     "is_verify_phone": user.is_verify_phone,
                     "is_passenger": user.is_passenger,
                     "access_token": str(token.access_token),
@@ -184,8 +193,7 @@ class OtpVerifyView(AsyncAPIView):
                     "expire_timestamp_access_token": expire_timestamp,
                     "expire_date_access_token": expire_date
                 }
-                await cache.adelete(redis_key)
-                await User.objects.filter(phone=phone).aupdate(is_verify_phone=True) # update is_verify_phone user
+                cache.delete(redis_key)
                 return response(
                     success=True,
                     result=data,
@@ -264,7 +272,7 @@ class RequestForgetPasswordView(AsyncAPIView):
             await cache.aset(cache_key, otp_code, timeout=120)
 
             # send sms
-            await send_sms(phone, str(otp_code))
+            # await send_sms(phone, str(otp_code))
             return response(
                 success=True,
                 result={
@@ -490,56 +498,56 @@ class ResetPasswordView(APIView):
         )
 
 
-class RequestLogVerifyPhoneView(AsyncAPIView):
-    """
-    درخواست تایید شماره همراه
-    """
-    serializer_class = RequestLogVerifyPhoneSerializer
-
-    async def post(self, request):
-        serializer = self.serializer_class(data=request.data, context={'request': request})
-        serializer.is_valid(raise_exception=True)
-
-        phone = serializer.validated_data["phone"]
-        ip = get_client_ip(request)
-
-        # save log
-        user_agent = request.META.get("HTTP_USER_AGENT", "")
-        await RequestLog.objects.acreate(phone=phone, ip_address=ip, user_agent=user_agent)
-
-        # check
-        user = await User.objects.filter(
-            phone=phone,
-            is_active=True
-        ).only("is_verify_phone").afirst()
-        # check user dose exists
-        if not user:
-            raise NotFound("حساب کاربری با این شماره وجود ندارد")
-        else:
-            # check user is verified?
-            if user.is_verify_phone:
-                raise AccountIsVerified()
-            else:
-                # generate otp
-                otp_code = random.randint(100000, 999999)
-                cache_key = f"otp_{phone}_{ip}_{otp_code}"
-
-                # set in redis
-                await cache.aset(cache_key, otp_code, timeout=120)
-
-                # send sms
-                await send_sms(phone, str(otp_code))
-
-                return response(
-                    success=True,
-                    result={
-                        "mobile": phone,
-                        "exp_time": int(time.time() + 120),
-                        "message": "کد تایید برای شما ارسال شد"
-                    },
-                    error=False,
-                    status_code=status.HTTP_200_OK
-                )
+# class RequestLogVerifyPhoneView(AsyncAPIView):
+#     """
+#     درخواست تایید شماره همراه
+#     """
+#     serializer_class = RequestLogVerifyPhoneSerializer
+#
+#     async def post(self, request):
+#         serializer = self.serializer_class(data=request.data, context={'request': request})
+#         serializer.is_valid(raise_exception=True)
+#
+#         phone = serializer.validated_data["phone"]
+#         ip = get_client_ip(request)
+#
+#         # save log
+#         user_agent = request.META.get("HTTP_USER_AGENT", "")
+#         await RequestLog.objects.acreate(phone=phone, ip_address=ip, user_agent=user_agent)
+#
+#         # check
+#         user = await User.objects.filter(
+#             phone=phone,
+#             is_active=True
+#         ).only("is_verify_phone").afirst()
+#         # check user dose exists
+#         if not user:
+#             raise NotFound("حساب کاربری با این شماره وجود ندارد")
+#         else:
+#             # check user is verified?
+#             if user.is_verify_phone:
+#                 raise AccountIsVerified()
+#             else:
+#                 # generate otp
+#                 otp_code = random.randint(100000, 999999)
+#                 cache_key = f"otp_{phone}_{ip}_{otp_code}"
+#
+#                 # set in redis
+#                 await cache.aset(cache_key, otp_code, timeout=120)
+#
+#                 # send sms
+#                 await send_sms(phone, str(otp_code))
+#
+#                 return response(
+#                     success=True,
+#                     result={
+#                         "mobile": phone,
+#                         "exp_time": int(time.time() + 120),
+#                         "message": "کد تایید برای شما ارسال شد"
+#                     },
+#                     error=False,
+#                     status_code=status.HTTP_200_OK
+#                 )
 
 
 class VerifyRequestVerifiedPhoneView(AsyncAPIView):

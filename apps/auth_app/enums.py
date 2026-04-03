@@ -45,7 +45,8 @@ class VerificationStatus(models.TextChoices):
 class DocumentType(models.TextChoices):
     ID_FRONT = 'id_front', _('جلوی کارت شناسایی')
     ID_BACK = 'id_back', _('پشت کارت شناسایی')
-    CAR_FRONT = 'car_front', _('جلوی خودرو')
-    CAR_BACK = 'car_back', _('پشت خودرو')
+    CAR_FRONT = 'car_front', _('جلوی کارت خودرو')
+    CAR_BACK = 'car_back', _('پشت کارت خودرو')
     INSURANCE = 'insurance', _('بیمه')
-    IDENTITY_VERIF = 'identity_verif', _('تایید هویت')
+    IDENTITY_VERIFY = 'identity_verify', _('تایید هویت')
+    FUEL_CARD = "fuel_card", _("کارت سوخت",)

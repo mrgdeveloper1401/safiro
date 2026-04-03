@@ -4,15 +4,14 @@ from rest_framework.exceptions import ValidationError
 from apis.v1.utils.custom_exceptions import (
     TimeOutException,
     ConnectionErrorException,
-    NetworkErrorException,
-    HttpStatusException
+    NetworkErrorException
 )
 
 
 def request_error(func):
-    async def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs):
         try:
-            return await func(*args, **kwargs)
+            return func(*args, **kwargs)
         except httpx.TimeoutException:
             raise TimeOutException()
         except httpx.ConnectError:

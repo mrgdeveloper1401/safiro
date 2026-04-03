@@ -9,7 +9,7 @@ KV_PATTERN_NAME_SEND_OTP = config("KV_PATTERN_NAME_SEND_OTP", cast=str, default=
 SEND_SMS_LOOKUP_URL = BASE_URL + API_KEY + '/verify/lookup.json'
 
 @request_error
-async def send_sms(phone: str, code: str):
+def send_sms(phone: str, code: str):
     headers = {
         "Content-Type": "application/json"
     }
@@ -18,14 +18,13 @@ async def send_sms(phone: str, code: str):
         "token": code,
         "template": KV_PATTERN_NAME_SEND_OTP,
     }
-    async with httpx.AsyncClient() as client:
-        response = await client.post(
-            url=SEND_SMS_LOOKUP_URL,
-            params=params,
-            timeout=10,
-            headers=headers,
-        )
-        return response.json()
+    response = httpx.post(
+        url=SEND_SMS_LOOKUP_URL,
+        params=params,
+        timeout=10,
+        headers=headers,
+    )
+    return response.json()
 
 
 # async def main():

@@ -4,13 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="add: required field nation_code, license_number">
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="clean migration and edit field pk in model DriverDoc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/v1/auth/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/auth/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/v1/auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/signals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/enums.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/enums.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/signals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/validators.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/validators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/asgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/utils/custom_exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/utils/custom_exceptions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/utils/send_sms.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/utils/send_sms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/gunicorn.conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/gunicorn.conf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +36,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Dockerfile" />
-        <option value="HTML File" />
         <option value="Python Script" />
       </list>
     </option>
@@ -42,39 +56,31 @@
   }
 }</component>
   <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 1
 }</component>
-  <component name="ProjectId" id="359kFftoQFQyMhzHXOSrmMKk3pM" />
+  <component name="ProjectId" id="39nyphTFlsNZshEAVLINvZiNpa3" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.send_sms.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHELLCHECK.PATH&quot;: &quot;/home/mg/.local/share/JetBrains/PyCharm2025.2/Shell Script/shellcheck&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/mg/Desktop/django-projects/safiro/staticfiles/assets&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.runserver.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/mg/Desktop/django-projects/safiro"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/staticfiles/assets" />
-      <recent name="$PROJECT_DIR$/apis/v1/passenger" />
-      <recent name="$PROJECT_DIR$/apis/v1/driver" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/scripts" />
+      <recent name="$PROJECT_DIR$/apps" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="send_sms" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="runserver" type="PythonConfigurationType" factoryName="Python">
       <module name="safiro" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -83,12 +89,13 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/base/utils" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="SDK_NAME" value="Python 3.13 (safiro)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/base/utils/send_sms.py" />
-      <option name="PARAMETERS" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
+      <option name="PARAMETERS" value="runserver" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -96,11 +103,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.send_sms" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -110,434 +112,26 @@
     </attachedChunks>
   </component>
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="clean migration and edit field pk in model DriverDoc">
+      <option name="closed" value="true" />
+      <created>1764604719521</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1764604719521</updated>
+    </task>
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1ddc014f-0f92-4c97-aaac-3af20b3fa370" name="Changes" comment="" />
-      <created>1762529573380</created>
+      <changelist id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="clean migration and edit field pk in model DriverDoc" />
+      <created>1771346313804</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1762529573380</updated>
+      <updated>1771346313804</updated>
     </task>
-    <task id="LOCAL-00050" summary="add config ssl_session into nginx.conf">
-      <option name="closed" value="true" />
-      <created>1763035240301</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1763035240303</updated>
-    </task>
-    <task id="LOCAL-00051" summary="add gzip into nginx.conf">
-      <option name="closed" value="true" />
-      <created>1763038259221</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1763038259221</updated>
-    </task>
-    <task id="LOCAL-00052" summary="add gzip into nginx.conf">
-      <option name="closed" value="true" />
-      <created>1763038775759</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1763038775759</updated>
-    </task>
-    <task id="LOCAL-00053" summary="add more than format for zip">
-      <option name="closed" value="true" />
-      <created>1763039073881</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1763039073883</updated>
-    </task>
-    <task id="LOCAL-00054" summary="add more than format for zip">
-      <option name="closed" value="true" />
-      <created>1763039253326</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1763039253326</updated>
-    </task>
-    <task id="LOCAL-00055" summary="edit config nginx.conf">
-      <option name="closed" value="true" />
-      <created>1763041495157</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1763041495157</updated>
-    </task>
-    <task id="LOCAL-00056" summary="add pool into redis">
-      <option name="closed" value="true" />
-      <created>1763042383898</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1763042383899</updated>
-    </task>
-    <task id="LOCAL-00057" summary="edit config asgi">
-      <option name="closed" value="true" />
-      <created>1763043514470</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1763043514470</updated>
-    </task>
-    <task id="LOCAL-00058" summary="add REDIS_MAX_CONNECTION">
-      <option name="closed" value="true" />
-      <created>1763051386965</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1763051386966</updated>
-    </task>
-    <task id="LOCAL-00059" summary="new migrations">
-      <option name="closed" value="true" />
-      <created>1763052320154</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1763052320154</updated>
-    </task>
-    <task id="LOCAL-00060" summary="add api signup by phone">
-      <option name="closed" value="true" />
-      <created>1763056145982</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1763056145982</updated>
-    </task>
-    <task id="LOCAL-00061" summary="add api signup by phone">
-      <option name="closed" value="true" />
-      <created>1763056634649</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1763056634650</updated>
-    </task>
-    <task id="LOCAL-00062" summary="add pool into database">
-      <option name="closed" value="true" />
-      <created>1763059122336</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1763059122337</updated>
-    </task>
-    <task id="LOCAL-00063" summary="add base nginx Dockerfile">
-      <option name="closed" value="true" />
-      <created>1763059393877</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1763059393877</updated>
-    </task>
-    <task id="LOCAL-00064" summary="better query in admin django">
-      <option name="closed" value="true" />
-      <created>1763061679265</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1763061679265</updated>
-    </task>
-    <task id="LOCAL-00065" summary="dont show access_log in static-nginx and gunicorn.conf.py">
-      <option name="closed" value="true" />
-      <created>1763063243836</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1763063243836</updated>
-    </task>
-    <task id="LOCAL-00066" summary="dont show access_log in static-nginx and gunicorn.conf.py">
-      <option name="closed" value="true" />
-      <created>1763063486011</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1763063486011</updated>
-    </task>
-    <task id="LOCAL-00067" summary="dont show access_log in static-nginx and gunicorn.conf.py">
-      <option name="closed" value="true" />
-      <created>1763063649477</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1763063649477</updated>
-    </task>
-    <task id="LOCAL-00068" summary="add home_page template">
-      <option name="closed" value="true" />
-      <created>1763218553384</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1763218553385</updated>
-    </task>
-    <task id="LOCAL-00069" summary="edit index.html">
-      <option name="closed" value="true" />
-      <created>1763281323986</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1763281323987</updated>
-    </task>
-    <task id="LOCAL-00070" summary="edit log in gunicorn.conf.py">
-      <option name="closed" value="true" />
-      <created>1763281436080</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1763281436080</updated>
-    </task>
-    <task id="LOCAL-00071" summary="edit worker_processes">
-      <option name="closed" value="true" />
-      <created>1763281483562</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1763281483562</updated>
-    </task>
-    <task id="LOCAL-00072" summary="edit address in footer">
-      <option name="closed" value="true" />
-      <created>1763313693222</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1763313693222</updated>
-    </task>
-    <task id="LOCAL-00073" summary="add verbose in model">
-      <option name="closed" value="true" />
-      <created>1764146168643</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1764146168643</updated>
-    </task>
-    <task id="LOCAL-00074" summary="add verbose in model">
-      <option name="closed" value="true" />
-      <created>1764146275693</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1764146275693</updated>
-    </task>
-    <task id="LOCAL-00075" summary=".">
-      <option name="closed" value="true" />
-      <created>1764146294452</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1764146294452</updated>
-    </task>
-    <task id="LOCAL-00076" summary="edit pk">
-      <option name="closed" value="true" />
-      <created>1764155591266</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1764155591266</updated>
-    </task>
-    <task id="LOCAL-00077" summary="change python-version and edit view signup_phone_password">
-      <option name="closed" value="true" />
-      <created>1764442640887</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1764442640888</updated>
-    </task>
-    <task id="LOCAL-00078" summary="add validator in serializer loginByPhonePassworsd">
-      <option name="closed" value="true" />
-      <created>1764444975711</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1764444975711</updated>
-    </task>
-    <task id="LOCAL-00079" summary="add field image into driver_doc">
-      <option name="closed" value="true" />
-      <created>1764449879465</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1764449879465</updated>
-    </task>
-    <task id="LOCAL-00080" summary="add package uuid-extension">
-      <option name="closed" value="true" />
-      <created>1764450164832</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1764450164832</updated>
-    </task>
-    <task id="LOCAL-00081" summary="add model adn admin PhoneNumberValidator">
-      <option name="closed" value="true" />
-      <created>1764505752567</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1764505752568</updated>
-    </task>
-    <task id="LOCAL-00082" summary="add api request_verify_phone">
-      <option name="closed" value="true" />
-      <created>1764509103470</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1764509103470</updated>
-    </task>
-    <task id="LOCAL-00083" summary="add api verify_verify_phone">
-      <option name="closed" value="true" />
-      <created>1764513625768</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1764513625768</updated>
-    </task>
-    <task id="LOCAL-00084" summary="clean migrations">
-      <option name="closed" value="true" />
-      <created>1764514382024</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1764514382024</updated>
-    </task>
-    <task id="LOCAL-00085" summary="edit ip">
-      <option name="closed" value="true" />
-      <created>1764515333802</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1764515333802</updated>
-    </task>
-    <task id="LOCAL-00086" summary=".">
-      <option name="closed" value="true" />
-      <created>1764515696799</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1764515696799</updated>
-    </task>
-    <task id="LOCAL-00087" summary=".">
-      <option name="closed" value="true" />
-      <created>1764515843446</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1764515843446</updated>
-    </task>
-    <task id="LOCAL-00088" summary="edit get_ip in view get_client_ip">
-      <option name="closed" value="true" />
-      <created>1764516050383</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1764516050384</updated>
-    </task>
-    <task id="LOCAL-00089" summary="bug fix: rename view">
-      <option name="closed" value="true" />
-      <created>1764516304435</created>
-      <option name="number" value="00089" />
-      <option name="presentableId" value="LOCAL-00089" />
-      <option name="project" value="LOCAL" />
-      <updated>1764516304436</updated>
-    </task>
-    <task id="LOCAL-00090" summary="remove: redis_key in view VerifyRequestVerifiedPhoneView">
-      <option name="closed" value="true" />
-      <created>1764516357489</created>
-      <option name="number" value="00090" />
-      <option name="presentableId" value="LOCAL-00090" />
-      <option name="project" value="LOCAL" />
-      <updated>1764516357489</updated>
-    </task>
-    <task id="LOCAL-00091" summary="update view request and verify phone">
-      <option name="closed" value="true" />
-      <created>1764530669965</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1764530669965</updated>
-    </task>
-    <task id="LOCAL-00092" summary="update view forget_password">
-      <option name="closed" value="true" />
-      <created>1764531877745</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1764531877745</updated>
-    </task>
-    <task id="LOCAL-00093" summary="add pagination in notification">
-      <option name="closed" value="true" />
-      <created>1764534140511</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1764534140511</updated>
-    </task>
-    <task id="LOCAL-00094" summary="add api update_user_status">
-      <option name="closed" value="true" />
-      <created>1764536598640</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1764536598640</updated>
-    </task>
-    <task id="LOCAL-00095" summary="add: field is_active">
-      <option name="closed" value="true" />
-      <created>1764577375550</created>
-      <option name="number" value="00095" />
-      <option name="presentableId" value="LOCAL-00095" />
-      <option name="project" value="LOCAL" />
-      <updated>1764577375550</updated>
-    </task>
-    <task id="LOCAL-00096" summary="update response driver">
-      <option name="closed" value="true" />
-      <created>1764579410990</created>
-      <option name="number" value="00096" />
-      <option name="presentableId" value="LOCAL-00096" />
-      <option name="project" value="LOCAL" />
-      <updated>1764579410990</updated>
-    </task>
-    <task id="LOCAL-00097" summary="remove: status code in view DriverView">
-      <option name="closed" value="true" />
-      <created>1764579740783</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1764579740783</updated>
-    </task>
-    <task id="LOCAL-00098" summary="add: required field nation_code, license_number">
-      <option name="closed" value="true" />
-      <created>1764580236279</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1764580236279</updated>
-    </task>
-    <option name="localTasksCounter" value="99" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit worker_processes" />
-    <MESSAGE value="edit address in footer" />
-    <MESSAGE value="add verbose in model" />
-    <MESSAGE value="edit pk" />
-    <MESSAGE value="change python-version and edit view signup_phone_password" />
-    <MESSAGE value="add validator in serializer loginByPhonePassworsd" />
-    <MESSAGE value="add field image into driver_doc" />
-    <MESSAGE value="add package uuid-extension" />
-    <MESSAGE value="add model adn admin PhoneNumberValidator" />
-    <MESSAGE value="add api request_verify_phone" />
-    <MESSAGE value="add api verify_verify_phone" />
-    <MESSAGE value="clean migrations" />
-    <MESSAGE value="edit ip" />
-    <MESSAGE value="." />
-    <MESSAGE value="edit get_ip in view get_client_ip" />
-    <MESSAGE value="bug fix: rename view" />
-    <MESSAGE value="remove: redis_key in view VerifyRequestVerifiedPhoneView" />
-    <MESSAGE value="update view request and verify phone" />
-    <MESSAGE value="update view forget_password" />
-    <MESSAGE value="add pagination in notification" />
-    <MESSAGE value="add api update_user_status" />
-    <MESSAGE value="add: field is_active" />
-    <MESSAGE value="update response driver" />
-    <MESSAGE value="remove: status code in view DriverView" />
-    <MESSAGE value="add: required field nation_code, license_number" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: required field nation_code, license_number" />
+    <MESSAGE value="clean migration and edit field pk in model DriverDoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean migration and edit field pk in model DriverDoc" />
   </component>
 </project>

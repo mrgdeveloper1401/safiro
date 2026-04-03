@@ -4,7 +4,8 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from .enums import VerificationStatus
-from .models import User, Image, Passenger, Driver, UserNotification, DriverDocument, RequestLog
+from .models import User, Passenger, Driver, UserNotification, DriverDocument
+from apps.core_app.models import Image
 
 
 class DriverDocumentInline(admin.TabularInline):
@@ -115,8 +116,7 @@ class ImageAdmin(admin.ModelAdmin):
 
 @admin.register(Passenger)
 class PassengerAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user_id', "get_user_phone", 'first_name', 'last_name', 'is_active', 'created_at')
-    list_filter = ('is_active',)
+    list_display = ('id', 'user_id', "get_user_phone", 'first_name', 'last_name', 'created_at')
     search_fields = ('user__phone',)
     search_help_text = _("برای سرچ میتوانید از شماره تلفن کاربر استفاده کنید")
     readonly_fields = ('created_at', 'updated_at')
@@ -124,17 +124,21 @@ class PassengerAdmin(admin.ModelAdmin):
     # autocomplete_fields = ('user', 'image')
     raw_id_fields = ("image", "user")
     list_display_links = ("id", "user_id", "get_user_phone")
-    list_editable = ("is_active",)
 
     def get_user_phone(self, obj):
         return obj.user.phone
 
+    def first_name(self, obj):
+        return obj.user.first_name
+
+    def last_name(self, obj):
+        return obj.user.last_name
+
     def get_queryset(self, request):
         return super().get_queryset(request).select_related("user").only(
             "user__phone",
-            "first_name",
-            "last_name",
-            "is_active",
+            "user__first_name",
+            "user__last_name",
             "created_at",
             "updated_at",
             "image_id"
@@ -151,30 +155,33 @@ class DriverAdmin(admin.ModelAdmin):
         "nation_code",
         "license_number",
         "verification_status_colored",
-        "is_active",
         "created_at",
     )
-    list_filter = ("verification_status", "is_active")
-    list_editable = ("is_active",)
+    list_filter = ("verification_status",)
     search_fields = ("nation_code", "license_number")
     search_help_text = _("برای جست و جو میتوانید از شماره ملی کاربر استفاده کنید")
     inlines = (DriverDocumentInline,)
     ordering = ("-id",)
     readonly_fields = ("created_at", "updated_at")
     raw_id_fields = ("image", "user")
-    list_display_links = ("id", "first_name", "last_name", "nation_code")
+    list_display_links = ("id", "first_name", "last_name", "nation_code", "user_phone")
 
     def user_phone(self, obj):
         return obj.user.phone
     user_phone.short_description = "شماره تلفن"
 
+    def first_name(self, obj):
+        return obj.user.first_name
+
+    def last_name(self, obj):
+        return obj.user.last_name
+
     def get_queryset(self, request):
         return super().get_queryset(request).select_related("user").only(
-            "first_name",
-            "last_name",
+            "user__first_name",
+            "user__last_name",
             "user__phone",
             "image_id",
-            "is_active",
             "created_at",
             "updated_at",
             "license_number",
@@ -259,10 +266,10 @@ class UserNotificationAdmin(admin.ModelAdmin):
         queryset.update(is_active=True)
 
 
-@admin.register(RequestLog)
-class RequestLogVerifyAdmin(admin.ModelAdmin):
-    list_display = ("phone", "id", "created_at", "updated_at", "is_active", "ip_address", "behavior_type")
-    search_fields = ("phone",)
-    search_help_text = _("برای جست و جو میتوانید از شماره موبایل کاربر استفاده کنید")
-    list_filter = ("created_at", "is_active", "behavior_type")
-    list_per_page = 20
+# @admin.register(RequestLog)
+# class RequestLogVerifyAdmin(admin.ModelAdmin):
+#     list_display = ("phone", "id", "created_at", "updated_at", "is_active", "ip_address", "behavior_type")
+#     search_fields = ("phone",)
+#     search_help_text = _("برای جست و جو میتوانید از شماره موبایل کاربر استفاده کنید")
+#     list_filter = ("created_at", "is_active", "behavior_type")
+#     list_per_page = 20
