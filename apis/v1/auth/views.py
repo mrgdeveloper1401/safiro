@@ -59,7 +59,7 @@ class SignUpByPhoneView(APIView):
         confirm_password = serializer.data.get('confirm_password')
 
         # chek user
-        check_user =  User.objects.only("is_passenger", "is_verify_phone", "is_active", "phone", "is_staff").filter(phone=phone)
+        check_user =  User.objects.only("id").filter(phone=phone)
         if check_user.exists():
             raise UserExistsException()
         else:
@@ -67,23 +67,16 @@ class SignUpByPhoneView(APIView):
             if password != confirm_password:
                 raise PasswordNotMathException()
             # create user
-            User.objects.create_user(username=phone, phone=phone, password=password)
+            create_user = User.objects.create_user(username=phone, phone=phone, password=password)
             # create token
-            get_user =  check_user.first()
-            token = RefreshToken.for_user(get_user)
-            iran_timezone = pytz_timezone("Asia/Tehran")
-            expire_timestamp = int(time.time()) + SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].seconds
-            expire_date = datetime.datetime.fromtimestamp(expire_timestamp, tz=iran_timezone)
+            tk = generate_token(create_user)
             data = {
-                "mobile": get_user.phone,
-                "is_staff": get_user.is_staff,
-                "is_verify_phone": get_user.is_verify_phone,
-                "is_passenger": get_user.is_passenger,
-                "access_token": str(token.access_token),
-                "refresh_token": str(token),
-                "jwt": "Bearer",
-                "expire_timestamp_access_token": expire_timestamp,
-                "expire_date_access_token": expire_date
+                "mobile": create_user.phone,
+                "is_staff": create_user.is_staff,
+                "is_verify_phone": create_user.is_verify_phone,
+                "is_passenger": create_user.is_passenger,
+                "is_driver": create_user.is_driver,
+                "token": tk,
             }
             # return data
             return response(
@@ -357,7 +350,9 @@ class UserNotificationView(mixins.ListModelMixin, mixins.RetrieveModelMixin, vie
     pagination_class = CustomPagination
 
     def get_queryset(self):
-        return UserNotification.objects.filter(user_id=self.request.user.id).only(
+        return UserNotification.objects.filter(
+            user_id=self.request.user.id
+        ).only(
             "title",
             "body",
             "created_at",
@@ -393,9 +388,6 @@ class DriverView(
         return Driver.objects.filter(
             user_id=self.request.user.id,
         ).select_related("image").only(
-            "first_name",
-            "last_name",
-            "is_active",
             "image",
             "nation_code",
             "father_name",
@@ -483,6 +475,22 @@ class ResetPasswordView(APIView):
             success=True,
             result=result,
             error=False
+        )
+
+
+class UserTypeView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        data = {
+            "is_driver": request.user.is_driver,
+            "is_passenger": request.user.is_passenger,
+        }
+        return response(
+            success=True,
+            result=data,
+            error=False,
+            status_code=200
         )
 
 

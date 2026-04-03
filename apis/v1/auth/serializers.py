@@ -60,9 +60,6 @@ class DriverSerializer(serializers.ModelSerializer):
         model = Driver
         fields = (
             "id",
-            'is_active',
-            "first_name",
-            "last_name",
             "image",
             "nation_code",
             "father_name",
