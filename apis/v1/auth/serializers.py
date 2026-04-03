@@ -186,7 +186,7 @@ class DriverDocSerializer(serializers.ModelSerializer):
 
 
 class SignUpByPhoneSerializer(serializers.Serializer):
-    phone = serializers.CharField(validators=[PhoneNumberValidator()])
+    phone = serializers.CharField(validators=(PhoneNumberValidator(),))
     password = serializers.CharField()
     confirm_password = serializers.CharField()
 

@@ -40,10 +40,10 @@ from apis.v1.utils.paginations import CustomPagination
 from apps.auth_app.models import User, UserNotification, Driver, DriverDocument
 from base.settings import SIMPLE_JWT
 from apps.auth_app.tasks import send_otp_sms_celery
-from base.utils.generate import generate_otp
+from base.utils.generate import generate_otp, generate_token
 
 
-class SignUpByPhoneView(AsyncAPIView):
+class SignUpByPhoneView(APIView):
     """
     ثبت نام با شماره همراه و پسورد
     """
@@ -179,19 +179,14 @@ class OtpVerifyView(APIView):
             else:
                 user.is_verify_phone = True
                 user.save()
-                token = RefreshToken.for_user(user)
-                iran_timezone = pytz_timezone("Asia/Tehran")
-                expire_timestamp = int(time.time()) + SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].seconds
-                expire_date = datetime.datetime.fromtimestamp(expire_timestamp, tz=iran_timezone)
+
+                tk = generate_token(user)
+
                 data = {
                     "mobile": phone,
                     "is_verify_phone": user.is_verify_phone,
                     "is_passenger": user.is_passenger,
-                    "access_token": str(token.access_token),
-                    "refresh_token": str(token),
-                    "jwt": "Bearer",
-                    "expire_timestamp_access_token": expire_timestamp,
-                    "expire_date_access_token": expire_date
+                    "token": tk,
                 }
                 cache.delete(redis_key)
                 return response(
@@ -223,20 +218,13 @@ class LoginPhonePasswordView(APIView):
                 status_code=404
             )
         else:
-            token = RefreshToken.for_user(user)
-            iran_timezone = pytz_timezone("Asia/Tehran")
-            expire_timestamp = int(time.time()) + SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].seconds
-            expire_date = datetime.datetime.fromtimestamp(expire_timestamp, tz=iran_timezone)
+            tk = generate_token(user)
             data = {
                 "mobile": phone,
                 "is_verify_phone": user.is_verify_phone,
                 "is_staff": user.is_staff,
                 "is_passenger": user.is_passenger,
-                "access_token": str(token.access_token),
-                "refresh_token": str(token),
-                "jwt": "Bearer",
-                "expire_timestamp_access_token": expire_timestamp,
-                "expire_date_access_token": expire_date
+                "token": tk,
             }
             return response(
                 success=True,
