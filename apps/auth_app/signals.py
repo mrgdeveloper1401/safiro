@@ -5,7 +5,8 @@ from .models import User, Passenger, Driver
 
 @receiver(post_save, sender=User)
 def create_passenger_or_driver(sender, instance, created, **kwargs):
-    if instance.is_passenger:
-        passenger, _ = Passenger.objects.get_or_create(user=instance)
-    if instance.is_driver:
-        driver, _ = Driver.objects.get_or_create(user=instance)
+    if created:
+        if instance.is_passenger:
+            passenger, _ = Passenger.objects.get_or_create(user=instance)
+        if instance.is_driver:
+            driver, _ = Driver.objects.get_or_create(user=instance)

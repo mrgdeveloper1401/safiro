@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-from apis.v1.utils.custom_exceptions import AuthenticationFailed, NotActiveAccount
+from apis.v1.utils.custom_exceptions import AuthenticationFailed, NotActiveAccount, NotDriverException
 
 
 class AsyncRemoveAuthenticationPermissions(permissions.BasePermission):
@@ -24,8 +24,8 @@ class NotAuthenticated(permissions.BasePermission):
         return not request.user.is_authenticated
 
 
-class IsActiveAccount(permissions.IsAuthenticated):
+class IsActiveDriverAccount(permissions.IsAuthenticated):
     def has_object_permission(self, request, view, obj):
-        if obj.is_active is False:
-            raise NotActiveAccount()
+        if not request.user.is_driver:
+            raise NotDriverException()
         return True

@@ -10,7 +10,6 @@ from django.utils import timezone
 from rest_framework import status, mixins, viewsets
 from rest_framework.exceptions import NotFound, PermissionDenied
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.status import HTTP_202_ACCEPTED
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from pytz import timezone as pytz_timezone
@@ -29,11 +28,15 @@ from apis.v1.auth.serializers import (
     ResetPasswordSerializer,
     VerifyRequestVerifiedPhoneSerializer,
     UserStatusSerializer,
-    PassengerSerializer,
+    PassengerSerializer, UpdateUserSerializer,
 )
-from apis.v1.utils.custom_exceptions import UserExistsException, PasswordNotMathException, AccountIsVerified, \
+from apis.v1.utils.custom_exceptions import (
+    UserExistsException,
+    PasswordNotMathException,
+    AccountIsVerified,
     NotActiveAccount
-from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, NotAuthenticated, IsActiveAccount
+)
+from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, NotAuthenticated, IsActiveDriverAccount
 from apis.v1.utils.custom_response import response
 from apis.v1.utils.custome_throttle import OtpRateThrottle
 from apis.v1.utils.get_ip import get_client_ip
@@ -127,8 +130,7 @@ class RequestOtpView(APIView):
                 "is_driver": user.is_driver,
                 "is_verify_phone": user.is_verify_phone,
                 "is_active": user.is_active,
-                "exp_time": int(time.time() + 120),
-                "exp_datetime": timezone.now() + datetime.timedelta(minutes=2)
+                "exp_otp_datetime": timezone.now() + datetime.timedelta(minutes=2)
             },
             error=False,
             status_code=status.HTTP_200_OK
@@ -177,9 +179,11 @@ class OtpVerifyView(APIView):
                 tk = generate_token(user)
 
                 data = {
+                    "id": user.pk,
                     "mobile": phone,
                     "is_verify_phone": user.is_verify_phone,
                     "is_passenger": user.is_passenger,
+                    "is_driver": user.is_driver,
                     "token": tk,
                 }
                 cache.delete(redis_key)
@@ -372,30 +376,39 @@ class UploadImageView(APIView):
         return response(success=True, result=serializer.data, error=False, status_code=status.HTTP_201_CREATED)
 
 
-class DriverView(
-    viewsets.GenericViewSet,
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.CreateModelMixin
-):
+class DriverView(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin):
     """
     ثبت نام راننده و مشاهده اطلاعات ثبت نامی
     """
     serializer_class = DriverSerializer
-    permission_classes = (IsActiveAccount,)
+    permission_classes = (IsActiveDriverAccount,)
 
     def get_queryset(self):
         return Driver.objects.filter(
             user_id=self.request.user.id,
-        ).select_related("image").only(
+        ).select_related(
+            "image",
+            "car__brand",
+            "car__model",
+            "user"
+        ).only(
+            "verification_status",
+            "disable_account",
             "image",
             "nation_code",
             "father_name",
             "license_number",
-            "verification_status",
             "image__image",
-            "note"
+            "car__brand__brand_name",
+            "car__model__model_name",
+            "car__year",
+            "car__name",
+            "user__username",
+            "user__email",
+            "user__first_name",
+            "user__last_name",
+            "user__phone",
+            "user__is_verify_phone"
         )
 
     def list(self, request, *args, **kwargs):
@@ -408,28 +421,9 @@ class DriverView(
                 success=True,
                 error=False,
                 result=result,
-                status_code=HTTP_202_ACCEPTED
+                status_code=400
             )
         serializer = self.get_serializer(queryset, many=True)
-        return response(success=True, error=False, result=serializer.data)
-
-    def update(self, request, *args, **kwargs):
-        partial = kwargs.pop('partial', False)
-        instance = self.get_object()
-        if instance.verification_status == "submitted":
-            raise PermissionDenied("لطفا تا مشخص شدن وضعیت ارسال صبر کنید")
-        else:
-            instance.verification_status = "submitted"
-            instance.note = None
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-
-        if getattr(instance, '_prefetched_objects_cache', None):
-            # If 'prefetch_related' has been applied to a queryset, we need to
-            # forcibly invalidate the prefetch cache on the instance.
-            instance._prefetched_objects_cache = {}
-
         return response(success=True, error=False, result=serializer.data)
 
 
@@ -479,21 +473,12 @@ class ResetPasswordView(APIView):
         )
 
 
-class UserTypeView(APIView):
+class UserTypeViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated,)
     serializer_class = UserStatusSerializer
 
-    def get(self, request):
-        data = {
-            "is_driver": request.user.is_driver,
-            "is_passenger": request.user.is_passenger,
-        }
-        return response(
-            success=True,
-            result=data,
-            error=False,
-            status_code=200
-        )
+    def get_queryset(self):
+        return User.objects.filter(id=self.request.user.id).only("is_driver", "is_passenger", "phone")
 
 
 class PassengerViewSet(
@@ -516,6 +501,7 @@ class PassengerViewSet(
             "image__image",
             "created_at",
             "updated_at",
+            "disable_account"
         )
         return Passenger.objects.filter(
             user_id=self.request.user.id
@@ -525,56 +511,16 @@ class PassengerViewSet(
         ).only(*fields)
 
 
-# class RequestLogVerifyPhoneView(AsyncAPIView):
-#     """
-#     درخواست تایید شماره همراه
-#     """
-#     serializer_class = RequestLogVerifyPhoneSerializer
-#
-#     async def post(self, request):
-#         serializer = self.serializer_class(data=request.data, context={'request': request})
-#         serializer.is_valid(raise_exception=True)
-#
-#         phone = serializer.validated_data["phone"]
-#         ip = get_client_ip(request)
-#
-#         # save log
-#         user_agent = request.META.get("HTTP_USER_AGENT", "")
-#         await RequestLog.objects.acreate(phone=phone, ip_address=ip, user_agent=user_agent)
-#
-#         # check
-#         user = await User.objects.filter(
-#             phone=phone,
-#             is_active=True
-#         ).only("is_verify_phone").afirst()
-#         # check user dose exists
-#         if not user:
-#             raise NotFound("حساب کاربری با این شماره وجود ندارد")
-#         else:
-#             # check user is verified?
-#             if user.is_verify_phone:
-#                 raise AccountIsVerified()
-#             else:
-#                 # generate otp
-#                 otp_code = random.randint(100000, 999999)
-#                 cache_key = f"otp_{phone}_{ip}_{otp_code}"
-#
-#                 # set in redis
-#                 await cache.aset(cache_key, otp_code, timeout=120)
-#
-#                 # send sms
-#                 await send_sms(phone, str(otp_code))
-#
-#                 return response(
-#                     success=True,
-#                     result={
-#                         "mobile": phone,
-#                         "exp_time": int(time.time() + 120),
-#                         "message": "کد تایید برای شما ارسال شد"
-#                     },
-#                     error=False,
-#                     status_code=status.HTTP_200_OK
-#                 )
+class UpdateUserView(APIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UpdateUserSerializer
+
+    def patch(self, request, *args, **kwargs):
+        query = User.objects.get(id=request.user.id)
+        serializer = self.serializer_class(query, data=request.data, context={'request': request}, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return response(success=True, error=False, result=serializer.data)
 
 
 class VerifyRequestVerifiedPhoneView(AsyncAPIView):
@@ -651,34 +597,3 @@ class VerifyRequestVerifiedPhoneView(AsyncAPIView):
         except (NotFound, AccountIsVerified) as e:
             await cache.adelete(redis_key)  # remove otp when raise exception
             raise e
-
-
-class UpdateUserStatusView(APIView):
-    """
-    زمانی که کاربر ثبت نام کرد اگر خواست وضعیت رانننده یا مسافر رو مشخص کنه
-    """
-    serializer_class = UserStatusSerializer
-    permission_classes = (IsAuthenticated,)
-
-    def patch(self, request):
-        serializer = self.serializer_class(data=request.data, context={'request': request})
-        serializer.is_valid(raise_exception=True)
-
-        # user
-        user = User.objects.filter(is_active=True, id=request.user.id).only("phone", "is_driver", "is_passenger").first()
-
-        # update status
-        update_fields = []
-        for field in ['is_driver', 'is_passenger']:
-            if field in serializer.validated_data:
-                setattr(user, field, serializer.validated_data[field])
-                update_fields.append(field)
-
-        if update_fields:
-            user.save(update_fields=update_fields)
-
-        return response(
-            success=True,
-            error=False,
-            result=serializer.validated_data
-        )

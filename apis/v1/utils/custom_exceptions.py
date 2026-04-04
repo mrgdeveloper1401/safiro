@@ -77,3 +77,9 @@ class NotActiveAccount(APIException):
     status_code = 403
     default_code = 19
     default_detail = "حساب شما مسدود میباشد برای پیگیری با واحد پشتیبانی تماس بگیرید"
+
+
+class NotDriverException(APIException):
+    status_code = 403
+    default_code = 20
+    default_detail = "شما حساب راننده رو ندارید اگه تمایل به فعال سازی میتوانید ان را درخواست بدید"

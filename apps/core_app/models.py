@@ -3,8 +3,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class ModifyMixin(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(_("تاریخ ایجاد فیلد"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("تاریخ اخرین بروزرسانی فیلد"), auto_now=True)
 
     class Meta:
         abstract = True

@@ -4,7 +4,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from .enums import VerificationStatus
-from .models import User, Passenger, Driver, UserNotification, DriverDocument
+from .models import User, Passenger, Driver, UserNotification, DriverDocument, CarBrand, CarModel, Car
 from apps.core_app.models import Image
 
 
@@ -158,12 +158,12 @@ class DriverAdmin(admin.ModelAdmin):
         "created_at",
     )
     list_filter = ("verification_status",)
-    search_fields = ("nation_code", "license_number")
-    search_help_text = _("برای جست و جو میتوانید از شماره ملی کاربر استفاده کنید")
+    search_fields = ("nation_code", "user__phone")
+    search_help_text = _("برای جست و جو میتوانید از شماره ملی کاربر یا شماره تماس استفاده کنید")
     inlines = (DriverDocumentInline,)
     ordering = ("-id",)
     readonly_fields = ("created_at", "updated_at")
-    raw_id_fields = ("image", "user")
+    raw_id_fields = ("image", "user", "car")
     list_display_links = ("id", "first_name", "last_name", "nation_code", "user_phone")
 
     def user_phone(self, obj):
@@ -188,7 +188,6 @@ class DriverAdmin(admin.ModelAdmin):
             "nation_code",
             "verification_status",
             "father_name",
-            "note"
         )
 
     def verification_status_colored(self, obj):
@@ -266,10 +265,62 @@ class UserNotificationAdmin(admin.ModelAdmin):
         queryset.update(is_active=True)
 
 
-# @admin.register(RequestLog)
-# class RequestLogVerifyAdmin(admin.ModelAdmin):
-#     list_display = ("phone", "id", "created_at", "updated_at", "is_active", "ip_address", "behavior_type")
-#     search_fields = ("phone",)
-#     search_help_text = _("برای جست و جو میتوانید از شماره موبایل کاربر استفاده کنید")
-#     list_filter = ("created_at", "is_active", "behavior_type")
-#     list_per_page = 20
+@admin.register(CarBrand)
+class CarBrandAdmin(admin.ModelAdmin):
+    list_display = ("id", "brand_name", "is_active", "created_at", "updated_at")
+    list_filter = ("is_active",)
+    list_per_page = 30
+    search_fields = ("brand_name", "id")
+    list_editable = ("is_active",)
+    search_help_text = _("برای جست و جو میتوانید از نام برند استفاده کنید")
+    list_display_links = ("id", "brand_name")
+
+
+@admin.register(CarModel)
+class CarModelAdmin(admin.ModelAdmin):
+    list_display = ("id", "brand_name", "model_name", "is_active", "created_at", "updated_at")
+    list_filter = ("is_active",)
+    list_per_page = 30
+    search_fields = ("brand__brand_name", "id")
+    search_help_text = _("برای جست و جو میتوانید از نام برند استفاده کنید")
+    raw_id_fields = ("brand",)
+    list_display_links = ("id", "brand_name", "model_name")
+    list_editable = ("is_active",)
+    list_select_related = ("brand",)
+
+    def brand_name(self, obj):
+        return obj.brand.brand_name
+
+    def get_queryset(self, request):
+        fields = ("brand__brand_name", "model_name", "is_active", "created_at", "updated_at")
+        return super().get_queryset(request).only(*fields)
+
+
+@admin.register(Car)
+class CarAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "brand_name", "model_name", "year", "is_active", "created_at", "updated_at")
+    raw_id_fields = ("brand", "model")
+    list_display_links = ("id", "name")
+    list_editable = ("is_active",)
+    list_select_related = ("brand", "model")
+    list_filter = ("is_active",)
+    search_fields = ("brand__brand_name", "id", "model__model_name")
+    search_help_text = _("برای جست و جو میتوانید از نام برند یا نام مدل ماشین استفاده کنید")
+
+    def brand_name(self, obj):
+        return obj.brand.brand_name
+
+    def model_name(self, obj):
+        return obj.model.model_name
+
+    def get_queryset(self, request):
+        fields = (
+            "name",
+            "brand__brand_name",
+            "model__model_name",
+            "is_active",
+            "created_at",
+            "updated_at",
+            "year"
+        )
+        return super().get_queryset(request).only(*fields)

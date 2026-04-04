@@ -44,9 +44,35 @@ class Passenger(ModifyMixin):
         null=True,
         blank=True
     )
+    disable_account = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'auth_passenger'
+
+
+class CarBrand(ModifyMixin, ActiveMixin):
+    brand_name = models.CharField(_("برند ماشین"), max_length=100, unique=True) # تویوتا، هیوندای
+
+    class Meta:
+        db_table = 'car_brand'
+
+
+class CarModel(ModifyMixin, ActiveMixin):
+    brand = models.ForeignKey(CarBrand, on_delete=models.PROTECT, verbose_name=_("برند ماشین"))
+    model_name = models.CharField(max_length=50)  # کمری، سانتافه
+
+    class Meta:
+        db_table = 'car_model'
+
+
+class Car(ModifyMixin, ActiveMixin):
+    name = models.CharField(_("نام ماشین"), max_length=100)  # "تویوتا کمری 2020"
+    brand = models.ForeignKey(CarBrand, on_delete=models.PROTECT, verbose_name=_("برند"))
+    model = models.ForeignKey(CarModel, on_delete=models.PROTECT, verbose_name=_("مدل"))
+    year = models.PositiveIntegerField(_("سال تولید"), choices=[(y,y) for y in range(1300, 1410)])
+
+    class Meta:
+        db_table = 'car'
 
 
 class Driver(ModifyMixin):
@@ -74,10 +100,15 @@ class Driver(ModifyMixin):
         _("تایید پروفایل"),
         max_length=10,
         choices=VerificationStatus.choices,
-        default=VerificationStatus.SUBMITTED,
+        default=VerificationStatus.CREATED,
     )
-    note = models.TextField(_("یادداشت"), blank=True, null=True)
-    car_name = models.CharField(_("نام ماشین"), max_length=50, blank=True, null=True) #TODO, remove blank and null when clean migration
+    car = models.ForeignKey(
+        to=Car,
+        verbose_name=_("ماشین"),
+        on_delete=models.PROTECT,
+        null=True,
+    )
+    disable_account = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'auth_driver_profile'
@@ -124,32 +155,3 @@ class UserNotification(ModifyMixin, ActiveMixin):
     class Meta:
         ordering = ("id",)
         db_table = 'auth_user_notification'
-
-
-# class RequestLog(ModifyMixin, ActiveMixin):
-#     phone = models.CharField(
-#         _("شماره همراه"),
-#         max_length=15,
-#         validators=(
-#             PhoneNumberValidator(),
-#         )
-#     )
-#     ip_address = models.GenericIPAddressField(_("ای اپی کاربر"))
-#     user_agent = models.TextField(_("شناسه مرورگر"), null=True, blank=True)
-#     BEHAVIOR_TYPES = (
-#         ('multiple_failed_attempts', _("تلاش‌های ناموفق متعدد")),
-#         ('rapid_requests', _("درخواست‌های سریع")),
-#         ('suspicious_location', _("موقعیت جغرافیایی مشکوک")),
-#         ('unusual_activity', _("فعالیت غیرعادی")),
-#         ('brute_force', _("حمله brute force")),
-#         ('account_takeover', _("تصاحب حساب")),
-#         ('credential_stuffing', _("پرکردن اعتبار")),
-#     )
-#     behavior_type = models.CharField(
-#         _("نوع رفتار مشکوک"),
-#         max_length=50,
-#         choices=BEHAVIOR_TYPES
-#     )
-#
-#     class Meta:
-#         db_table = 'auth_request_log'

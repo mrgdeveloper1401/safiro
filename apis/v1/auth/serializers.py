@@ -10,7 +10,7 @@ from apis.v1.utils.custom_exceptions import (
     LicenseNumberAlreadyExistsException,
     DriverAlreadyExistsException
 )
-from apps.auth_app.models import UserNotification, Driver, Image, DriverDocument, User, Passenger
+from apps.auth_app.models import UserNotification, Driver, Image, DriverDocument, User, Passenger, Car
 from apps.auth_app.validators import PhoneNumberValidator
 
 
@@ -51,6 +51,15 @@ class UserNotificationSerializer(serializers.ModelSerializer):
         )
 
 
+class SimpleCarSerializer(serializers.ModelSerializer):
+    brand = serializers.CharField(source="brand.brand_name")
+    model = serializers.CharField(source="model.model_name")
+
+    class Meta:
+        model = Car
+        fields = ("name", "brand", "model", "year")
+
+
 class DriverSerializer(serializers.ModelSerializer):
     image = serializers.PrimaryKeyRelatedField(
         queryset=Image.objects.only("id").filter(is_active=True),
@@ -65,14 +74,14 @@ class DriverSerializer(serializers.ModelSerializer):
             "father_name",
             "license_number",
             "verification_status",
-            "note"
+            "disable_account"
         )
         extra_kwargs = {
             "verification_status": {"read_only": True},
+            "disable_account": {"read_only": True},
             "is_active": {"read_only": True},
             "nation_code": {"required": True},
-            "license_number": {"required": True},
-            "note": {"read_only": True},
+            "license_number": {"read_only": True},
         }
 
     def validate_image(self, data):
@@ -90,10 +99,6 @@ class DriverSerializer(serializers.ModelSerializer):
             error_ms = str(e)
             if "nation_code" in error_ms:
                 raise NationCodeAlreadyExistsException()
-            if "license_number" in error_ms:
-                raise LicenseNumberAlreadyExistsException()
-            if "profile_user_id" in error_ms:
-                raise DriverAlreadyExistsException()
 
     def update(self, instance, validated_data):
         try:
@@ -102,19 +107,19 @@ class DriverSerializer(serializers.ModelSerializer):
             error_ms = str(e)
             if "nation_code" in error_ms:
                 raise NationCodeAlreadyExistsException()
-            if "license_number" in error_ms:
-                raise LicenseNumberAlreadyExistsException()
 
     def to_representation(self, instance):
         request = self.context['request']
         data = super().to_representation(instance)
         data['image'] = instance.image.get_image_url if instance.image else None
+        data['car'] = SimpleCarSerializer(instance.car).data if instance.car else None
+        data['user'] = UserInfoSerializer(instance.user).data
         if request.method in ("PUT", "PATCH"):
             data.pop("note", None)
         return data
 
 
-class UserPassengerSerializer(serializers.ModelSerializer):
+class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
@@ -133,7 +138,6 @@ class UserPassengerSerializer(serializers.ModelSerializer):
 
 
 class PassengerSerializer(serializers.ModelSerializer):
-    user = UserPassengerSerializer()
     image = serializers.PrimaryKeyRelatedField(
         queryset=Image.objects.only("id").filter(is_active=True),
     )
@@ -141,6 +145,25 @@ class PassengerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Passenger
         fields = '__all__'
+        extra_kwargs = {
+            "user": {"read_only": True},
+            "disable_account": {"read_only": True},
+        }
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['user'] = UserPassengerSerializer(instance.user).data
+        return data
+
+    def validate(self, attrs):
+        image = attrs.get('image', None)
+        if image:
+            # check image
+            user_id = self.context['request'].user.id
+            check_img = Image.objects.filter(id=image.id, is_active=True, created_by_id=user_id).only("id")
+            if not check_img.exists():
+                raise NotFound("image not found")
+        return attrs
 
 
 class UploadImageSerializer(serializers.ModelSerializer):
@@ -205,12 +228,6 @@ class DriverDocSerializer(serializers.ModelSerializer):
         return data
 
 
-# class SignUpByPhoneSerializer(AdrfSerializer):
-#     phone = serializers.CharField(validators=[PhoneNumberValidator()])
-#     password = serializers.CharField()
-#     confirm_password = serializers.CharField()
-
-
 class SignUpByPhoneSerializer(serializers.Serializer):
     phone = serializers.CharField(validators=(PhoneNumberValidator(),))
     password = serializers.CharField()
@@ -267,6 +284,23 @@ class VerifyRequestVerifiedPhoneSerializer(AdrfSerializer):
     code = serializers.CharField()
 
 
-class UserStatusSerializer(serializers.Serializer):
-    is_driver = serializers.BooleanField(required=False)
-    is_passenger = serializers.BooleanField(required=False)
+class UserStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("id","is_driver", "is_passenger", "phone")
+        extra_kwargs = {
+            "is_passenger": {"read_only": True},
+            "phone": {"read_only": True}
+        }
+
+    def update(self, instance, validated_data):
+        up = super().update(instance, validated_data)
+        if instance.is_driver:
+            Driver.objects.create(user_id=instance.id)
+        return up
+
+
+class UpdateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("username", "first_name", "last_name")

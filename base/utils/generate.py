@@ -26,5 +26,5 @@ def generate_token(user):
         "refresh_token": str(token),
         "jwt": "Bearer",
         "expire_date_access_token": expire_date,
-        "refresh_expire_date_refresh_token": refresh_expire_date
+        "expire_date_refresh_token": refresh_expire_date
     }

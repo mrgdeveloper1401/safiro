@@ -40,6 +40,7 @@ class VerificationStatus(models.TextChoices):
     # UNDER_REVIEW = 'under_review', _('در حال بررسی')
     APPROVED = 'approved', _('تایید شده')
     REJECTED = 'rejected', _('رد شده')
+    CREATED = "created", _("ایجاد شده")
 
 
 class DocumentType(models.TextChoices):
