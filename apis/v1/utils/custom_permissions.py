@@ -24,7 +24,7 @@ class NotAuthenticated(permissions.BasePermission):
         return not request.user.is_authenticated
 
 
-class IsActiveDriverAccount(permissions.IsAuthenticated):
+class IsDriverAccount(permissions.IsAuthenticated):
     def has_object_permission(self, request, view, obj):
         if not request.user.is_driver:
             raise NotDriverException()

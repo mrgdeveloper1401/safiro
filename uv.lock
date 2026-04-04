@@ -371,6 +371,19 @@ wheels = [
 ]
 
 [[package]]
+name = "drf-nested-routers"
+version = "0.95.0"
+source = { registry = "https://mirror-pypi.runflare.com/simple" }
+dependencies = [
+    { name = "django" },
+    { name = "djangorestframework" },
+]
+sdist = { url = "https://mirror-pypi.runflare.com/packages/ff/b2/070908ccd41bd6f025f5507d7f6e50009abe8be48393cc697d159b539f0b/drf_nested_routers-0.95.0.tar.gz", hash = "sha256:815978f802e578fd7035c74040c104909cbe97615de89a275d77e928f4029891" }
+wheels = [
+    { url = "https://mirror-pypi.runflare.com/packages/3e/61/69d951a6e8031389f5feade38531432325019e1047b23d5c6036a86c5e8f/drf_nested_routers-0.95.0-py2.py3-none-any.whl", hash = "sha256:dd489c33d667aaa81383ffaa8c74781d2b353d8f0795716ae37fc59ee297b7c4" },
+]
+
+[[package]]
 name = "drf-spectacular"
 version = "0.29.0"
 source = { registry = "https://mirror-pypi.runflare.com/simple" }
@@ -1041,6 +1054,7 @@ dependencies = [
     { name = "django-storages", extra = ["boto3"] },
     { name = "djangorestframework" },
     { name = "djangorestframework-simplejwt" },
+    { name = "drf-nested-routers" },
     { name = "drf-spectacular" },
     { name = "drf-spectacular-sidecar" },
     { name = "gunicorn" },
@@ -1078,6 +1092,7 @@ requires-dist = [
     { name = "django-storages", extras = ["boto3"], specifier = ">=1.14.6" },
     { name = "djangorestframework", specifier = ">=3.16.1" },
     { name = "djangorestframework-simplejwt", specifier = ">=5.5.1" },
+    { name = "drf-nested-routers", specifier = ">=0.95.0" },
     { name = "drf-spectacular", specifier = ">=0.29.0" },
     { name = "drf-spectacular-sidecar", specifier = ">=2025.10.1" },
     { name = "gunicorn", specifier = ">=23.0.0" },

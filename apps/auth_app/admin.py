@@ -4,7 +4,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from .enums import VerificationStatus
-from .models import User, Passenger, Driver, UserNotification, DriverDocument, CarBrand, CarModel, Car
+from .models import User, Passenger, Driver, UserNotification, DriverDocument, CarBrand, CarModel, Car, DriverCar
 from apps.core_app.models import Image
 
 
@@ -163,7 +163,7 @@ class DriverAdmin(admin.ModelAdmin):
     inlines = (DriverDocumentInline,)
     ordering = ("-id",)
     readonly_fields = ("created_at", "updated_at")
-    raw_id_fields = ("image", "user", "car")
+    raw_id_fields = ("image", "user")
     list_display_links = ("id", "first_name", "last_name", "nation_code", "user_phone")
 
     def user_phone(self, obj):
@@ -205,22 +205,43 @@ class DriverAdmin(admin.ModelAdmin):
     verification_status_colored.short_description = "وضعیت تایید"
 
 
+@admin.register(DriverCar)
+class DriverCarAdmin(admin.ModelAdmin):
+    raw_id_fields = ("driver", "car")
+    list_display = ("id", "driver_id", "car_id", "driver_phone", "is_active", "created_at", "updated_at")
+    list_display_links = ("id", "driver_id", "car_id")
+    list_per_page = 30
+    list_editable = ("is_active",)
+    search_fields = ("driver__id", "car__id", "driver__user__phone")
+    list_filter = ("is_active",)
+    list_select_related = ("driver__user",)
+    search_help_text = _("برای جست و جو میتوانید از شماره موبایل راننده استفاده کنید")
+
+    def driver_phone(self, obj):
+        return obj.driver.user.phone
+
+    def get_queryset(self, request):
+        fields = ("is_active", "created_at", "updated_at", "driver__user__phone", "car_id")
+        return super().get_queryset(request).only(*fields)
+
+
 @admin.register(DriverDocument)
 class DriverDocumentAdmin(admin.ModelAdmin):
-    list_display = ("id", "profile_id", "get_profile_phone", "doc_type", "is_verified", "verifier_note", "created_at")
+    list_display = ("id", "driver_id", "get_driver_phone", "doc_type", "is_verified", "is_active", "verifier_note", "created_at")
     list_filter = ("doc_type", "is_verified")
     search_fields = ("profile__user__phone",)
     search_help_text = _("برای جست و جو میتوانید از شماره موبایل کاربر استفاده کنید")
     ordering = ("-id",)
-    list_display_links = ("id", "profile_id", "get_profile_phone")
-    raw_id_fields = ("profile", "image")
+    list_display_links = ("id", "driver_id", "get_driver_phone")
+    raw_id_fields = ("driver", "image")
+    list_editable = ("is_verified", "is_active")
 
-    def get_profile_phone(self, obj):
-        return obj.profile.user.phone
+    def get_driver_phone(self, obj):
+        return obj.driver.user.phone
 
     def get_queryset(self, request):
-        return super().get_queryset(request).select_related("profile__user").only(
-            "profile__user__phone",
+        return super().get_queryset(request).select_related("driver__user").only(
+            "driver__user__phone",
             "doc_type",
             "is_verified",
             "verifier_note",

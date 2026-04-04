@@ -1,5 +1,7 @@
 from rest_framework.urls import path
 from rest_framework.routers import SimpleRouter
+from rest_framework_nested.routers import NestedSimpleRouter
+
 from .views import (
     RequestOtpView,
     OtpVerifyView,
@@ -15,7 +17,8 @@ from .views import (
     VerifyRequestVerifiedPhoneView,
     UserTypeViewSet,
     PassengerViewSet,
-    UpdateUserView
+    UpdateUserView,
+    DriverCarViewSet
 )
 
 app_name = "v1_auth"
@@ -23,9 +26,13 @@ app_name = "v1_auth"
 router = SimpleRouter()
 router.register("user_notification", UserNotificationView, basename="user_notification")
 router.register("driver", DriverView, basename="driver")
-router.register("driver_doc", DriverDocView, basename="driver_doc")
 router.register("passenger", PassengerViewSet, basename="passenger")
 router.register('user_type', UserTypeViewSet, basename="user_type")
+
+# driver router
+driver_router = NestedSimpleRouter(router, r"driver", lookup="driver")
+driver_router.register('driver_car', DriverCarViewSet, basename="driver_car")
+driver_router.register('driver_doc', DriverDocView, basename="driver_doc")
 
 urlpatterns = [
     path("request_otp_phone/", RequestOtpView.as_view(), name="request_otp_phone"),
@@ -39,4 +46,4 @@ urlpatterns = [
     # path("verify_verify_phone/", VerifyRequestVerifiedPhoneView.as_view(), name='verify_verify_phone'),
     # path("reset_password/", ResetPasswordView.as_view(), name="reset_password"),
     path("upload_image/", UploadImageView.as_view(), name="upload_image"),
-] + router.urls
+] + router.urls + driver_router.urls

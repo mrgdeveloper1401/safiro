@@ -50,4 +50,4 @@ class DocumentType(models.TextChoices):
     CAR_BACK = 'car_back', _('پشت کارت خودرو')
     INSURANCE = 'insurance', _('بیمه')
     IDENTITY_VERIFY = 'identity_verify', _('تایید هویت')
-    FUEL_CARD = "fuel_card", _("کارت سوخت",)
+    FUEL_CARD = "fuel_card", _("کارت سوخت")

@@ -102,23 +102,34 @@ class Driver(ModifyMixin):
         choices=VerificationStatus.choices,
         default=VerificationStatus.CREATED,
     )
-    car = models.ForeignKey(
-        to=Car,
-        verbose_name=_("ماشین"),
-        on_delete=models.PROTECT,
-        null=True,
-    )
     disable_account = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'auth_driver_profile'
 
 
+class DriverCar(ModifyMixin, ActiveMixin):
+    driver = models.ForeignKey(
+        to=Driver,
+        verbose_name=_("راننده"),
+        on_delete=models.PROTECT,
+    )
+    car = models.ForeignKey(
+        to=Car,
+        verbose_name=_("ماشین"),
+        on_delete=models.PROTECT,
+        null=True,
+    )
+
+    class Meta:
+        db_table = 'auth_driver_car'
+
+
 class DriverDocument(ModifyMixin, ActiveMixin):
     """
     مدارک راننده
     """
-    profile = models.ForeignKey(
+    driver = models.ForeignKey(
         verbose_name=_("راننده"),
         on_delete=models.PROTECT,
         related_name="profile_docs",

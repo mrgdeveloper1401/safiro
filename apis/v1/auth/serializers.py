@@ -10,7 +10,7 @@ from apis.v1.utils.custom_exceptions import (
     LicenseNumberAlreadyExistsException,
     DriverAlreadyExistsException
 )
-from apps.auth_app.models import UserNotification, Driver, Image, DriverDocument, User, Passenger, Car
+from apps.auth_app.models import UserNotification, Driver, Image, DriverDocument, User, Passenger, Car, DriverCar
 from apps.auth_app.validators import PhoneNumberValidator
 
 
@@ -109,14 +109,31 @@ class DriverSerializer(serializers.ModelSerializer):
                 raise NationCodeAlreadyExistsException()
 
     def to_representation(self, instance):
-        request = self.context['request']
         data = super().to_representation(instance)
         data['image'] = instance.image.get_image_url if instance.image else None
-        data['car'] = SimpleCarSerializer(instance.car).data if instance.car else None
+        # data['car'] = SimpleCarSerializer(instance.car).data if instance.car else None
         data['user'] = UserInfoSerializer(instance.user).data
-        if request.method in ("PUT", "PATCH"):
-            data.pop("note", None)
         return data
+
+
+class DriverCarSerializer(serializers.ModelSerializer):
+    car = serializers.PrimaryKeyRelatedField(
+        queryset=Car.objects.only("id").filter(is_active=True),
+    )
+
+    class Meta:
+        model = DriverCar
+        exclude = ("is_active",)
+        read_only_fields = ("driver",)
+
+    def create(self, validated_data):
+        driver_pk = self.context['driver_pk']
+        user_id = self.context['request'].user.id
+
+        # check driver_pk
+        if not Driver.objects.filter(id=driver_pk, user_id=user_id).exists():
+            raise NotFound("driver not found")
+        return DriverCar.objects.create(driver_id=int(driver_pk), **validated_data)
 
 
 class UserInfoSerializer(serializers.ModelSerializer):
@@ -200,25 +217,26 @@ class DriverDocSerializer(serializers.ModelSerializer):
 
     def validate_image(self, data):
         user_id = self.context['request'].user.id
-        img = Image.objects.filter(
+        if not Image.objects.filter(
             is_active=True,
             id=data.id,
             created_by_id=user_id
-        ).exists()
-        if not img:
+        ).exists():
             raise NotFound("عکس مربوطه پیدا نشد")
         return data
 
     def create(self, validated_data):
         user_id = self.context['request'].user.id
+
         # check driver profile
-        driver_profile = Driver.objects.filter(user_id=user_id, is_active=True).only("id")
-        if not driver_profile.exists():
+        driver = Driver.objects.filter(user_id=user_id).only("id")
+        if not driver.exists():
             raise NotFound("راننده پیدا نشد")
+
         # create driver doc
-        driver_profile = driver_profile.first()
+        driver_profile = driver.first()
         return DriverDocument.objects.create(
-            profile_id=driver_profile.id,
+            driver_id=driver_profile.pk,
             **validated_data
         )
 

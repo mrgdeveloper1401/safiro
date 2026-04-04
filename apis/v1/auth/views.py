@@ -28,7 +28,7 @@ from apis.v1.auth.serializers import (
     ResetPasswordSerializer,
     VerifyRequestVerifiedPhoneSerializer,
     UserStatusSerializer,
-    PassengerSerializer, UpdateUserSerializer,
+    PassengerSerializer, UpdateUserSerializer, DriverCarSerializer,
 )
 from apis.v1.utils.custom_exceptions import (
     UserExistsException,
@@ -36,12 +36,12 @@ from apis.v1.utils.custom_exceptions import (
     AccountIsVerified,
     NotActiveAccount
 )
-from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, NotAuthenticated, IsActiveDriverAccount
+from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, NotAuthenticated, IsDriverAccount
 from apis.v1.utils.custom_response import response
 from apis.v1.utils.custome_throttle import OtpRateThrottle
 from apis.v1.utils.get_ip import get_client_ip
 from apis.v1.utils.paginations import CustomPagination
-from apps.auth_app.models import User, UserNotification, Driver, DriverDocument, Passenger
+from apps.auth_app.models import User, UserNotification, Driver, DriverDocument, Passenger, DriverCar
 from base.settings import SIMPLE_JWT
 from apps.auth_app.tasks import send_otp_sms_celery
 from base.utils.generate import generate_otp, generate_token
@@ -381,15 +381,13 @@ class DriverView(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Retrieve
     ثبت نام راننده و مشاهده اطلاعات ثبت نامی
     """
     serializer_class = DriverSerializer
-    permission_classes = (IsActiveDriverAccount,)
+    permission_classes = (IsDriverAccount,)
 
     def get_queryset(self):
         return Driver.objects.filter(
             user_id=self.request.user.id,
         ).select_related(
             "image",
-            "car__brand",
-            "car__model",
             "user"
         ).only(
             "verification_status",
@@ -399,10 +397,6 @@ class DriverView(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Retrieve
             "father_name",
             "license_number",
             "image__image",
-            "car__brand__brand_name",
-            "car__model__model_name",
-            "car__year",
-            "car__name",
             "user__username",
             "user__email",
             "user__first_name",
@@ -427,6 +421,29 @@ class DriverView(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Retrieve
         return response(success=True, error=False, result=serializer.data)
 
 
+class DriverCarViewSet(viewsets.ModelViewSet):
+    serializer_class = DriverCarSerializer
+    permission_classes = (IsDriverAccount, )
+
+    def get_queryset(self):
+        driver_id = self.kwargs.get("driver_pk")
+        user_id = self.request.user.id
+        return DriverCar.objects.filter(
+            driver_id=driver_id,
+            driver__user_id=user_id,
+            is_active=True
+        ).defer("is_active")
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['driver_pk'] = self.kwargs.get("driver_pk")
+        return context
+
+    def perform_destroy(self, instance):
+        instance.is_active = False
+        instance.save()
+
+
 class DriverDocView(viewsets.ModelViewSet):
     """
     مدارک ارسالی \n
@@ -436,13 +453,15 @@ class DriverDocView(viewsets.ModelViewSet):
     'car_back', _('پشت خودرو')
     'insurance', _('بیمه')
     'identity_verif', _('تایید هویت')
+    "fuel_card", _("کارت سوخت")
     """
     serializer_class = DriverDocSerializer
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         return DriverDocument.objects.filter(
-            profile__user_id=self.request.user.id,
+            driver__user_id=self.request.user.id,
+            driver_id=self.kwargs.get("driver_pk"),
             is_active=True
         ).select_related("image").only(
             "doc_type",
@@ -450,6 +469,10 @@ class DriverDocView(viewsets.ModelViewSet):
             "verifier_note",
             "image__image"
         )
+
+    def perform_destroy(self, instance):
+        instance.is_active = False
+        instance.save()
 
 
 class ResetPasswordView(APIView):
