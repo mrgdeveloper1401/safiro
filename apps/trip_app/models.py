@@ -23,9 +23,7 @@ class Trip(ActiveMixin, ModifyMixin):
         Passenger,
         verbose_name=_("مسافر"),
         on_delete=models.PROTECT,
-        blank=True,
-        null=True
-    ) # TODO, when clean migration remove this field
+    )
     from_lat = models.DecimalField(max_digits=10, decimal_places=7, null=True)
     from_lng = models.DecimalField(max_digits=10, decimal_places=7, null=True)
     to_lat = models.DecimalField(max_digits=10, decimal_places=7, null=True)

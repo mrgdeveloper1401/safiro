@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "apps.auth_app.apps.AuthAppConfig",
     "apps.core_app.apps.CoreAppConfig",
     "apps.trip_app.apps.TripAppConfig",
+    "apps.shop_app.apps.ShopAppConfig",
 ]
 
 MIDDLEWARE = [
@@ -86,7 +87,7 @@ DATABASES = {
         "USER": config("POSTDB_USER", cast=str, default="postgres"),
         "PASSWORD": config("POSTDB_PASSWORD", cast=str, default="postgres"),
         "HOST": config("POSTDB_HOST", cast=str, default="127.0.0.1"),
-        "PORT": config("POSTDB_PORT", cast=int, default=5434),
+        "PORT": config("POSTDB_PORT", cast=int, default=5433),
         "CONN_MAX_AGE": config("POSTDB_CONN_MAX_AGE", cast=int, default=60), #
         "CONN_HEALTH_CHECKS": config("POSTDB_CONN_HEALTH_CHECKS", cast=bool, default=True)
     }

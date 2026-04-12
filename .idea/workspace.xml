@@ -4,17 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit api passenger and driver profile">
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add api driver_car and driver_doc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/auth/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/auth/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/utils/custom_permissions.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/utils/custom_permissions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/auth_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/auth_app/enums.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/enums.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/auth_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/migrations/0002_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/migrations/0003_remove_driver_first_name_remove_driver_last_name_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/migrations/0004_remove_driver_is_active_remove_passenger_is_active_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/migrations/0005_alter_driverdocument_doc_type.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/migrations/0006_driver_car_name_alter_driverdocument_doc_type.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/migrations/0007_driver_disable_account_passenger_disable_account.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/migrations/0008_car_carbrand_remove_driver_car_name_driver_car_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/migrations/0009_car_created_at_car_is_active_car_updated_at_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/migrations/0010_rename_name_carmodel_model_name.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/migrations/0011_alter_car_created_at_alter_car_name_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/migrations/0012_remove_driver_note.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/migrations/0013_remove_driver_car_drivercar.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/migrations/0014_rename_profile_driverdocument_driver.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/core_app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/core_app/migrations/0002_alter_image_is_active.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/core_app/migrations/0003_alter_image_created_at_alter_image_updated_at.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0002_trip_passenger_alter_trip_phone_reserve_for_other_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0003_alter_trip_created_at_alter_trip_updated_at.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/trip_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/utils/custom_exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/utils/custom_exceptions.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,9 +74,19 @@
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/mg/Desktop/django-projects/safiro&quot;
+    &quot;last_opened_file_path&quot;: &quot;/home/mg/Desktop/django-projects/safiro&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;PyConsoleConfigurable.Python Console&quot;
   }
 }</component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings custom-start-script="import sys&#10;import os&#10;import django&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;, &quot;base.settings&quot;)&#10;django.setup()" module-name="safiro" is-module-sdk="true">
+        <option name="myCustomStartScript" value="import sys&#10;import os&#10;import django&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;, &quot;base.settings&quot;)&#10;django.setup()" />
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="safiro" />
+      </console-settings>
+    </option>
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/apps" />
@@ -163,7 +188,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775298385165</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add api driver_car and driver_doc">
+      <option name="closed" value="true" />
+      <created>1775321161675</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1775321161675</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -173,6 +206,7 @@
     <MESSAGE value="add api driver and user_type" />
     <MESSAGE value="add api upload_image and passenger_profile" />
     <MESSAGE value="edit api passenger and driver profile" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit api passenger and driver profile" />
+    <MESSAGE value="add api driver_car and driver_doc" />
+    <option name="LAST_COMMIT_MESSAGE" value="add api driver_car and driver_doc" />
   </component>
 </project>
