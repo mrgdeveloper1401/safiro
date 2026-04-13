@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.core.exceptions import PermissionDenied
 
 from .models import (
     Category,
@@ -8,8 +7,7 @@ from .models import (
     Attribute,
     AttributeValue,
     ProductAttributeValue,
-    ProductComment,
-    UserEvent
+    ProductComment
 )
 
 
@@ -91,32 +89,32 @@ class ProductCommentAdmin(admin.ModelAdmin):
     search_help_text = "برای جست و جو میتوانید از شماره موبایل کاربر یا ایدی محصول استفاده کنید"
 
 
-@admin.register(UserEvent)
-class UserEventAdmin(admin.ModelAdmin):
-    list_display = ('id', "user_id", "product_id", "get_user_phone", "is_active", "event_type", "created_at")
-    list_per_page = 30
-    list_filter = ('is_active',)
-    raw_id_fields = ("product", "user")
-    search_fields = ("product__id", "user__phone")
-    search_help_text = "برای جست و جو میتوانید از ایدی محصول و شماره موبایل کاربر استفاده کنید"
-    list_display_links = ('id', "get_user_phone", "user_id", "product_id")
-    list_select_related = ("user",)
-    list_editable = ("is_active",)
-
-    def get_user_phone(self, obj):
-        return obj.user.phone
-
-    def get_queryset(self, request):
-        return super().get_queryset(request).only(
-            "user__phone",
-            "is_active",
-            "created_at",
-            "event_type",
-            "product_id"
-        )
-
-    def save_model(self, request, obj, form, change):
-        if request.user.is_superuser:
-            return super().save_model(request, obj, form, change)
-        else:
-            raise PermissionDenied("دسترسی غیر مجاز")
+# @admin.register(UserEvent)
+# class UserEventAdmin(admin.ModelAdmin):
+#     list_display = ('id', "user_id", "product_id", "get_user_phone", "is_active", "event_type", "created_at")
+#     list_per_page = 30
+#     list_filter = ('is_active',)
+#     raw_id_fields = ("product", "user")
+#     search_fields = ("product__id", "user__phone")
+#     search_help_text = "برای جست و جو میتوانید از ایدی محصول و شماره موبایل کاربر استفاده کنید"
+#     list_display_links = ('id', "get_user_phone", "user_id", "product_id")
+#     list_select_related = ("user",)
+#     list_editable = ("is_active",)
+#
+#     def get_user_phone(self, obj):
+#         return obj.user.phone
+#
+#     def get_queryset(self, request):
+#         return super().get_queryset(request).only(
+#             "user__phone",
+#             "is_active",
+#             "created_at",
+#             "event_type",
+#             "product_id"
+#         )
+#
+#     def save_model(self, request, obj, form, change):
+#         if request.user.is_superuser:
+#             return super().save_model(request, obj, form, change)
+#         else:
+#             raise PermissionDenied("دسترسی غیر مجاز")

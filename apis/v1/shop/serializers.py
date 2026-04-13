@@ -11,6 +11,7 @@ class ParentCategorySerializer(serializers.ModelSerializer):
 
 class ShopCategorySerializer(serializers.ModelSerializer):
     parent = ParentCategorySerializer(many=False, allow_null=True)
+    category_image = serializers.URLField(source="category_image.image.url", allow_null=True)
 
     class Meta:
         model = Category

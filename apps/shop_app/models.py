@@ -70,19 +70,19 @@ class ProductComment(ModifyMixin, ActiveMixin):
         db_table = "product_comment"
 
 
-class UserEvent(ActiveMixin):
-    EVENT_TYPES = [
-        ('view', 'Product View'),
-        ('click', 'Product Click'),
-        ('add_to_cart', 'Add To Cart'),
-        ('remove_from_cart', 'Remove From Cart'),
-        ('purchase', 'Purchase'),
-        ('favorite', 'Favorite'),
-    ]
-    user = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
-    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
-    event_type = models.CharField(max_length=20, choices=EVENT_TYPES)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        db_table = "user_shop_event"
+# class UserEvent(ActiveMixin):
+#     EVENT_TYPES = [
+#         ('view', 'Product View'),
+#         ('click', 'Product Click'),
+#         ('add_to_cart', 'Add To Cart'),
+#         ('remove_from_cart', 'Remove From Cart'),
+#         ('purchase', 'Purchase'),
+#         ('favorite', 'Favorite'),
+#     ]
+#     user = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
+#     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+#     event_type = models.CharField(max_length=20, choices=EVENT_TYPES)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#
+#     class Meta:
+#         db_table = "user_shop_event"

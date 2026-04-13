@@ -13,7 +13,8 @@ class ShopCategoryViewSet(ReadOnlyModelViewSet):
         "slug",
         "created_at",
         "updated_at",
-    )
+        "category_image__image"
+    ).select_related("category_image")
 
 
 class IsAmazingView(ListAPIView):
