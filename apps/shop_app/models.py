@@ -8,6 +8,7 @@ class Category(ActiveMixin, ModifyMixin):
     name = models.CharField(max_length=50, unique=True)
     parent = models.ForeignKey("self", on_delete=models.PROTECT, null=True, blank=True)
     slug = models.SlugField(max_length=255, unique=True, allow_unicode=True)
+    category_image = models.ForeignKey(Image, on_delete=models.PROTECT, null=True, blank=True)
 
     class Meta:
         db_table = "category"
@@ -22,6 +23,7 @@ class Product(ActiveMixin, ModifyMixin):
     new_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     sku = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True, null=True)
+    is_amazing = models.BooleanField(default=False)
 
     class Meta:
         db_table = "product"
@@ -66,3 +68,21 @@ class ProductComment(ModifyMixin, ActiveMixin):
 
     class Meta:
         db_table = "product_comment"
+
+
+class UserEvent(ActiveMixin):
+    EVENT_TYPES = [
+        ('view', 'Product View'),
+        ('click', 'Product Click'),
+        ('add_to_cart', 'Add To Cart'),
+        ('remove_from_cart', 'Remove From Cart'),
+        ('purchase', 'Purchase'),
+        ('favorite', 'Favorite'),
+    ]
+    user = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    event_type = models.CharField(max_length=20, choices=EVENT_TYPES)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "user_shop_event"

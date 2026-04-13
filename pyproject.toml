@@ -4,9 +4,11 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
+# pip install --index-url
 dependencies = [
     "adrf>=0.1.12",
     "celery>=5.6.3",
+    "clickhouse-connect>=0.15.1",
     "colorlog>=6.10.1",
     "django>=5.2.8",
     "django-cors-headers>=4.9.0",

@@ -1,7 +1,12 @@
 from celery import Celery
+import os
+
+from apps.shop_app.tasks import task_track_event
 
 app = Celery('dj_celery')
 
-app.config_from_object('django.conf', namespace='CELERY')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings')
+
+app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.autodiscover_tasks()

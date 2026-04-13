@@ -1,6 +1,8 @@
 import os
 from datetime import timedelta
 from pathlib import Path
+
+from clickhouse_connect import get_client
 from decouple import config, Csv
 from django.utils import timezone
 from kombu import Queue
@@ -380,6 +382,7 @@ if USE_CELERY:
     # celery queue
     CELERY_TASK_QUEUES = (
         Queue("send_otp"),
+        Queue("shop_event")
     )
 
 # use email
@@ -392,3 +395,12 @@ if USE_EMAIL:
     EMAIL_PORT = config("EMAIL_PORT", cast=int, default=587)
     EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool, default=True)
     EMAIL_HOST_USER = config("EMAIL_HOST_USER", cast=str)
+
+# use clickhouse database
+USE_CLICKHOUSE_DB = config("USE_CLICKHOUSE_DB", cast=bool, default=True)
+if USE_CLICKHOUSE_DB:
+    CLICKHOUSE_DB_HOST = config("CLICKHOUSE_DB_HOST", cast=str, default="localhost")
+    CLICKHOUSE_DB_PORT = config("CLICKHOUSE_DB_PORT", cast=int, default=8123)
+    CLICKHOUSE_DB_USER = config("CLICKHOUSE_DB_USER", cast=str, default="new_user")
+    CLICKHOUSE_DB_PASSWORD = config("CLICKHOUSE_DB_PASSWORD", cast=str, default="new_password")
+    CLICKHOUSE_DB_DATABASE = config("CLICKHOUSE_DB_DATABASE", cast=str, default="default")

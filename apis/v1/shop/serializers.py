@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.shop_app.models import Category
+from apps.shop_app.models import Category, Product
 
 
 class ParentCategorySerializer(serializers.ModelSerializer):
@@ -15,3 +15,17 @@ class ShopCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         exclude = ('is_active',)
+
+
+class IsAmazingProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = (
+            "id",
+            "category_id",
+            "product_name",
+            "product_slug",
+            "price",
+            "new_price",
+            "is_amazing"
+        )
