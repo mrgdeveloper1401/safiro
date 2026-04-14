@@ -90,7 +90,7 @@ class Order(ModifyMixin, ActiveMixin):
 
 class OrderItem(ModifyMixin, ActiveMixin):
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
-    order = models.ForeignKey(Order, on_delete=models.PROTECT)
+    order = models.ForeignKey(Order, on_delete=models.PROTECT, related_name="order_items")
     quantity = models.PositiveIntegerField(default=1)
 
     class Meta:

@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="find detail product by pk and product_slug">
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add api product_comment">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/utils/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/utils/pagination.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/v1/shop/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/shop/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/v1/shop/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/shop/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/v1/shop/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/shop/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/utils/custom_permissions.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/utils/custom_permissions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/utils/paginations.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/utils/paginations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/auth_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/shop_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/shop_app/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,7 +216,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776170438556</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="add api product_comment">
+      <option name="closed" value="true" />
+      <created>1776172244924</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1776172244924</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -235,6 +239,7 @@
     <MESSAGE value="add database clickhouse and add to task" />
     <MESSAGE value="add api most_discount and detail_product" />
     <MESSAGE value="find detail product by pk and product_slug" />
-    <option name="LAST_COMMIT_MESSAGE" value="find detail product by pk and product_slug" />
+    <MESSAGE value="add api product_comment" />
+    <option name="LAST_COMMIT_MESSAGE" value="add api product_comment" />
   </component>
 </project>

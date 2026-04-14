@@ -1,17 +1,31 @@
 from django.db.models import Prefetch, ExpressionWrapper, F, DecimalField
 from rest_framework.exceptions import NotFound
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, DestroyModelMixin, CreateModelMixin
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet, GenericViewSet
 from rest_framework.generics import ListAPIView, RetrieveAPIView, get_object_or_404
 
-from apps.shop_app.models import Category, Product, Sales, ProductImage, ProductAttributeValue, ProductComment
+from apps.shop_app.models import (
+    Category,
+    Product,
+    Sales,
+    ProductImage,
+    ProductAttributeValue,
+    ProductComment,
+    Order,
+    OrderItem
+)
 from .serializers import (
     ShopCategorySerializer,
     RecommenderProductSerializer,
     MostProductSaleSerializer,
     MostProductDiscountSerializer,
     DetailProductSerializer,
-    ProductCommentSerializer
+    ProductCommentSerializer,
+    CreateOrderBatchSerializer,
+    OrderSerializer,
+    OrderItemSerializer,
+    AddOrderItemSerializer
 )
 from ..utils.custom_permissions import IsOwnerProductComment
 from ..utils.paginations import CustomPagination, LatestItemPagination
@@ -167,6 +181,72 @@ class ProductCommentViewSet(ModelViewSet):
     def get_serializer_context(self):
         context = super().get_serializer_context()
         context['product_id'] = self.kwargs['pk']
+        return context
+
+    def perform_destroy(self, instance):
+        instance.is_active = False
+        instance.save()
+
+
+class OrderViewSet(ListModelMixin, RetrieveModelMixin, DestroyModelMixin, CreateModelMixin, GenericViewSet):
+    permission_classes = (IsAuthenticated,)
+    pagination_class = CustomPagination
+
+    def get_serializer_class(self):
+        if self.action == "create":
+            return CreateOrderBatchSerializer
+        else:
+            return OrderSerializer
+
+    def get_queryset(self):
+        item_fields = ("quantity", "order_id", "product__product_name", "product__price", "product__new_price")
+        p_img_fields = ("product_id", "image__image")
+
+        return Order.objects.filter(
+            is_active=True,
+            user_id=self.request.user.id,
+        ).order_by('-id').prefetch_related(
+            Prefetch(
+                "order_items",
+                queryset=OrderItem.objects.filter(is_active=True).select_related("product").only(*item_fields)
+            ),
+            Prefetch(
+                "order_items__product__product_image",
+                queryset=ProductImage.objects.select_related("image").only(*p_img_fields).order_by('order').filter(is_active=True)
+            )
+        )
+
+    def perform_destroy(self, instance):
+        instance.is_active = False
+        instance.save()
+
+
+class OrderItemViewSet(ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        fields = ("product__product_name", "quantity", "product__price", "product__new_price", "order_id")
+        p_img_fields = ("product_id", "image__image")
+
+        return OrderItem.objects.filter(
+            is_active=True,
+            order_id=self.kwargs['order_pk']
+        ).select_related("product").only(*fields).prefetch_related(
+            Prefetch(
+                "product__product_image",
+                queryset=ProductImage.objects.filter(is_active=True).order_by('order').select_related("image").only(*p_img_fields)
+            )
+        )
+
+    def get_serializer_class(self):
+        if self.action == "create":
+            return AddOrderItemSerializer
+        else:
+            return OrderItemSerializer
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['order_id'] = self.kwargs['order_pk']
         return context
 
     def perform_destroy(self, instance):
