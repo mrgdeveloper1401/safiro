@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "drf_spectacular_sidecar",
     "django_extensions",
+    "django_filters",
 
     # third party app
     "apps.auth_app.apps.AuthAppConfig",
@@ -172,6 +173,7 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'otp': '1/minute', #TODO, bug fix send otp every 2minute
     },
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
 # config debug toolbar

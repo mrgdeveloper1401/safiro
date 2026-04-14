@@ -1,8 +1,16 @@
+from django.db.models import Prefetch, ExpressionWrapper, F, DecimalField
 from rest_framework.viewsets import ReadOnlyModelViewSet
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 
-from apps.shop_app.models import Category, Product
-from .serializers import ShopCategorySerializer, IsAmazingProductSerializer
+from apps.shop_app.models import Category, Product, Sales, ProductImage, ProductAttributeValue
+from .serializers import (
+    ShopCategorySerializer,
+    RecommenderProductSerializer,
+    MostProductSaleSerializer,
+    MostProductDiscountSerializer,
+    DetailProductSerializer
+)
+from ...utils.pagination import LatestItemPagination
 
 
 class ShopCategoryViewSet(ReadOnlyModelViewSet):
@@ -17,9 +25,90 @@ class ShopCategoryViewSet(ReadOnlyModelViewSet):
     ).select_related("category_image")
 
 
-class IsAmazingView(ListAPIView):
-    serializer_class = IsAmazingProductSerializer
+class RecommenderProductView(ListAPIView):
+    serializer_class = RecommenderProductSerializer
+    filterset_fields = ("is_amazing",)
+    pagination_class = LatestItemPagination
 
     def get_queryset(self):
         fields = self.serializer_class.Meta.fields
-        return  Product.objects.filter(is_amazing=True, is_active=True).only(*fields).order_by('-updated_at')[:10]
+        return  Product.objects.filter(
+            is_amazing=True,
+            is_active=True
+        ).only(*fields).order_by('-updated_at').prefetch_related(
+            Prefetch(
+                "product_image",
+                queryset=ProductImage.objects.filter(is_active=True).select_related("image").only("product_id", "image__image"),
+            )
+        )
+
+
+class MostProductSaleView(ListAPIView):
+    serializer_class = MostProductSaleSerializer
+    pagination_class = LatestItemPagination
+
+    def get_queryset(self):
+        fields = ("product__product_slug", "product__price", "product__new_price", "product__product_name")
+        p_img_fields = ("image__image", "product_id")
+        return Sales.objects.filter(
+            is_active=True
+        ).select_related(
+            "product"
+        ).only(
+            *fields
+        ).order_by(
+            '-quantity'
+        ).prefetch_related(
+            Prefetch(
+                "product__product_image",
+                queryset=ProductImage.objects.only(*p_img_fields).select_related("image").filter(is_active=True).order_by("order")
+            )
+        )
+
+
+class MostProductDiscountView(ListAPIView):
+    serializer_class = MostProductDiscountSerializer
+    pagination_class = LatestItemPagination
+
+    def get_queryset(self):
+        fields = ("product_slug", "price", "new_price", "product_name", "category_id")
+        p_img_fields = ("image__image", "product_id")
+        return Product.objects.filter(
+            is_active=True,
+            new_price__isnull=False
+        ).only(*fields).prefetch_related(
+            Prefetch(
+                "product_image",
+                queryset=ProductImage.objects.only(*p_img_fields).select_related("image").filter(is_active=True).order_by("order")
+            )
+        ).annotate(
+            discount_amount=ExpressionWrapper(
+                F('price') - F('new_price'),
+                output_field=DecimalField()
+            )
+        ).order_by("-discount_amount")
+
+
+class DetailProductView(RetrieveAPIView):
+    serializer_class = DetailProductSerializer
+
+    def get_queryset(self):
+        fields = ("category__name", "product_name", "price", "new_price", "product_slug", "description", "stock_number", "is_amazing", "created_at", "updated_at")
+        p_img_fields = ("image__image", "product_id", "order")
+        attr_fields = ("attribute_value__attribute__attribute_name", "product_id", "attribute_value__attribute_value")
+
+        return Product.objects.filter(is_active=True).select_related("category").only(*fields).prefetch_related(
+            Prefetch(
+                "product_image",
+                queryset=ProductImage.objects.filter(is_active=True).select_related("image").order_by("order").only(*p_img_fields)
+            ),
+            Prefetch(
+                "product_attribute_values",
+                queryset=ProductAttributeValue.objects.select_related("attribute_value__attribute").filter(is_active=True).only(*attr_fields)
+            )
+        ).annotate(
+            discount_amount=ExpressionWrapper(
+                F('price') - F('new_price'),
+                output_field=DecimalField()
+            )
+        )

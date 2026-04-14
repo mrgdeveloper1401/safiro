@@ -7,7 +7,10 @@ from .models import (
     Attribute,
     AttributeValue,
     ProductAttributeValue,
-    ProductComment
+    ProductComment,
+    Order,
+    OrderItem,
+    Sales
 )
 
 
@@ -40,8 +43,8 @@ class ProductAdmin(admin.ModelAdmin):
 class ProductImageAdmin(admin.ModelAdmin):
     list_display_links = ('id', "product_id", "image_id")
     raw_id_fields = ("product", "image")
-    list_display = ("id", 'product_id', 'image_id', "is_active", "created_at", "updated_at")
-    list_editable = ("is_active",)
+    list_display = ("id", 'product_id', 'image_id', "order", "is_active", "created_at", "updated_at")
+    list_editable = ("is_active", "order")
     list_filter = ('is_active', "created_at", "updated_at")
     search_fields = ('product__id', "id")
     search_help_text = "برای جست و جو میتوانید از شماره ایدی محصول و ایدی فیلد استفاده کنید"
@@ -89,32 +92,50 @@ class ProductCommentAdmin(admin.ModelAdmin):
     search_help_text = "برای جست و جو میتوانید از شماره موبایل کاربر یا ایدی محصول استفاده کنید"
 
 
-# @admin.register(UserEvent)
-# class UserEventAdmin(admin.ModelAdmin):
-#     list_display = ('id', "user_id", "product_id", "get_user_phone", "is_active", "event_type", "created_at")
-#     list_per_page = 30
-#     list_filter = ('is_active',)
-#     raw_id_fields = ("product", "user")
-#     search_fields = ("product__id", "user__phone")
-#     search_help_text = "برای جست و جو میتوانید از ایدی محصول و شماره موبایل کاربر استفاده کنید"
-#     list_display_links = ('id', "get_user_phone", "user_id", "product_id")
-#     list_select_related = ("user",)
-#     list_editable = ("is_active",)
-#
-#     def get_user_phone(self, obj):
-#         return obj.user.phone
-#
-#     def get_queryset(self, request):
-#         return super().get_queryset(request).only(
-#             "user__phone",
-#             "is_active",
-#             "created_at",
-#             "event_type",
-#             "product_id"
-#         )
-#
-#     def save_model(self, request, obj, form, change):
-#         if request.user.is_superuser:
-#             return super().save_model(request, obj, form, change)
-#         else:
-#             raise PermissionDenied("دسترسی غیر مجاز")
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', "user_id", "get_user_phone", "is_complete", "status", "is_active", "created_at", "updated_at")
+    list_filter = ('is_complete', "created_at", "updated_at", "is_active")
+    search_fields = ("user__id", "user__phone")
+    search_help_text = "برای جست و جو میتوانید از ایدی کاربر یا شماره موبایل استفاده کنید"
+    list_per_page = 30
+    raw_id_fields = ("user",)
+    list_editable = ("is_complete", "is_active", "status")
+    list_display_links = ("id", "user_id", "get_user_phone")
+
+    def get_user_phone(self, obj):
+        return obj.user.phone
+
+    def get_queryset(self, request):
+        fields = ("user__phone", "is_complete", "is_active", "created_at", "updated_at", "status")
+        return super().get_queryset(request).select_related("user").only(*fields)
+
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ("id", "product_id", "order_id", "quantity", "is_active", "created_at", "updated_at")
+    raw_id_fields = ("product", "order")
+    list_filter = ('is_active', "created_at", "updated_at")
+    list_editable = ("is_active",)
+    list_display_links = ("id", "product_id", "order_id")
+    list_per_page = 30
+
+
+@admin.register(Sales)
+class SalesAdmin(admin.ModelAdmin):
+    list_display = ('id', "user_id", "product_id", "get_user_phone", "quantity", "is_active", "created_at", "updated_at")
+    raw_id_fields = ("product", "user")
+    list_per_page = 30
+    list_filter = ('is_active', "created_at", "updated_at")
+    list_editable = ("is_active", "quantity")
+    search_fields = ("user__id", "user__phone", "product__id")
+    search_help_text = "برای جست و جو میتوانید از ایدی کاربر یا محصول یا شماره موبایل کاربر استفاده کنید"
+    list_display_links = ("id", "user_id", "product_id", "get_user_phone")
+    list_select_related = ("user",)
+
+    def get_user_phone(self, obj):
+        return obj.user.phone
+
+    def get_queryset(self, request):
+        fields = ("user__phone", "product_id", "quantity", "is_active", "created_at", "updated_at")
+        return super().get_queryset(request).only(*fields)

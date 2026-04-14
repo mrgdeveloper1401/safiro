@@ -30,12 +30,16 @@ class Product(ActiveMixin, ModifyMixin):
 
 
 class ProductImage(ModifyMixin, ActiveMixin):
-    product = models.ForeignKey(Product, on_delete=models.PROTECT)
-    image = models.ForeignKey(Image, on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name="product_image")
+    image = models.ForeignKey(Image, on_delete=models.PROTECT, related_name="image_product")
     order = models.PositiveIntegerField(default=1)
 
     class Meta:
         db_table = "product_image"
+
+    @property
+    def get_product_image_url(self):
+        return self.image.get_image_url
 
 
 class Attribute(ModifyMixin, ActiveMixin):
@@ -54,7 +58,7 @@ class AttributeValue(ModifyMixin, ActiveMixin):
 
 
 class ProductAttributeValue(ModifyMixin, ActiveMixin):
-    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name="product_attribute_values")
     attribute_value = models.ForeignKey(AttributeValue, on_delete=models.PROTECT)
 
     class Meta:
@@ -70,19 +74,33 @@ class ProductComment(ModifyMixin, ActiveMixin):
         db_table = "product_comment"
 
 
-# class UserEvent(ActiveMixin):
-#     EVENT_TYPES = [
-#         ('view', 'Product View'),
-#         ('click', 'Product Click'),
-#         ('add_to_cart', 'Add To Cart'),
-#         ('remove_from_cart', 'Remove From Cart'),
-#         ('purchase', 'Purchase'),
-#         ('favorite', 'Favorite'),
-#     ]
-#     user = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
-#     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
-#     event_type = models.CharField(max_length=20, choices=EVENT_TYPES)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#
-#     class Meta:
-#         db_table = "user_shop_event"
+class Order(ModifyMixin, ActiveMixin):
+    ORDER_STATUS = (
+        ("pending", "Pending"),
+        ("success", "Successful"),
+        ("error", "Error"),
+    )
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    is_complete = models.BooleanField(default=False)
+    status = models.CharField(max_length=10, default="pending", choices=ORDER_STATUS)
+
+    class Meta:
+        db_table = "order"
+
+
+class OrderItem(ModifyMixin, ActiveMixin):
+    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    order = models.ForeignKey(Order, on_delete=models.PROTECT)
+    quantity = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        db_table = "order_item"
+
+
+class Sales(ModifyMixin, ActiveMixin):
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    quantity = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        db_table = "sales"

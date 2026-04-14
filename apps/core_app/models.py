@@ -34,7 +34,7 @@ class Image(ModifyMixin, ActiveMixin):
     image_type = models.CharField(_("فورمت عکس"), max_length=10, blank=True, null=True)
 
     class Meta:
-        db_table = 'auth_image'
+        db_table = 'image'
 
     def save(self, *args, **kwargs):
         self.image_type = self.image.url.split(".")[-1]
