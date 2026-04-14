@@ -18,5 +18,5 @@ urlpatterns = [
     path("recommender_product/", RecommenderProductView.as_view(), name='is_amazing_product'),
     path("most_product_sale/", MostProductSaleView.as_view(), name='is_amazing_product'),
     path("most_product_discount/", MostProductDiscountView.as_view(), name='is_amazing_product'),
-    path("detail_product/<int:pk>/", DetailProductView.as_view(), name='detail_product'),
+    path("detail_product/<int:pk>/<str:p_slug>/", DetailProductView.as_view(), name='detail_product'),
 ] + router.urls

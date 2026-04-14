@@ -1,6 +1,7 @@
 from django.db.models import Prefetch, ExpressionWrapper, F, DecimalField
+from rest_framework.exceptions import NotFound
 from rest_framework.viewsets import ReadOnlyModelViewSet
-from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, get_object_or_404
 
 from apps.shop_app.models import Category, Product, Sales, ProductImage, ProductAttributeValue
 from .serializers import (
@@ -91,6 +92,39 @@ class MostProductDiscountView(ListAPIView):
 
 class DetailProductView(RetrieveAPIView):
     serializer_class = DetailProductSerializer
+
+    def get_object(self):
+        """
+        Returns the object the view is displaying.
+
+        You may want to override this if you need to provide non-standard
+        queryset lookups.  Eg if objects are referenced using multiple
+        keyword arguments in the url conf.
+        """
+        queryset = self.filter_queryset(self.get_queryset())
+
+        # Perform the lookup filtering.
+        lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
+
+        assert lookup_url_kwarg in self.kwargs, (
+            'Expected view %s to be called with a URL keyword argument '
+            'named "%s". Fix your URL conf, or set the `.lookup_field` '
+            'attribute on the view correctly.' %
+            (self.__class__.__name__, lookup_url_kwarg)
+        )
+
+        p_slug = self.kwargs.get("p_slug", None)
+        if not p_slug:
+            raise NotFound("product_slug must be specified")
+
+        filter_kwargs = {self.lookup_field: self.kwargs[lookup_url_kwarg], "product_slug": p_slug}
+        obj = get_object_or_404(queryset, **filter_kwargs)
+
+        # May raise a permission denied
+        self.check_object_permissions(self.request, obj)
+
+        return obj
+
 
     def get_queryset(self):
         fields = ("category__name", "product_name", "price", "new_price", "product_slug", "description", "stock_number", "is_amazing", "created_at", "updated_at")
