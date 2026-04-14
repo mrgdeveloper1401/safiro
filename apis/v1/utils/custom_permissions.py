@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-from apis.v1.utils.custom_exceptions import AuthenticationFailed, NotActiveAccount, NotDriverException
+from apis.v1.utils.custom_exceptions import AuthenticationFailed, NotDriverException
 
 
 class AsyncRemoveAuthenticationPermissions(permissions.BasePermission):
@@ -28,4 +28,11 @@ class IsDriverAccount(permissions.IsAuthenticated):
     def has_object_permission(self, request, view, obj):
         if not request.user.is_driver:
             raise NotDriverException()
+        return True
+
+
+class IsOwnerProductComment(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.user.id != obj.user.id:
+            return False
         return True

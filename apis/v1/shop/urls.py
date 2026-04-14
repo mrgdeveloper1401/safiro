@@ -6,7 +6,8 @@ from .views import (
     RecommenderProductView,
     MostProductSaleView,
     MostProductDiscountView,
-    DetailProductView
+    DetailProductView,
+    ProductCommentViewSet
 )
 
 app_name = "v1_shop"
@@ -19,4 +20,6 @@ urlpatterns = [
     path("most_product_sale/", MostProductSaleView.as_view(), name='is_amazing_product'),
     path("most_product_discount/", MostProductDiscountView.as_view(), name='is_amazing_product'),
     path("detail_product/<int:pk>/<str:p_slug>/", DetailProductView.as_view(), name='detail_product'),
+    path("detail_product/<int:pk>/<str:p_slug>/comment/", ProductCommentViewSet.as_view({'get': 'list', "post": "create"}), name='product_comment'),
+    path("detail_product/<int:pk>/<str:p_slug>/comment/<int:id>", ProductCommentViewSet.as_view({'get': 'retrieve', "delete": "destroy", "patch": "update", 'put': 'update'}), name='product_comment_detail'),
 ] + router.urls

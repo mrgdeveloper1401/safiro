@@ -1,17 +1,20 @@
 from django.db.models import Prefetch, ExpressionWrapper, F, DecimalField
 from rest_framework.exceptions import NotFound
-from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 from rest_framework.generics import ListAPIView, RetrieveAPIView, get_object_or_404
 
-from apps.shop_app.models import Category, Product, Sales, ProductImage, ProductAttributeValue
+from apps.shop_app.models import Category, Product, Sales, ProductImage, ProductAttributeValue, ProductComment
 from .serializers import (
     ShopCategorySerializer,
     RecommenderProductSerializer,
     MostProductSaleSerializer,
     MostProductDiscountSerializer,
-    DetailProductSerializer
+    DetailProductSerializer,
+    ProductCommentSerializer
 )
-from ...utils.pagination import LatestItemPagination
+from ..utils.custom_permissions import IsOwnerProductComment
+from ..utils.paginations import CustomPagination, LatestItemPagination
 
 
 class ShopCategoryViewSet(ReadOnlyModelViewSet):
@@ -146,3 +149,26 @@ class DetailProductView(RetrieveAPIView):
                 output_field=DecimalField()
             )
         )
+
+
+class ProductCommentViewSet(ModelViewSet):
+    serializer_class = ProductCommentSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly, IsOwnerProductComment)
+    pagination_class = CustomPagination
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        fields = ("user__username", "created_at", "updated_at", "comment", "product_id")
+        return ProductComment.objects.filter(
+            is_active=True,
+            product_id=self.kwargs['pk'],
+        ).select_related("user").only(*fields).order_by("-id")
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['product_id'] = self.kwargs['pk']
+        return context
+
+    def perform_destroy(self, instance):
+        instance.is_active = False
+        instance.save()

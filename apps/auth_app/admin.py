@@ -37,7 +37,7 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('phone', 'password')
         }),
         (_('مشخصات شخصی'), {
-            'fields': ('email',)
+            'fields': ('email', "username")
         }),
         (_('نقش‌ها و وضعیت'), {
             'fields': (

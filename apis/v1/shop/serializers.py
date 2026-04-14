@@ -1,7 +1,7 @@
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
-from apps.shop_app.models import Category, Product, Sales, ProductImage, ProductAttributeValue
+from apps.shop_app.models import Category, Product, Sales, ProductImage, ProductAttributeValue, ProductComment
 
 
 class ParentCategorySerializer(serializers.ModelSerializer):
@@ -124,3 +124,22 @@ class DetailProductSerializer(serializers.ModelSerializer):
     @extend_schema_field(serializers.DecimalField(max_digits=10, decimal_places=2))
     def get_discount_amount(self, obj):
         return obj.discount_amount
+
+
+class ProductCommentSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source="user.username", read_only=True)
+    is_owner = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ProductComment
+        exclude = ('is_active',)
+        read_only_fields = ('user', "product")
+
+    def create(self, validated_data):
+        user_id = self.context["request"].user.id
+        product_id = self.context["product_id"]
+        return ProductComment.objects.create(user_id=user_id, product_id=product_id, **validated_data)
+
+    @extend_schema_field(serializers.BooleanField())
+    def get_is_owner(self, obj):
+        return obj.user_id == self.context["request"].user.id
