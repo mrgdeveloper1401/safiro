@@ -18,7 +18,13 @@ services:
   redis:
     container_name: safiro_redis
     image: docker.arvancloud.ir/redis:latest
-    command: redis-server --save 60 1 --loglevel warning
+    command: >
+      redis-server
+      --loglevel warning
+      --appendonly no
+      --save ""
+      --maxmemory 1000mb
+      --maxmemory-policy allkeys-lru
     expose:
       - 6379
     ports:
