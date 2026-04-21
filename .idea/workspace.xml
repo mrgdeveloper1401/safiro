@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add api order">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/shop/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/shop/serializers.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +28,22 @@
     &quot;assignee&quot;: &quot;mrgdeveloper1401&quot;
   }
 }</component>
+  <component name="GitLabMergeRequestFiltersHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPENED",
+    "assignee": {
+      "type": "org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue",
+      "username": "project_180686_bot_188416b3c5e0e3e8d456c74637f2a6c5",
+      "fullname": "push pycharm in project backend sfiro"
+    }
+  }
+}]]></component>
+  <component name="GitLabMergeRequestsSettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "first": "https://gitlab.chabokan.net/new_mgoodarzi2026/safiro-backend.git",
+    "second": "c618ceaf-3ea2-4dbf-8f7d-961939d4ed47"
+  }
+}]]></component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;git@github.com:mrgdeveloper1401/safiro.git&quot;,
@@ -229,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776182802387</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="add api order">
+      <option name="closed" value="true" />
+      <created>1776797269419</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1776797269419</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
