@@ -31,13 +31,13 @@ services:
       - "6379:6379"
 
   auth-backend:
-    container_name: safiro
+    container_name: safiro_django
     restart: always
     volumes:
       - static_files:/home/app/static
     build:
       context: .
-      dockerfile: dockerfile/prod/Dockerfile
+      dockerfile: dockerfile/prod/django/Dockerfile
     ports:
       - "8000:8000"
     expose:
