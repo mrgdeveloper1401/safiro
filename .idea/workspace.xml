@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add api order">
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit postgres tag in docker-compose.yml">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,7 +253,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776797269419</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="edit postgres tag in docker-compose.yml">
+      <option name="closed" value="true" />
+      <created>1776799282120</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1776799282120</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -269,6 +278,7 @@
     <MESSAGE value="find detail product by pk and product_slug" />
     <MESSAGE value="add api product_comment" />
     <MESSAGE value="add api order" />
-    <option name="LAST_COMMIT_MESSAGE" value="add api order" />
+    <MESSAGE value="edit postgres tag in docker-compose.yml" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit postgres tag in docker-compose.yml" />
   </component>
 </project>
