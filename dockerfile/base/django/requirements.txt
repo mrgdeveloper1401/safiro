@@ -21,3 +21,9 @@ django-extensions
 gunicorn
 psycopg[binary,pool]
 uuid-extension
+celery
+clickhouse-connect
+django-filter
+drf-nested-routers
+msgpack
+puremagic

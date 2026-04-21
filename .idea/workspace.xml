@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="replace mirror">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit config gunicorn" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -343,7 +341,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776804815609</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="edit config gunicorn">
+      <option name="closed" value="true" />
+      <created>1776805462741</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1776805462741</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -370,6 +376,7 @@
     <MESSAGE value="edit postgresql-client" />
     <MESSAGE value="edit package" />
     <MESSAGE value="replace mirror" />
-    <option name="LAST_COMMIT_MESSAGE" value="replace mirror" />
+    <MESSAGE value="edit config gunicorn" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit config gunicorn" />
   </component>
 </project>
