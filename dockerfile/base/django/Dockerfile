@@ -1,6 +1,9 @@
 FROM docker.arvancloud.ir/python:3.14-alpine
 
-COPY . .
+WORKDIR /home/app
+
+COPY requirements.txt .
+COPY packages ./packages
 
 RUN cp /dev/null /etc/apk/repositories && \
     echo "https://mirror.mobinhost.com/alpine/v3.22/main" >> /etc/apk/repositories && \
