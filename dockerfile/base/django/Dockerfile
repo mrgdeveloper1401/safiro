@@ -9,5 +9,5 @@ RUN cp /dev/null /etc/apk/repositories && \
     apk upgrade && \
     apk add bash postgresql-client curl gcc python3-dev musl-dev linux-headers graphviz && \
     pip install --index-url https://mirror2.chabokan.net/pypi/simple --upgrade pip && \
-    pip install --no-index --find-links=/home/packages -r requirements.txt
+    pip install --no-index --find-links=./packages -r requirements.txt
 #    pip install --index-url https://mirror2.chabokan.net/pypi/simple -r requirements.txt
