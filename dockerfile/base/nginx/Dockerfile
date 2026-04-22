@@ -1,4 +1,4 @@
-FROM docker.arvancloud.ir/nginx:1.29-alpine
+FROM docker.arvancloud.ir/nginx:latest
 
 RUN cp /dev/null /etc/apk/repositories && \
     mkdir -p /var/www/static/ && \
