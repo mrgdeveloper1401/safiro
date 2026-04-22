@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add package into requirements.txt">
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add mirror into requirements.txt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerfile/base/django/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/base/django/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,17 +63,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.runserver.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/mg/Desktop/django-projects/safiro&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;PyConsoleConfigurable.Python Console&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.runserver.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/mg/Desktop/package_python",
+    "settings.editor.selected.configurable": "PyConsoleConfigurable.Python Console"
   }
-}</component>
+}]]></component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <console-settings custom-start-script="import sys&#10;import os&#10;import django&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;, &quot;base.settings&quot;)&#10;django.setup()" module-name="safiro" is-module-sdk="true">
@@ -359,11 +362,18 @@
       <option name="project" value="LOCAL" />
       <updated>1776805873190</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="add mirror into requirements.txt">
+      <option name="closed" value="true" />
+      <created>1776844994993</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1776844994993</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="clean migration and edit field pk in model DriverDoc" />
     <MESSAGE value="update router verify and request otp phone" />
     <MESSAGE value="edit response login_phone and verify_otp" />
     <MESSAGE value="add api driver and user_type" />
@@ -388,6 +398,7 @@
     <MESSAGE value="replace mirror" />
     <MESSAGE value="edit config gunicorn" />
     <MESSAGE value="add package into requirements.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="add package into requirements.txt" />
+    <MESSAGE value="add mirror into requirements.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="add mirror into requirements.txt" />
   </component>
 </project>

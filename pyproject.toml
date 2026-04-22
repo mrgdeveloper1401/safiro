@@ -1,6 +1,6 @@
 [project]
 name = "safiro"
-version = "0.1.0"
+version = "1.0.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
@@ -21,7 +21,7 @@ dependencies = [
     "drf-nested-routers>=0.95.0",
     "drf-spectacular>=0.29.0",
     "drf-spectacular-sidecar>=2025.10.1",
-    "gunicorn>=23.0.0",
+    "gunicorn>=25.3.0",
     "httpx>=0.28.1",
     "ipython>=9.7.0",
     "msgpack>=1.1.2",
@@ -41,5 +41,4 @@ dev = [
     "django-debug-toolbar>=6.1.0",
     "drf-spectacular-extras>=0.1.0",
     "ipdb>=0.13.13",
-    "requests>=2.32.5",
 ]
