@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit Dockerfile nginx">
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit nginx.conf">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerfile/base/nginx/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/base/nginx/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -408,11 +408,18 @@
       <option name="project" value="LOCAL" />
       <updated>1776890122974</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="edit nginx.conf">
+      <option name="closed" value="true" />
+      <created>1776950399337</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1776950399337</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit response login_phone and verify_otp" />
     <MESSAGE value="add api driver and user_type" />
     <MESSAGE value="add api upload_image and passenger_profile" />
     <MESSAGE value="edit api passenger and driver profile" />
@@ -437,6 +444,7 @@
     <MESSAGE value="add mirror into requirements.txt" />
     <MESSAGE value="edit Dockerfile" />
     <MESSAGE value="edit Dockerfile nginx" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit Dockerfile nginx" />
+    <MESSAGE value="edit nginx.conf" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit nginx.conf" />
   </component>
 </project>
