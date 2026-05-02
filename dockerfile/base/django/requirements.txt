@@ -16,9 +16,9 @@ drf-spectacular-extras
 uvicorn
 uvicorn-worker
 ipython
-django-storages[boto3]
+django-storages[s3]
 django-extensions
-gunicorn
+gunicorn[fast]
 psycopg[binary,pool]
 uuid-extension
 celery

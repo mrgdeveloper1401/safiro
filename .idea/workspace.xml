@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="update prod image nginx">
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add folder env_folder">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerfile/base/django/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/base/django/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/gunicorn.conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/gunicorn.conf.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,18 +64,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.runserver.executor&quot;: &quot;Run&quot;,
-    &quot;Python.settings.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/mg/Desktop/package_python&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;PyConsoleConfigurable.Python Console&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "Python.runserver.executor": "Run",
+    "Python.settings.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/mg/Desktop/package_python",
+    "settings.editor.selected.configurable": "PyConsoleConfigurable.Python Console"
   }
-}</component>
+}]]></component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <console-settings custom-start-script="import sys&#10;import os&#10;import django&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;, &quot;base.settings&quot;)&#10;django.setup()" module-name="safiro" is-module-sdk="true">
@@ -475,13 +480,34 @@
       <option name="project" value="LOCAL" />
       <updated>1777719337311</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="update docker-compose.yml service db">
+      <option name="closed" value="true" />
+      <created>1777719568294</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1777719568294</updated>
+    </task>
+    <task id="LOCAL-00042" summary="update docker-compose.yml service db and redis">
+      <option name="closed" value="true" />
+      <created>1777719823528</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1777719823528</updated>
+    </task>
+    <task id="LOCAL-00043" summary="add folder env_folder">
+      <option name="closed" value="true" />
+      <created>1777719909400</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1777719909400</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add model and admin shop" />
-    <MESSAGE value="add database clickhouse and add to task" />
-    <MESSAGE value="add api most_discount and detail_product" />
     <MESSAGE value="find detail product by pk and product_slug" />
     <MESSAGE value="add api product_comment" />
     <MESSAGE value="add api order" />
@@ -504,6 +530,9 @@
     <MESSAGE value="edit base_image django" />
     <MESSAGE value="update base_image nginx" />
     <MESSAGE value="update prod image nginx" />
-    <option name="LAST_COMMIT_MESSAGE" value="update prod image nginx" />
+    <MESSAGE value="update docker-compose.yml service db" />
+    <MESSAGE value="update docker-compose.yml service db and redis" />
+    <MESSAGE value="add folder env_folder" />
+    <option name="LAST_COMMIT_MESSAGE" value="add folder env_folder" />
   </component>
 </project>

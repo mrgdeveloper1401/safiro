@@ -150,7 +150,7 @@ if USE_DJANGO_STORAGES:
     AWS_STORAGE_BUCKET_NAME = config('S3_BUCKET_NAME', cast=str)
     AWS_S3_ENDPOINT_URL = config('S3_BUCKET_URL', cast=str)
     AWS_S3_FILE_OVERWRITE = config('S3_FILE_OVERWRITE', cast=bool, default=False)
-    AWS_S3_MAX_MEMORY_SIZE = config('S3_MAX_MEMORY_SIZE', cast=int, default=2097152)
+    AWS_S3_MAX_MEMORY_SIZE = config('S3_MAX_MEMORY_SIZE', cast=int, default=2097152) # size bytes
 else:
     MEDIA_ROOT = BASE_DIR / 'media'  # upload file into dir
     MEDIA_URL = '/media/'  # address in url
@@ -234,7 +234,7 @@ CACHES = {
             },
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "CONNECTION_POOL_KWARGS": {
-                "max_connections": config("REDIS_MAX_CONNECTION", cast=int, default=30),
+                "max_connections": config("REDIS_MAX_CONNECTION", cast=int, default=os.cpu_count() * 2 * 5),
                 "retry_on_timeout": config("REDIS_DEFAULT_POOL_RETRY_TIMEOUT", default=True, cast=bool),
                 "health_check_interval": config("REDIS_DEFAULT_HEALTH_CHECK_INTERVAL", default=True, cast=bool),
                 "socket_keepalive": config("REDIS_DEFAULT_SOCKET_KEEPALIVE", default=True, cast=bool),
@@ -308,12 +308,12 @@ if USE_LOG:
 # jwt config
 SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=config("REFRESH_TOKEN_LIFETIME", cast=int, default=365)),
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=config("ACCESS_TOKEN_LIFETIME", cast=int, default=7)),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=config("ACCESS_TOKEN_LIFETIME", cast=int, default=120)),
     "ALGORITHM": "HS256",
     "SIGNING_KEY": config("SIGNING_KEY", cast=str, default="test_project"),
     "VERIFYING_KEY": "",
     "AUDIENCE": config("AUDIENCE", cast=str, default=None),
-    "ISSUER": None,
+    "ISSUER": config("ISSUER", cast=str, default=None),
     "JSON_ENCODER": None,
     "JWK_URL": None,
     "LEEWAY": 0,
@@ -328,6 +328,8 @@ SIMPLE_JWT = {
     "BLACKLIST_AFTER_ROTATION": config("BLACKLIST_AFTER_ROTATION", cast=bool, default=True),
     "UPDATE_LAST_LOGIN": config("UPDATE_LAST_LOGIN", cast=bool, default=True),
 }
+if DEBUG:
+    SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'] = timedelta(days=30)
 
 # swagger config
 SPECTACULAR_SETTINGS = {
