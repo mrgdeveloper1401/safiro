@@ -1,3 +1,3 @@
-FROM safir_nginx:1.0.0
+FROM safir_nginx:2.0.0
 
 COPY /dockerfile/prod/nginx/nginx.conf /etc/nginx/nginx.conf

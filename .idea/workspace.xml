@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit base_image dockerfile">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerfile/base/django/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/base/django/Dockerfile" afterDir="false" />
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit base_image django">
+      <change beforePath="$PROJECT_DIR$/dockerfile/base/nginx/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/base/nginx/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerfile/prod/django/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/django/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -453,11 +452,18 @@
       <option name="project" value="LOCAL" />
       <updated>1776951745677</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="edit base_image django">
+      <option name="closed" value="true" />
+      <created>1777718721675</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1777718721675</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add api upload_image and passenger_profile" />
     <MESSAGE value="edit api passenger and driver profile" />
     <MESSAGE value="add api driver_car and driver_doc" />
     <MESSAGE value="add model and admin shop" />
@@ -482,6 +488,7 @@
     <MESSAGE value="edit Dockerfile nginx" />
     <MESSAGE value="edit nginx.conf" />
     <MESSAGE value="edit base_image dockerfile" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit base_image dockerfile" />
+    <MESSAGE value="edit base_image django" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit base_image django" />
   </component>
 </project>
