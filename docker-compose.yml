@@ -12,7 +12,7 @@ services:
       POSTGRES_DB: ${POSTDB_NAME}
       POSTGRES_USER: ${POSTDB_USER}
     healthcheck:
-      test: ["CMD", "pg_isready", "-U ${POSTDB_USER} -d ${POSTDB_NAME}"]
+      test: ["CMD", "pg_isready -U ${POSTDB_USER} -d ${POSTDB_NAME}"]
       interval: 20s
       timeout: 5s
       retries: 2
@@ -41,7 +41,7 @@ services:
     container_name: safiro_django
     restart: always
     volumes:
-      - static_files:/home/app/static
+      - static_files:/home/app/staticfiles
     build:
       context: .
       dockerfile: dockerfile/prod/django/Dockerfile
