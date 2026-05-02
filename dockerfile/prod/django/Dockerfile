@@ -1,4 +1,4 @@
-FROM safiro:1.0.0
+FROM safiro:2.0.0
 
 WORKDIR /home/app
 

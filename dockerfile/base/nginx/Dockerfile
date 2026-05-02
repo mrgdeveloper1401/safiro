@@ -1,11 +1,12 @@
-FROM docker.arvancloud.ir/nginx:latest
+FROM docker.arvancloud.ir/nginx:1.29-alpine
 
-RUN mkdir -p /var/www/static/ \
-    /etc/letsencrypt/ \
-    /var/lib/letsencrypt/ && \
-    rm -f /etc/apt/sources.list.d/debian.sources && \
-    printf "Types: deb\nURIs: https://mirror.mobinhost.com/debian\nSuites: trixie\nComponents: main\n" \
-      > /etc/apt/sources.list.d/debian.sources && \
-    apt update && \
-    apt install -y bash curl openssl && \
-    rm -rf /var/lib/apt/lists/*
+RUN cp /dev/null /etc/apk/repositories && \
+    mkdir -p /var/www/static/ \
+    /var/www/next_static/ \
+    /etc/ssl \
+    /etc/letsencrypt/ && \
+    echo "https://mirror.mobinhost.com/alpine/v3.22/main" >> /etc/apk/repositories && \
+    echo "https://mirror.mobinhost.com/alpine/v3.22/community" >> /etc/apk/repositories && \
+    apk update && \
+    apk upgrade && \
+    apk add bash curl openssl
