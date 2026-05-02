@@ -2,7 +2,7 @@ services:
   db:
     container_name: safiro_postgres
     restart: always
-    image: docker.arvancloud.ir/postgres:18-alpine
+    image: docker.arvancloud.ir/postgres:17-alpine
     expose:
       - 5432
     volumes:
