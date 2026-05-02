@@ -246,7 +246,9 @@ CACHES = {
 # config package corsheaders
 USE_CROS = config("USE_CROS", cast=bool, default=False)
 if not DEBUG and USE_CROS:
+    MIDDLEWARE.insert(0, "corsheaders.middleware.CorsMiddleware")
     CORS_ALLOWED_ORIGINS = config("PRODUCTION_CORS_ALLOWED_ORIGINS", cast=Csv())
+    INSTALLED_APPS.append('corsheaders')
 
 # config session cache
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
