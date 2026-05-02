@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add expose in service nginx">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerfile/prod/django/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/django/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/gunicorn.conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/gunicorn.conf.py" afterDir="false" />
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit image postgres">
+      <change beforePath="$PROJECT_DIR$/dockerfile/base/django/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/base/django/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,22 +155,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771346313804</updated>
-    </task>
-    <task id="LOCAL-00005" summary="add api driver and user_type">
-      <option name="closed" value="true" />
-      <created>1775252485179</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1775252485179</updated>
-    </task>
-    <task id="LOCAL-00006" summary="add api upload_image and passenger_profile">
-      <option name="closed" value="true" />
-      <created>1775254143249</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1775254143249</updated>
     </task>
     <task id="LOCAL-00007" summary="edit api passenger and driver profile">
       <option name="closed" value="true" />
@@ -552,12 +532,26 @@
       <option name="project" value="LOCAL" />
       <updated>1777728718886</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="edit gunicorn">
+      <option name="closed" value="true" />
+      <created>1777729786057</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1777729786057</updated>
+    </task>
+    <task id="LOCAL-00055" summary="edit image postgres">
+      <option name="closed" value="true" />
+      <created>1777730006388</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1777730006388</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit postgresql-client" />
-    <MESSAGE value="edit package" />
     <MESSAGE value="replace mirror" />
     <MESSAGE value="edit config gunicorn" />
     <MESSAGE value="add package into requirements.txt" />
@@ -581,6 +575,8 @@
     <MESSAGE value="update healthcheck and static volume" />
     <MESSAGE value="update healthcheck in service db" />
     <MESSAGE value="add expose in service nginx" />
-    <option name="LAST_COMMIT_MESSAGE" value="add expose in service nginx" />
+    <MESSAGE value="edit gunicorn" />
+    <MESSAGE value="edit image postgres" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit image postgres" />
   </component>
 </project>
