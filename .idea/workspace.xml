@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add folder env_folder">
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="update healthcheck in service db">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerfile/base/django/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/base/django/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/gunicorn.conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/gunicorn.conf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -504,13 +502,34 @@
       <option name="project" value="LOCAL" />
       <updated>1777719909400</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="update settings.py">
+      <option name="closed" value="true" />
+      <created>1777724031786</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1777724031786</updated>
+    </task>
+    <task id="LOCAL-00045" summary="remove fast in gunicorn requirements.txt">
+      <option name="closed" value="true" />
+      <created>1777724633828</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1777724633828</updated>
+    </task>
+    <task id="LOCAL-00046" summary="update healthcheck in service db">
+      <option name="closed" value="true" />
+      <created>1777724939557</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1777724939557</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="find detail product by pk and product_slug" />
-    <MESSAGE value="add api product_comment" />
-    <MESSAGE value="add api order" />
     <MESSAGE value="edit postgres tag in docker-compose.yml" />
     <MESSAGE value="edit image redis" />
     <MESSAGE value="remove depends_on" />
@@ -533,6 +552,9 @@
     <MESSAGE value="update docker-compose.yml service db" />
     <MESSAGE value="update docker-compose.yml service db and redis" />
     <MESSAGE value="add folder env_folder" />
-    <option name="LAST_COMMIT_MESSAGE" value="add folder env_folder" />
+    <MESSAGE value="update settings.py" />
+    <MESSAGE value="remove fast in gunicorn requirements.txt" />
+    <MESSAGE value="update healthcheck in service db" />
+    <option name="LAST_COMMIT_MESSAGE" value="update healthcheck in service db" />
   </component>
 </project>

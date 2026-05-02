@@ -63,6 +63,7 @@ services:
     volumes:
       - static_files:/var/www/static
       - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /etc/ssl:/etc/ssl:ro
 
 volumes:
   postgres_volume:
