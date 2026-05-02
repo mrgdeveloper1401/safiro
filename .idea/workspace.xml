@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit base_image django">
-      <change beforePath="$PROJECT_DIR$/dockerfile/base/nginx/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/base/nginx/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerfile/prod/django/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/django/Dockerfile" afterDir="false" />
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="update prod image nginx">
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -460,12 +459,26 @@
       <option name="project" value="LOCAL" />
       <updated>1777718721675</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="update base_image nginx">
+      <option name="closed" value="true" />
+      <created>1777719158271</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1777719158271</updated>
+    </task>
+    <task id="LOCAL-00040" summary="update prod image nginx">
+      <option name="closed" value="true" />
+      <created>1777719337311</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1777719337311</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit api passenger and driver profile" />
-    <MESSAGE value="add api driver_car and driver_doc" />
     <MESSAGE value="add model and admin shop" />
     <MESSAGE value="add database clickhouse and add to task" />
     <MESSAGE value="add api most_discount and detail_product" />
@@ -489,6 +502,8 @@
     <MESSAGE value="edit nginx.conf" />
     <MESSAGE value="edit base_image dockerfile" />
     <MESSAGE value="edit base_image django" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit base_image django" />
+    <MESSAGE value="update base_image nginx" />
+    <MESSAGE value="update prod image nginx" />
+    <option name="LAST_COMMIT_MESSAGE" value="update prod image nginx" />
   </component>
 </project>

@@ -1,7 +1,6 @@
 services:
   db:
     container_name: safiro_postgres
-    env_file: "postdb.env"
     restart: always
     image: docker.arvancloud.ir/postgres:18-alpine
     expose:
@@ -9,9 +8,9 @@ services:
     volumes:
       - postgres_volume:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=${POSTDB_PASSWORD}
-      - POSTDB_NAME=${POSTDB_NAME}
-      - POSTDB_USER=${POSTDB_USER}
+      POSTGRES_PASSWORD: ${POSTDB_PASSWORD}
+      POSTGRES_DB: ${POSTDB_NAME}
+      POSTGRES_USER: ${POSTDB_USER}
     healthcheck:
       test: ["CMD", "ps_isready", "-U", "${POSTDB_USER}", "-d", "${POSTDB_NAME}"]
       interval: 20s
@@ -31,8 +30,12 @@ services:
       --maxmemory-policy allkeys-lru
     expose:
       - 6379
-    ports:
-      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 20s
+      timeout: 5s
+      retries: 2
+      start_period: 20s
 
   auth-backend:
     container_name: safiro_django
