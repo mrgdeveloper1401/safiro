@@ -2,7 +2,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
-from clickhouse_connect import get_client
+# from clickhouse_connect import get_client
 from decouple import config, Csv
 from django.utils import timezone
 from kombu import Queue
