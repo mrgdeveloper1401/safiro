@@ -17,5 +17,5 @@ asgi_lifespan = "auto"
 # Logging
 loglevel = "error"
 errorlog = "-"
-# accesslog = "-"
+accesslog = "-"
 

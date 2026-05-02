@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="update healthcheck in service db">
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add expose in service nginx">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerfile/prod/django/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/django/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/gunicorn.conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/gunicorn.conf.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,44 +153,12 @@
     </attachedChunks>
   </component>
   <component name="TaskManager">
-    <task id="LOCAL-00001" summary="clean migration and edit field pk in model DriverDoc">
-      <option name="closed" value="true" />
-      <created>1764604719521</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1764604719521</updated>
-    </task>
     <task active="true" id="Default" summary="Default task">
       <changelist id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="clean migration and edit field pk in model DriverDoc" />
       <created>1771346313804</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771346313804</updated>
-    </task>
-    <task id="LOCAL-00002" summary="update router verify and request otp phone">
-      <option name="closed" value="true" />
-      <created>1775247004752</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1775247004752</updated>
-    </task>
-    <task id="LOCAL-00003" summary="update router verify and request otp phone">
-      <option name="closed" value="true" />
-      <created>1775247007631</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1775247007631</updated>
-    </task>
-    <task id="LOCAL-00004" summary="edit response login_phone and verify_otp">
-      <option name="closed" value="true" />
-      <created>1775250674209</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1775250674209</updated>
     </task>
     <task id="LOCAL-00005" summary="add api driver and user_type">
       <option name="closed" value="true" />
@@ -526,16 +496,66 @@
       <option name="project" value="LOCAL" />
       <updated>1777724939557</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="update nginx.conf">
+      <option name="closed" value="true" />
+      <created>1777726569418</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1777726569418</updated>
+    </task>
+    <task id="LOCAL-00048" summary="update user nginx.conf">
+      <option name="closed" value="true" />
+      <created>1777726681778</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1777726681778</updated>
+    </task>
+    <task id="LOCAL-00049" summary="update error_log nginx.conf">
+      <option name="closed" value="true" />
+      <created>1777726743912</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1777726743912</updated>
+    </task>
+    <task id="LOCAL-00050" summary="update ENTRYPOINT image nginx">
+      <option name="closed" value="true" />
+      <created>1777726895406</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1777726895407</updated>
+    </task>
+    <task id="LOCAL-00051" summary="update healthcheck and static volume">
+      <option name="closed" value="true" />
+      <created>1777727208509</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1777727208510</updated>
+    </task>
+    <task id="LOCAL-00052" summary="update healthcheck in service db">
+      <option name="closed" value="true" />
+      <created>1777727615588</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1777727615588</updated>
+    </task>
+    <task id="LOCAL-00053" summary="add expose in service nginx">
+      <option name="closed" value="true" />
+      <created>1777728718886</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1777728718886</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit postgres tag in docker-compose.yml" />
-    <MESSAGE value="edit image redis" />
-    <MESSAGE value="remove depends_on" />
-    <MESSAGE value="edit command redis" />
-    <MESSAGE value="edit redis_max connection" />
-    <MESSAGE value="edit settings" />
     <MESSAGE value="edit postgresql-client" />
     <MESSAGE value="edit package" />
     <MESSAGE value="replace mirror" />
@@ -554,7 +574,13 @@
     <MESSAGE value="add folder env_folder" />
     <MESSAGE value="update settings.py" />
     <MESSAGE value="remove fast in gunicorn requirements.txt" />
+    <MESSAGE value="update nginx.conf" />
+    <MESSAGE value="update user nginx.conf" />
+    <MESSAGE value="update error_log nginx.conf" />
+    <MESSAGE value="update ENTRYPOINT image nginx" />
+    <MESSAGE value="update healthcheck and static volume" />
     <MESSAGE value="update healthcheck in service db" />
-    <option name="LAST_COMMIT_MESSAGE" value="update healthcheck in service db" />
+    <MESSAGE value="add expose in service nginx" />
+    <option name="LAST_COMMIT_MESSAGE" value="add expose in service nginx" />
   </component>
 </project>

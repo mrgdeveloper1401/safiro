@@ -63,6 +63,8 @@ services:
     expose:
       - 80
       - 443
+    depends_on:
+      - auth-backend
     volumes:
       - static_files:/var/www/static
       - /etc/letsencrypt:/etc/letsencrypt:ro
