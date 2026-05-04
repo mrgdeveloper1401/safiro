@@ -42,3 +42,10 @@ if USE_SPECTACULAR_EXTRAS_SETTINGS:
     urlpatterns += [
         path('api/schema/scalar/', SpectacularScalarView.as_view(url_name='schema'), name='scalar'),
     ]
+
+# django reload package
+USE_DJ_RELOAD = settings.USE_DJ_RELOAD and settings.DEBUG
+if USE_DJ_RELOAD:
+    urlpatterns += [
+        path("__reload__/", include("django_browser_reload.urls")),
+    ]

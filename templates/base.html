@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}سفیر{% endblock %}</title>
+    <link href="{% static 'dist/output.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Header Section -->
+    {% block header %} {% include 'includes/header.html' %} {% endblock %}
+
+    <!-- Mobile Menu (offcanvas) -->
+    {% block mobile_menu %} {% include 'includes/navbar/mobile_nav.html' %}
+    {%endblock %} {% comment %} main {% endcomment %}
+    <main
+      id="main-content"
+      class="{% block main_class %} container mx-auto px-4 py-8 {% endblock %}"
+    >
+      <!-- Content -->
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    {% block footer %} {% include 'includes/footer.html' %} {% endblock %}
+
+    <!-- Mobile Bottom Navigation (for small screens) -->
+    {% block mobile_bottom_nav %} {% include 'includes/mobile_bottom_nav.html'
+    %} {% endblock %}
+
+    <!-- Modals -->
+    {% block modals %} {% include 'includes/modals/login_modal.html' %} {% include 'includes/modals/search_modal.html' %} {% endblock %}
+
+    
+  </body>
+</html>

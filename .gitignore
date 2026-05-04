@@ -16,3 +16,4 @@ test_code.py
 postdb.env
 .idea
 env_folder
+node_modules

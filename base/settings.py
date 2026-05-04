@@ -5,6 +5,7 @@ from pathlib import Path
 # from clickhouse_connect import get_client
 from decouple import config, Csv
 from django.utils import timezone
+from django.utils.csp import CSP
 from kombu import Queue
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -130,7 +131,10 @@ USE_TZ = config("USE_TZ", default=True, cast=bool)
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles' # when manage.py collect-static save static files
-# STATICFILES_DIRS = [BASE_DIR / "static"]
+
+USE_DJ_TEMPLATE = config("USE_DJ_TEMPLATE", default=True, cast=bool)
+if USE_DJ_TEMPLATE:
+    STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # config storages
 STORAGES = {
@@ -184,7 +188,6 @@ if DEBUG and SHOW_DEBUGGER_TOOLBAR:
     ]
     INTERNAL_IPS = ("127.0.0.1",)
 
-
 USE_SSL_CONFIG = config("USE_SSL_CONFIG", cast=bool, default=False)
 if USE_SSL_CONFIG:
     # Https/ssl settings
@@ -227,11 +230,11 @@ CACHES = {
             "SERIALIZER": config("REDIS_DEFAULT_SERIALIZER", cast=str, default="django_redis.serializers.msgpack.MSGPackSerializer"),
             "SOCKET_CONNECT_TIMEOUT": config("SOCKET_DEFAULT_CONNECT_TIMEOUT", default=5, cast=int),
             "SOCKET_TIMEOUT": config("SOCKET_DEFAULT_TIMEOUT", default=5, cast=int),
-            "COMPRESSOR": config("REDIS_DEFAULT_COMPRESSOR", default="django_redis.compressors.zlib.ZlibCompressor"),
+            # "COMPRESSOR": config("REDIS_DEFAULT_COMPRESSOR", default="django_redis.compressors.zlib.ZlibCompressor"),
             "TIMEOUT": config("CACHE_DEFAULT_TIMEOUT", cast=int, default=1209600),
-            "COMPRESSOR_KWARGS": {
-                "level": config("COMPRESSOR_DEFAULT_LEVEL_ARGS", default=5, cast=int)
-            },
+            # "COMPRESSOR_KWARGS": {
+            #     "level": config("COMPRESSOR_DEFAULT_LEVEL_ARGS", default=5, cast=int)
+            # },
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "CONNECTION_POOL_KWARGS": {
                 "max_connections": config("REDIS_MAX_CONNECTION", cast=int, default=os.cpu_count() * 2 * 5),
@@ -244,8 +247,8 @@ CACHES = {
 }
 
 # config package corsheaders
-USE_CROS = config("USE_CROS", cast=bool, default=False)
-if not DEBUG and USE_CROS:
+USE_CORS = config("USE_CORS", cast=bool, default=False)
+if not DEBUG and USE_CORS:
     MIDDLEWARE.insert(0, "corsheaders.middleware.CorsMiddleware")
     CORS_ALLOWED_ORIGINS = config("PRODUCTION_CORS_ALLOWED_ORIGINS", cast=Csv())
     INSTALLED_APPS.append('corsheaders')
@@ -253,6 +256,8 @@ if not DEBUG and USE_CROS:
 # config session cache
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = config("SESSION_CACHE_ALIAS", cast=str, default="default")
+DJANGO_REDIS_IGNORE_EXCEPTIONS = config("DJANGO_REDIS_IGNORE_EXCEPTIONS", default=True, cast=bool) # prevent redis crash
+DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = config("DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS", default=True, cast=bool) # error log
 
 # whitenoise
 USE_WHITENOISE = config("USE_WHITENOISE", cast=bool, default=False)
@@ -406,3 +411,39 @@ if USE_CLICKHOUSE_DB:
     CLICKHOUSE_DB_USER = config("CLICKHOUSE_DB_USER", cast=str, default="new_user")
     CLICKHOUSE_DB_PASSWORD = config("CLICKHOUSE_DB_PASSWORD", cast=str, default="new_password")
     CLICKHOUSE_DB_DATABASE = config("CLICKHOUSE_DB_DATABASE", cast=str, default="default")
+
+
+USE_DJ_RELOAD = config("USE_DJ_RELOAD", cast=bool, default=True)
+if DEBUG and USE_DJ_RELOAD:
+    INSTALLED_APPS.append("django_browser_reload")
+    MIDDLEWARE.append("django_browser_reload.middleware.BrowserReloadMiddleware")
+    INSTALLED_APPS.append("django_watchfiles")
+
+
+USE_DJ_CSP = config("USE_DJ_CSP", cast=bool, default=True)
+if USE_DJ_CSP:
+    SECURE_CSP = {
+        'default-src': [CSP.SELF]
+    }
+
+
+# django compressor
+USE_DJ_COMPRESSOR = config("USE_DJ_COMPRESSOR", cast=bool, default=True)
+if USE_DJ_COMPRESSOR:
+    INSTALLED_APPS.append("compressor")
+    COMPRESS_OFFLINE = True
+
+    STATICFILES_FINDERS = [
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+        'compressor.finders.CompressorFinder',
+    ]
+
+    if DEBUG:
+        COMPRESS_ENABLED = False
+    else:
+        COMPRESS_OFFLINE = True
+
+USE_DJ_TAILWIND_4 = config("USE_DJ_TAILWIND_4", cast=bool, default=True)
+if USE_DJ_TAILWIND_4:
+    INSTALLED_APPS.append("django_tailwind_v4")

@@ -4,11 +4,44 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit asgi">
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="comment get_clickhouse_client">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/dj_clickhouse.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/dj_clickhouse.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/gunicorn.conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/gunicorn.conf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/nginx/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/css/footer.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/css/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/css/main.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/css/media-queries.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/css/swiper.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/fonts/IRANSansMobile.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/fonts/IRANSansMobile_Light.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/fonts/IRANSansMobile_Medium.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/fonts/Roboto-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/fonts/all.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/180x100-benefits.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/180x100-carfix.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/180x100-hour.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/180x100-income.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/210x190-easy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/210x190-eco.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/210x190-fast.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/bazaar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/bus_1368877248.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/com.novinseir.safiro.traveler-af6b5320-0f7b-4e3f-99ed-d490d102875f_128x128.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/google-play-badge.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/hero-824e4df4.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/hotel.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/iApps.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/intro.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/sibapp-badge-white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/images/snapp-pwa.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/javaScript/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/javaScript/swiper.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/assets/scss/main.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +106,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "/home/mg/Desktop/package_python",
-    "settings.editor.selected.configurable": "PyConsoleConfigurable.Python Console"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="PyConsoleOptionsProvider">
@@ -92,7 +125,7 @@
       <recent name="$PROJECT_DIR$/apps" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.settings">
+  <component name="RunManager" selected="Python.runserver">
     <configuration name="runserver" type="PythonConfigurationType" factoryName="Python">
       <module name="safiro" />
       <option name="ENV_FILES" value="" />
@@ -158,30 +191,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771346313804</updated>
-    </task>
-    <task id="LOCAL-00011" summary="add database clickhouse and add to task">
-      <option name="closed" value="true" />
-      <created>1776112305127</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1776112305127</updated>
-    </task>
-    <task id="LOCAL-00012" summary="add api most_discount and detail_product">
-      <option name="closed" value="true" />
-      <created>1776157528197</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1776157528197</updated>
-    </task>
-    <task id="LOCAL-00013" summary="find detail product by pk and product_slug">
-      <option name="closed" value="true" />
-      <created>1776170438556</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1776170438556</updated>
     </task>
     <task id="LOCAL-00014" summary="add api product_comment">
       <option name="closed" value="true" />
@@ -551,12 +560,34 @@
       <option name="project" value="LOCAL" />
       <updated>1777732763468</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="use worker unicorn">
+      <option name="closed" value="true" />
+      <created>1777739244494</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1777739244494</updated>
+    </task>
+    <task id="LOCAL-00061" summary="comment get_clickhouse_client">
+      <option name="closed" value="true" />
+      <created>1777739417434</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1777739417434</updated>
+    </task>
+    <task id="LOCAL-00062" summary="comment get_clickhouse_client">
+      <option name="closed" value="true" />
+      <created>1777739473235</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1777739473235</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add package into requirements.txt" />
-    <MESSAGE value="add mirror into requirements.txt" />
     <MESSAGE value="edit Dockerfile" />
     <MESSAGE value="edit Dockerfile nginx" />
     <MESSAGE value="edit nginx.conf" />
@@ -580,6 +611,8 @@
     <MESSAGE value="edit image postgres" />
     <MESSAGE value="add package process and netstat" />
     <MESSAGE value="edit asgi" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit asgi" />
+    <MESSAGE value="use worker unicorn" />
+    <MESSAGE value="comment get_clickhouse_client" />
+    <option name="LAST_COMMIT_MESSAGE" value="comment get_clickhouse_client" />
   </component>
 </project>
