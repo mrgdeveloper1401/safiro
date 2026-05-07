@@ -27,6 +27,24 @@ def send_sms(phone: str, code: str):
     return response.json()
 
 
-# async def main():
-#     sms = await send_sms(phone="09391640664", code="123456")
-#     return sms
+@request_error
+def send_sms_sorna(phone: str, code: str):
+    headers = {
+        "Content-Type": "application/json"
+    }
+    message = f"کد تایید شما برابر است با {code} اگر این درخواست از سمت شما نبوده این پیام رو نادیده بگیرید "
+    req_body = {
+        "PassWord": config("SORNA_PASSWORD", cast=str),
+        "UserName": config("SORNA_USERNAME", cast=str),
+        "PortalCode": config("SORNA_PORTAL_CODE", cast=str),
+        "Mobile": phone,
+        "Message": message,
+    }
+    sorna_url = "http://sornasms.net/webServiceRest/ServiceSend.svc/SingleSMSEngine"
+    response = httpx.post(
+        url=sorna_url,
+        json=req_body,
+        timeout=10,
+        headers=headers,
+    )
+    return response.json()
