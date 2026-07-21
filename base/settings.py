@@ -243,7 +243,7 @@ CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": config(
-            "REDIS_LOCATION", cast=str, default="redis://localhost:6381/1"
+            "PROD_REDIS_LOCATION", cast=str, default="redis://localhost:6381/1"
         ),
         "OPTIONS": {
             "SERIALIZER": config(
