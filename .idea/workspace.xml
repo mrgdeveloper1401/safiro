@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit save image and add service passenger" />
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add config pass nextjs">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -134,14 +137,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771346313804</updated>
-    </task>
-    <task id="LOCAL-00028" summary="edit config gunicorn">
-      <option name="closed" value="true" />
-      <created>1776805462741</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1776805462741</updated>
     </task>
     <task id="LOCAL-00029" summary="add package into requirements.txt">
       <option name="closed" value="true" />
@@ -527,11 +522,18 @@
       <option name="project" value="LOCAL" />
       <updated>1784631567147</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="add config pass nextjs">
+      <option name="closed" value="true" />
+      <created>1784633555447</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1784633555448</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update error_log nginx.conf" />
     <MESSAGE value="update ENTRYPOINT image nginx" />
     <MESSAGE value="update healthcheck and static volume" />
     <MESSAGE value="update healthcheck in service db" />
@@ -556,6 +558,7 @@
     <MESSAGE value="edit depends_on in docker-compose.yml" />
     <MESSAGE value="edit redis" />
     <MESSAGE value="edit save image and add service passenger" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit save image and add service passenger" />
+    <MESSAGE value="add config pass nextjs" />
+    <option name="LAST_COMMIT_MESSAGE" value="add config pass nextjs" />
   </component>
 </project>

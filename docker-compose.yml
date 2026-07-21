@@ -76,7 +76,7 @@ services:
 
   passenger:
     container_name: next_passenger
-    image: next_passenger:1.0.0
+    image: next_passenger:2.0.0
     restart: always
     environment:
       NODE_ENV: production
