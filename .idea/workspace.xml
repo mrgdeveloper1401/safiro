@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="update">
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="update gunicorn.conf.py and image django">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerfile/base/django/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/base/django/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,14 +136,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771346313804</updated>
-    </task>
-    <task id="LOCAL-00017" summary="edit postgres tag in docker-compose.yml">
-      <option name="closed" value="true" />
-      <created>1776799282120</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1776799282120</updated>
     </task>
     <task id="LOCAL-00018" summary="edit image redis">
       <option name="closed" value="true" />
@@ -532,11 +521,18 @@
       <option name="project" value="LOCAL" />
       <updated>1784617117204</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="update gunicorn.conf.py and image django">
+      <option name="closed" value="true" />
+      <created>1784619144824</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1784619144824</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit base_image dockerfile" />
     <MESSAGE value="edit base_image django" />
     <MESSAGE value="update base_image nginx" />
     <MESSAGE value="update prod image nginx" />
@@ -561,6 +557,7 @@
     <MESSAGE value="add sms config sorna" />
     <MESSAGE value="remove template" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="update gunicorn.conf.py and image django" />
+    <option name="LAST_COMMIT_MESSAGE" value="update gunicorn.conf.py and image django" />
   </component>
 </project>

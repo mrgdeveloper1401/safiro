@@ -11,5 +11,5 @@ RUN rm /etc/apt/sources.list.d/* && \
     apt upgrade -y && \
     apt install curl vim procps net-tools -y && \
     pip install --upgrade pip && \
-    pip install -r requirements.txt && \
+    pip install --index-url https://mirror-pypi.runflare.com/simple -r requirements.txt && \
     rm -rf /var/lib/apt/lists/*
