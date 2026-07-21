@@ -4,7 +4,8 @@ WORKDIR /home/app
 
 COPY .. .
 
-RUN chmod +x ./scripts/*
+RUN mkdir -p /home/app/static && \
+    chmod +x ./scripts/*
 
 EXPOSE 8000
 

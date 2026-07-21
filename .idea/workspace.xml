@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add global pip" />
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="update settings.py">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerfile/prod/django/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/prod/django/Dockerfile" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -134,22 +137,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771346313804</updated>
-    </task>
-    <task id="LOCAL-00021" summary="edit redis_max connection">
-      <option name="closed" value="true" />
-      <created>1776802160748</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1776802160748</updated>
-    </task>
-    <task id="LOCAL-00022" summary="edit settings">
-      <option name="closed" value="true" />
-      <created>1776802804046</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1776802804046</updated>
     </task>
     <task id="LOCAL-00023" summary="edit Dockerfile">
       <option name="closed" value="true" />
@@ -527,14 +514,28 @@
       <option name="project" value="LOCAL" />
       <updated>1784620568150</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="add start.sh">
+      <option name="closed" value="true" />
+      <created>1784621070887</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1784621070888</updated>
+    </task>
+    <task id="LOCAL-00071" summary="update settings.py">
+      <option name="closed" value="true" />
+      <created>1784621950493</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1784621950494</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update docker-compose.yml service db" />
     <MESSAGE value="update docker-compose.yml service db and redis" />
     <MESSAGE value="add folder env_folder" />
-    <MESSAGE value="update settings.py" />
     <MESSAGE value="remove fast in gunicorn requirements.txt" />
     <MESSAGE value="update nginx.conf" />
     <MESSAGE value="update user nginx.conf" />
@@ -556,6 +557,8 @@
     <MESSAGE value="add index-url in base_image django" />
     <MESSAGE value="update config nginx.conf" />
     <MESSAGE value="add global pip" />
-    <option name="LAST_COMMIT_MESSAGE" value="add global pip" />
+    <MESSAGE value="add start.sh" />
+    <MESSAGE value="update settings.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="update settings.py" />
   </component>
 </project>
