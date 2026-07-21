@@ -288,7 +288,8 @@ if USE_CORS:
 
     ADD_LOCAL = config("ADD_LOCAL", cast=bool, default=True)
     if ADD_LOCAL:
-        CORS_ALLOWED_ORIGINS.append("http://localhost:3000", 'http://localhost:3001')
+        CORS_ALLOWED_ORIGINS.append("http://localhost:3000")
+        CORS_ALLOWED_ORIGINS.append('http://localhost:3001')
 
 
 # config session cache
