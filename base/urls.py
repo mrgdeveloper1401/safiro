@@ -5,11 +5,8 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, Sp
 from django.conf.urls.static import static
 from decouple import config
 
-from .views import IndexPageView
+# from .views import IndexPageView
 
-template_urls = [
-    path("", IndexPageView.as_view(), name="index"),
-]
 
 swagger_urls = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
@@ -19,12 +16,17 @@ swagger_urls = [
 
 v1_apis = [
     path("v1/api/auth/", include("apis.v1.auth.urls", namespace="v1_auth")),
-    path("v1/api/shop/", include("apis.v1.shop.urls", namespace="v1_shop")),
+    # path("v1/api/shop/", include("apis.v1.shop.urls", namespace="v1_shop")),
+]
+
+template_url = [
+    path("auth/", include("apps.auth_app.urls", namespace="auth_app")),
+    # path("", IndexPageView.as_view(), name="index"),
 ]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-] + swagger_urls + v1_apis + template_urls
+] + swagger_urls + v1_apis + template_url
 
 SHOW_DEBUGGER_TOOLBAR = config("SHOW_DEBUGGER_TOOLBAR", cast=bool, default=True)
 if SHOW_DEBUGGER_TOOLBAR:

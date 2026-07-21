@@ -1,13 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}سفیر{% endblock %}</title>
-    <link href="{% static 'dist/output.css' %}" rel="stylesheet" /> {# load tainwind css #}
+    <title>{% block title %}سفیرو{% endblock %}</title>
+    <link href="{% static 'dist/output.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://static.neshan.org/sdk/leaflet/v1.9.4/neshan-sdk/v1.0.8/index.css"/>
+    {# load tainwind css #}
   </head>
-  <body>
+  <body class="flex flex-col">
     <!-- Header Section -->
     {% block header %} {% include 'includes/header.html' %} {% endblock %}
 
@@ -26,11 +28,15 @@
     {% block footer %} {% include 'includes/footer.html' %} {% endblock %}
 
     <!-- Mobile Bottom Navigation (for small screens) -->
-    {% block mobile_bottom_nav %} {% include 'includes/navbar/mobile_nav.html'%} {% endblock %}
+    {% block mobile_bottom_nav %} {% include 'includes/navbar/mobile_nav.html'%}
+    {% endblock %}
 
     <!-- Modals -->
-    {% block modals %} {% include 'includes/modals/login_modal.html' %} {% include 'includes/modals/search_modal.html' %} {% endblock %}
+    {% block modals %} {% include 'includes/modals/login_modal.html' %} {%endblock %}
 
-
+    <script src="https://static.neshan.org/sdk/leaflet/v1.9.4/neshan-sdk/v1.0.8/index.js"></script>
+<!--    <script src="{% static 'script/auth.js' %}"></script>-->
+<!--    <script src="{% static 'script/profile.js' %}"></script>-->
+    {% block script_js %}{% endblock  %}
   </body>
 </html>

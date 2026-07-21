@@ -92,8 +92,8 @@ DATABASES = {
         "PASSWORD": config("POSTDB_PASSWORD", cast=str, default="postgres"),
         "HOST": config("POSTDB_HOST", cast=str, default="127.0.0.1"),
         "PORT": config("POSTDB_PORT", cast=int, default=5433),
-        "CONN_MAX_AGE": config("POSTDB_CONN_MAX_AGE", cast=int, default=60), #
-        "CONN_HEALTH_CHECKS": config("POSTDB_CONN_HEALTH_CHECKS", cast=bool, default=True)
+        "CONN_MAX_AGE": config("POSTDB_CONN_MAX_AGE", cast=int, default=60),
+        "CONN_HEALTH_CHECKS": config("POSTDB_CONN_HEALTH_CHECKS", cast=bool, default=True) # TODO, use connection pool
     }
 }
 
@@ -131,6 +131,7 @@ USE_TZ = config("USE_TZ", default=True, cast=bool)
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles' # when manage.py collect-static save static files
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 USE_DJ_TEMPLATE = config("USE_DJ_TEMPLATE", default=True, cast=bool)
 if USE_DJ_TEMPLATE:
@@ -247,11 +248,16 @@ CACHES = {
 }
 
 # config package corsheaders
-USE_CORS = config("USE_CORS", cast=bool, default=False)
-if not DEBUG and USE_CORS:
+USE_CORS = config("USE_CORS", cast=bool, default=True)
+if USE_CORS:
     MIDDLEWARE.insert(0, "corsheaders.middleware.CorsMiddleware")
-    CORS_ALLOWED_ORIGINS = config("PRODUCTION_CORS_ALLOWED_ORIGINS", cast=Csv())
+    CORS_ALLOWED_ORIGINS = config("PRODUCTION_CORS_ALLOWED_ORIGINS", cast=Csv(), default='')
     INSTALLED_APPS.append('corsheaders')
+
+    ADD_LOCAL = config("ADD_LOCAL", cast=bool, default=True)
+    if ADD_LOCAL:
+        CORS_ALLOWED_ORIGINS.append("http://localhost:3000")
+
 
 # config session cache
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
@@ -268,37 +274,27 @@ if USE_WHITENOISE:
     STORAGES['staticfiles']['BACKEND'] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # config log
-USE_LOG = config("USE_LOG", cast=bool, default=True)
+USE_LOG = config("USE_LOG", cast=bool, default=False)
 if USE_LOG:
     log_dir = os.path.join('general_log_django', timezone.now().strftime("%Y-%m-%d"))
     os.makedirs(log_dir, exist_ok=True)
     LOGGING = {
         "version": 1,
         "disable_existing_loggers": False,
-        "formatters": {
-            "color": {
-                "()": "colorlog.ColoredFormatter",
-                "format": "%(log_color)s%(levelname)s %(reset)s%(asctime)s %(module)s %(process)d %(thread)d %(message)s",
-                "datefmt": "%Y-%m-%d %H:%M:%S",
-            },
-        },
         "handlers": {
             "error_file": {
                 "level": "ERROR",
                 "class": "logging.FileHandler",
-                "formatter": "color",
                 "filename": os.path.join(log_dir, 'error_file.log')
             },
             "warning_file": {
                 "level": "WARN",
                 "class": "logging.FileHandler",
-                "formatter": "color",
                 "filename": os.path.join(log_dir, 'warning_file.log')
             },
             "critical_file": {
                 "level": "CRITICAL",
                 "class": "logging.FileHandler",
-                "formatter": "color",
                 "filename": os.path.join(log_dir, 'critical_file.log')
             },
         },
@@ -309,11 +305,43 @@ if USE_LOG:
             }
         }
     }
+if USE_LOG and DEBUG:
+    LOGGING['loggers']['django']['handlers'].append("console")
+    LOGGING['handlers']['console'] = {
+        'class': 'logging.StreamHandler',
+        "LEVEL": "INFO"
+    }
+
+USE_LOG_IN_DEBUG = config("USE_LOG_IN_DEBUG", cast=bool, default=True)
+if DEBUG and USE_LOG_IN_DEBUG:
+    LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": False,
+
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+            },
+        },
+
+        "loggers": {
+            "django.server": {
+                "handlers": ["console"],
+                "level": "INFO",
+                "propagate": False,
+            },
+            "django.request": {
+                "handlers": ["console"],
+                "level": "INFO",
+                "propagate": False,
+            },
+        },
+    }
 
 # jwt config
 SIMPLE_JWT = {
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=config("REFRESH_TOKEN_LIFETIME", cast=int, default=365)),
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=config("ACCESS_TOKEN_LIFETIME", cast=int, default=120)),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=config("REFRESH_TOKEN_LIFETIME", cast=int, default=30)),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=config("ACCESS_TOKEN_LIFETIME", cast=int, default=7)),
     "ALGORITHM": "HS256",
     "SIGNING_KEY": config("SIGNING_KEY", cast=str, default="test_project"),
     "VERIFYING_KEY": "",
@@ -329,7 +357,6 @@ SIMPLE_JWT = {
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
     "TOKEN_TYPE_CLAIM": "token_type",
     "JTI_CLAIM": "jti",
-    "ROTATE_REFRESH_TOKENS": config("ROTATE_REFRESH_TOKENS", cast=bool, default=True),
     "BLACKLIST_AFTER_ROTATION": config("BLACKLIST_AFTER_ROTATION", cast=bool, default=True),
     "UPDATE_LAST_LOGIN": config("UPDATE_LAST_LOGIN", cast=bool, default=True),
 }
@@ -373,18 +400,19 @@ AUTH_USER_MODEL = 'auth_app.User'
 USE_CELERY = config("USE_CELERY", cast=bool, default=True)
 if USE_CELERY:
     CELERY_BROKER_URL = config('CELERY_BROKER_URL', cast=str, default="redis://localhost:6381/5")
-    CELERY_TIMEZONE = config("CELERY_TIMEZONE", cast=str, default=TIME_ZONE)
-    CELERY_ACCEPT_CONTENT = config("CELERY_ACCEPT_CONTENT", cast=Csv(), default="json")
-    CELERY_TASK_SERIALIZER = config("CELERY_TASK_SERIALIZER", cast=str, default="json")
-    CELERY_RESULT_SERIALIZER = config("CELERY_RESULT_SERIALIZER", cast=str, default="json")
-    CELERY_TASK_ACKS_LATE = config("CELERY_TASK_ACKS_LATE", cast=bool, default=True)
-    CELERY_WORKER_PREFETCH_MULTIPLIER = config("WORKER_PREFETCH_MULTIPLIER", cast=int, default=1)
-    CELERY_TASK_ALWAYS_EAGER = config("CELERY_TASK_ALWAYS_EAGER", cast=bool, default=False)
-    CELERY_TASK_TIME_LIMIT = config("CELERY_TASK_TIME_LIMIT", cast=int, default=20)
-    CELERY_ENABLE_UTC = config("CELERY_ENABLE_UTC", cast=bool, default=True)
-    CELERY_WORKER_CONCURRENCY = config("WORKER_CONCURRENCY", cast=int, default=os.cpu_count())
-    CELERY_WORKER_MAX_TASKS_PER_CHILD = config("WORKER_MAX_TASKS_PER_CHILD", cast=int, default=1000)
-    CELERY_WORKER_MAX_MEMORY_PER_CHILD = config("WORKER_MAX_MEMORY_PER_CHILD", cast=int, default=200000)
+    CELERY_TIMEZONE = config("CELERY_TIMEZONE", cast=str, default=TIME_ZONE) # منطقه زمانی Celery برای زمان‌بندی تسک‌ها
+    CELERY_ACCEPT_CONTENT = config("CELERY_ACCEPT_CONTENT", cast=Csv(), default="json") # فرمت‌های مجاز برای دریافت پیام‌های تسک
+    CELERY_TASK_SERIALIZER = config("CELERY_TASK_SERIALIZER", cast=str, default="json") # فرمت serialize کردن خودِ تسک هنگام ارسال به صف
+    CELERY_RESULT_SERIALIZER = config("CELERY_RESULT_SERIALIZER", cast=str, default="json") # فرمت serialize کردن نتیجه‌ی تسک
+    CELERY_TASK_ACKS_LATE = config("CELERY_TASK_ACKS_LATE", cast=bool, default=True) # اگر True باشد، تسک بعد از اجرا ack می‌شود نه قبل از اجرا
+    CELERY_WORKER_PREFETCH_MULTIPLIER = config("WORKER_PREFETCH_MULTIPLIER", cast=int, default=1) # هر Worker قبل از اتمام تسک فعلی چند تسک از صف بردارد
+    CELERY_TASK_ALWAYS_EAGER = config("CELERY_TASK_ALWAYS_EAGER", cast=bool, default=False) # اگر True باشد، تسک‌ها واقعاً async اجرا نمی‌شوند و همان لحظه محلی اجرا می‌شوند
+    CELERY_TASK_TIME_LIMIT = config("CELERY_TASK_TIME_LIMIT", cast=int, default=20) # حداکثر زمان مجاز اجرای هر تسک (ثانیه)
+    CELERY_ENABLE_UTC = config("CELERY_ENABLE_UTC", cast=bool, default=True) # اگر True باشد، Celery زمان‌ها را بر اساس UTC مدیریت می‌کند
+    # 2 core and 4 WORKER_PREFETCH_MULTIPLIER = 2 * 4 = 8 --> 8 task get in queue for every worker
+    CELERY_WORKER_CONCURRENCY = config("WORKER_CONCURRENCY", cast=int, default=os.cpu_count()) # تعداد پردازش/ورکر همزمان برای اجرای تسک‌ها
+    CELERY_WORKER_MAX_TASKS_PER_CHILD = config("WORKER_MAX_TASKS_PER_CHILD", cast=int, default=1000) # بعد از چند تسک، Worker child ری‌استارت شود تا از memory leak جلوگیری شود
+    CELERY_WORKER_MAX_MEMORY_PER_CHILD = config("WORKER_MAX_MEMORY_PER_CHILD", cast=int, default=200000) # اگر مصرف حافظه Worker child از این مقدار (کیلوبایت) بیشتر شد، ری‌استارت شود
 
     # celery queue
     CELERY_TASK_QUEUES = (
@@ -444,6 +472,7 @@ if USE_DJ_COMPRESSOR:
     else:
         COMPRESS_OFFLINE = True
 
+# package for tailwind css
 USE_DJ_TAILWIND_4 = config("USE_DJ_TAILWIND_4", cast=bool, default=True)
 if USE_DJ_TAILWIND_4:
     INSTALLED_APPS.append("django_tailwind_v4")

@@ -3,6 +3,7 @@ import string
 import time
 from datetime import timedelta
 
+from django.conf import settings
 from django.utils import timezone
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -26,5 +27,6 @@ def generate_token(user):
         "refresh_token": str(token),
         "jwt": "Bearer",
         "expire_date_access_token": expire_date,
+        'access_token_life_time': settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'],
         "expire_date_refresh_token": refresh_expire_date
     }

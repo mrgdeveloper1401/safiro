@@ -23,6 +23,7 @@ class Trip(ActiveMixin, ModifyMixin):
         Passenger,
         verbose_name=_("مسافر"),
         on_delete=models.PROTECT,
+        related_name="passenger_trips",
     )
     from_lat = models.DecimalField(max_digits=10, decimal_places=7, null=True)
     from_lng = models.DecimalField(max_digits=10, decimal_places=7, null=True)

@@ -6,9 +6,12 @@ from adrf.views import APIView as AsyncAPIView
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from django.core.cache import cache
+from django.db.models import Count
 from django.utils import timezone
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, mixins, viewsets
-from rest_framework.exceptions import NotFound, PermissionDenied
+from rest_framework.exceptions import NotFound
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -28,23 +31,27 @@ from apis.v1.auth.serializers import (
     ResetPasswordSerializer,
     VerifyRequestVerifiedPhoneSerializer,
     UserStatusSerializer,
-    PassengerSerializer, UpdateUserSerializer, DriverCarSerializer,
+    PassengerSerializer,
+    UpdateUserSerializer,
+    DriverCarSerializer,
+    CarBrandSerializer, CarModelSerializer,
 )
-from apis.v1.utils.custom_exceptions import (
+from apis.utils.custom_exceptions import (
     UserExistsException,
     PasswordNotMathException,
     AccountIsVerified,
     NotActiveAccount
 )
-from apis.v1.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, NotAuthenticated, IsDriverAccount
-from apis.v1.utils.custom_response import response
-from apis.v1.utils.custome_throttle import OtpRateThrottle
-from apis.v1.utils.get_ip import get_client_ip
-from apis.v1.utils.paginations import CustomPagination
-from apps.auth_app.models import User, UserNotification, Driver, DriverDocument, Passenger, DriverCar
+from apis.utils.custom_permissions import AsyncRemoveAuthenticationPermissions, NotAuthenticated, IsDriverAccount
+from apis.utils.custom_response import response
+from apis.utils.custome_throttle import OtpRateThrottle
+from apis.utils.get_ip import get_client_ip
+from apis.utils.paginations import CustomPagination
+from apps.auth_app.models import User, UserNotification, Driver, DriverDocument, Passenger, DriverCar, CarBrand, \
+    CarModel
 from base.settings import SIMPLE_JWT
-from apps.auth_app.tasks import send_otp_sms_celery
 from base.utils.generate import generate_otp, generate_token
+from apps.auth_app.tasks import send_otp_sms_celery
 
 
 class SignUpByPhoneView(APIView):
@@ -93,7 +100,8 @@ class SignUpByPhoneView(APIView):
 
 class RequestOtpView(APIView):
     """
-    درخواست کد برای ورود به حساب
+    درخواست کد otp  \n
+    otp_type --> otp, forget_password
     """
     serializer_class = RequestOtpSerializer
     permission_classes = (NotAuthenticated,)
@@ -103,7 +111,7 @@ class RequestOtpView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        phone = serializer.validated_data["mobile_phone"]
+        phone = serializer.validated_data["phone"]
 
         fields = ("is_active", "is_driver", "is_passenger", "is_verify_phone", "phone")
         user = User.objects.filter(phone=phone).only(*fields).first()
@@ -115,12 +123,13 @@ class RequestOtpView(APIView):
         # generate otp
         otp_code = generate_otp()
         ip = get_client_ip(request)
-        cache_key = f"otp_{phone}_{ip}_{otp_code}"
+        otp_type = serializer.data.get('otp_type')
+        cache_key = f"{otp_type}_{phone}_{ip}_{otp_code}"
 
         cache.set(cache_key, otp_code, timeout=120)
 
         # send sms
-        # send_otp_sms_celery.delay(phone, str(otp_code))
+        send_otp_sms_celery.delay(phone, str(otp_code))
 
         return response(
             success=True,
@@ -130,7 +139,8 @@ class RequestOtpView(APIView):
                 "is_driver": user.is_driver,
                 "is_verify_phone": user.is_verify_phone,
                 "is_active": user.is_active,
-                "exp_otp_datetime": timezone.now() + datetime.timedelta(minutes=2)
+                "exp_otp_datetime": timezone.now() + datetime.timedelta(minutes=2),
+                'exp_otp_time': time.time() + 120,
             },
             error=False,
             status_code=status.HTTP_200_OK
@@ -412,8 +422,8 @@ class DriverView(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Retrieve
                 "message": "شما حساب راننده رو ندارید اگه تمایل به فعال سازی میتوانید ان را درخواست بدید"
             }
             return response(
-                success=True,
-                error=False,
+                success=False,
+                error=True,
                 result=result,
                 status_code=400
             )
@@ -501,7 +511,7 @@ class UserTypeViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.U
     serializer_class = UserStatusSerializer
 
     def get_queryset(self):
-        return User.objects.filter(id=self.request.user.id).only("is_driver", "is_passenger", "phone")
+        return User.objects.filter(id=self.request.user.id).only("is_driver", "is_passenger", "phone", "email", "username")
 
 
 class PassengerViewSet(
@@ -531,7 +541,9 @@ class PassengerViewSet(
         ).select_related(
             "user",
             "image"
-        ).only(*fields)
+        ).only(*fields).annotate(
+            all_trip_count=Count("passenger_trips")
+        )
 
 
 class UpdateUserView(APIView):
@@ -620,3 +632,31 @@ class VerifyRequestVerifiedPhoneView(AsyncAPIView):
         except (NotFound, AccountIsVerified) as e:
             await cache.adelete(redis_key)  # remove otp when raise exception
             raise e
+
+
+class CarBrandViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    دریافت لیست برندهای خودرو
+    """
+    serializer_class = CarBrandSerializer
+    permission_classes = (IsAuthenticated,)
+    queryset = CarBrand.objects.filter(is_active=True)
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    search_fields = ['brand_name']
+    ordering_fields = ['brand_name', 'created_at']
+    ordering = ('brand_name',)
+
+
+class CarModelViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    دریافت لیست مدل‌های خودرو
+    می‌توانید با پارامتر brand=id فیلتر کنید
+    """
+    serializer_class = CarModelSerializer
+    permission_classes = (IsAuthenticated,)
+    queryset = CarModel.objects.filter(is_active=True).select_related('brand')
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filterset_fields = ('brand',)
+    search_fields = ('model_name', 'brand__brand_name')
+    ordering_fields = ('model_name', 'brand__brand_name', 'created_at')
+    ordering = ('brand__brand_name', 'model_name')

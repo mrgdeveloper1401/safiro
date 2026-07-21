@@ -1,21 +1,44 @@
 from adrf.serializers import Serializer as AdrfSerializer
 from django.db import IntegrityError
+from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 from rest_framework.exceptions import NotFound
 
-from apis.v1.utils.custom_exceptions import (
+from apis.utils.custom_exceptions import (
     PasswordNotMathException,
     OldPasswordNotMathException,
-    NationCodeAlreadyExistsException,
-    LicenseNumberAlreadyExistsException,
-    DriverAlreadyExistsException
+    NationCodeAlreadyExistsException, RequestOtpType,
 )
-from apps.auth_app.models import UserNotification, Driver, Image, DriverDocument, User, Passenger, Car, DriverCar
+from apps.auth_app.models import (
+    UserNotification,
+    Driver,
+    Image,
+    DriverDocument,
+    User,
+    Passenger,
+    Car,
+    DriverCar,
+    CarBrand,
+    CarModel
+)
 from apps.auth_app.validators import PhoneNumberValidator
 
 
 class RequestOtpSerializer(serializers.Serializer):
-    mobile_phone = serializers.CharField(validators=(PhoneNumberValidator(),))
+    phone = serializers.CharField(validators=(PhoneNumberValidator(),))
+    otp_type = serializers.CharField(default='otp', help_text='otp type you can set (otp, forget_password)')
+
+    def validate(self, attrs):
+        # validate oyp_type
+        otp_type = attrs.get('otp_type')
+        if otp_type not in ("otp", "forget_password"):
+            raise RequestOtpType()
+
+        # check user
+        phone = attrs.get('phone')
+        if not User.objects.filter(phone=phone).exists():
+            raise NotFound('user not found')
+        return attrs
 
 
 class OtpVerifySerializer(serializers.Serializer):
@@ -158,6 +181,7 @@ class PassengerSerializer(serializers.ModelSerializer):
     image = serializers.PrimaryKeyRelatedField(
         queryset=Image.objects.only("id").filter(is_active=True),
     )
+    all_trip_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Passenger
@@ -169,7 +193,7 @@ class PassengerSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['user'] = UserPassengerSerializer(instance.user).data
+        data['user'] = UserInfoSerializer(instance.user).data
         return data
 
     def validate(self, attrs):
@@ -181,6 +205,10 @@ class PassengerSerializer(serializers.ModelSerializer):
             if not check_img.exists():
                 raise NotFound("image not found")
         return attrs
+
+    @extend_schema_field(serializers.IntegerField())
+    def get_all_trip_count(self, obj):
+        return obj.all_trip_count
 
 
 class UploadImageSerializer(serializers.ModelSerializer):
@@ -305,7 +333,7 @@ class VerifyRequestVerifiedPhoneSerializer(AdrfSerializer):
 class UserStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id","is_driver", "is_passenger", "phone")
+        fields = ("id","is_driver", "is_passenger", "phone", "email", "username")
         extra_kwargs = {
             "is_passenger": {"read_only": True},
             "phone": {"read_only": True}
@@ -322,3 +350,17 @@ class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("username", "first_name", "last_name")
+
+
+class CarBrandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarBrand
+        fields = ('id', 'brand_name', 'is_active', 'created_at', 'updated_at')
+
+
+class CarModelSerializer(serializers.ModelSerializer):
+    brand_name = serializers.CharField(source='brand.brand_name', read_only=True)
+
+    class Meta:
+        model = CarModel
+        fields = ('id', 'brand', 'brand_name', 'model_name', 'is_active', 'created_at', 'updated_at')

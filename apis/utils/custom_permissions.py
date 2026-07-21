@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-from apis.v1.utils.custom_exceptions import AuthenticationFailed, NotDriverException
+from apis.utils.custom_exceptions import AuthenticationFailed, NotDriverException
 
 
 class AsyncRemoveAuthenticationPermissions(permissions.BasePermission):

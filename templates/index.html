@@ -1,5 +1,415 @@
+<!-- templates/index.html -->
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}سفیرو - درخواست آنلاین خودرو{% endblock %}
+
+{% block main_class %} {% endblock %}
 
 {% block content %}
-    <div> salam donya</div>
-{% endblock content %}
+<div class="min-h-screen bg-gray-50">
+    
+    <!-- بخش جستجو و فرم سفارش -->
+    <div class="relative -mt-32 z-20">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
+                <div id="map"></div>
+                
+                <!-- فرم اصلی رزرو -->
+                <form id="ride-form" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div id="map-controls" class="flex gap-2 mb-4">
+                            <button type="button" onclick="clearLocations()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm hover:bg-gray-300">
+                                🗑️ پاک کردن انتخاب‌ها
+                            </button>
+                            <button type="button" onclick="swapLocations()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm hover:bg-gray-300">
+                                🔄 تعویض مبدأ و مقصد
+                            </button>
+                            <button type="button" onclick="useCurrentLocation()" class="px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600">
+                                📍 موقعیت فعلی من
+                            </button>
+                        </div>
+                        {% comment %} <!-- مبدا -->
+                        <div class="relative">
+                            <label class="block text-gray-700 font-semibold mb-2">
+                                <svg class="inline-block w-5 h-5 ml-1 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                مبدأ
+                            </label>
+                            <div class="relative">
+                                <input type="text" 
+                                       id="pickup-location" 
+                                       name="pickup" 
+                                       placeholder="نقطه سوار شدن را وارد کنید..."
+                                       class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 pr-12 focus:outline-none focus:border-blue-500 transition-all"
+                                       required>
+                                <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
+                                    <button type="button" onclick="useCurrentLocation()" class="text-blue-600 hover:text-blue-700" title="موقعیت فعلی من">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- مقصد -->
+                        <div class="relative">
+                            <label class="block text-gray-700 font-semibold mb-2">
+                                <svg class="inline-block w-5 h-5 ml-1 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                مقصد
+                            </label>
+                            <input type="text" 
+                                   id="destination-location" 
+                                   name="destination" 
+                                   placeholder="نقطه پیاده شدن را وارد کنید..."
+                                   class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-all"
+                                   required>
+                        </div> {% endcomment %}
+                    </div>
+                    
+                    <!-- انتخاب نوع سرویس -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-3">انتخاب نوع سرویس</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            
+                            <!-- اقتصادی -->
+                            <label class="service-card cursor-pointer">
+                                <input type="radio" name="service-type" value="economy" class="hidden service-radio" checked>
+                                <div class="border-2 rounded-xl p-4 text-center hover:border-blue-500 transition-all service-card-content">
+                                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="font-semibold text-gray-800">اقتصادی</div>
+                                    <div class="text-xs text-gray-500">اقتصادی</div>
+                                    <div class="text-sm text-green-600 font-bold mt-1">از 15,000 تومان</div>
+                                </div>
+                            </label>
+                            
+                            <!-- معمولی -->
+                            <label class="service-card cursor-pointer">
+                                <input type="radio" name="service-type" value="standard" class="hidden service-radio">
+                                <div class="border-2 rounded-xl p-4 text-center hover:border-blue-500 transition-all service-card-content">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="font-semibold text-gray-800">معمولی</div>
+                                    <div class="text-xs text-gray-500">معمولی</div>
+                                    <div class="text-sm text-blue-600 font-bold mt-1">از 25,000 تومان</div>
+                                </div>
+                            </label>
+                            
+                            <!-- VIP -->
+                            <label class="service-card cursor-pointer">
+                                <input type="radio" name="service-type" value="vip" class="hidden service-radio">
+                                <div class="border-2 rounded-xl p-4 text-center hover:border-blue-500 transition-all service-card-content">
+                                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="font-semibold text-gray-800">ویژه</div>
+                                    <div class="text-xs text-gray-500">VIP</div>
+                                    <div class="text-sm text-purple-600 font-bold mt-1">از 45,000 تومان</div>
+                                </div>
+                            </label>
+                            
+                            <!-- وانتی -->
+                            <label class="service-card cursor-pointer">
+                                <input type="radio" name="service-type" value="van" class="hidden service-radio">
+                                <div class="border-2 rounded-xl p-4 text-center hover:border-blue-500 transition-all service-card-content">
+                                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="font-semibold text-gray-800">وانت</div>
+                                    <div class="text-xs text-gray-500">باربری</div>
+                                    <div class="text-sm text-orange-600 font-bold mt-1">از 35,000 تومان</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- گزینه‌های اضافی -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">تعداد مسافران</label>
+                            <select class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500">
+                                <option value="1">1 نفر</option>
+                                <option value="2">2 نفر</option>
+                                <option value="3">3 نفر</option>
+                                <option value="4">4 نفر</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">تاریخ سفر</label>
+                            <input type="date" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">زمان سفر</label>
+                            <input type="time" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500">
+                        </div>
+                    </div>
+                    
+                    <!-- توضیحات اضافی -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">توضیحات اضافی (اختیاری)</label>
+                        <textarea rows="3" 
+                                  placeholder="لطفا در صورت نیاز توضیحات خود را وارد کنید..."
+                                  class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500"></textarea>
+                    </div>
+                    
+                    <!-- دکمه ثبت سفارش -->
+                    <button type="submit" 
+                            class="w-full bg-linear-to-r from-blue-600 to-indigo-600 text-white py-4 rounded-xl font-bold text-lg hover:from-blue-700 hover:to-indigo-700 transition-all transform hover:scale-105 shadow-lg">
+                        ثبت سفارش سفر
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- بخش مزایا -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">چرا سفیرو؟</h2>
+            <p class="text-gray-600">سفرهای ایمن، سریع و مقرون به صرفه</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-800 mb-2">پاسخگویی سریع</h3>
+                <p class="text-gray-600 text-sm">در کمترین زمان ممکن</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-800 mb-2">رانندگان حرفه‌ای</h3>
+                <p class="text-gray-600 text-sm">با بالاترین سطح ایمنی</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-800 mb-2">قیمت مناسب</h3>
+                <p class="text-gray-600 text-sm">مقرون به صرفه با تخفیف‌های ویژه</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636L9.172 14.828a4 4 0 01-5.656 0L3 14.828m10.465 4.465L12 18.293l2.828-2.828a4 4 0 015.656 0L22 16.828"></path>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-800 mb-2">پشتیبانی ۲۴/۷</h3>
+                <p class="text-gray-600 text-sm">همیشه در دسترس شما هستیم</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- بخش نحوه کار -->
+    <div class="bg-linear-to-r from-gray-50 to-gray-100 py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">سفر خود را در ۴ قدم ساده رزرو کنید</h2>
+                <p class="text-gray-600">سریع، آسان و هوشمند</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center relative">
+                    <div class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 relative z-10">1</div>
+                    <h3 class="font-semibold text-gray-800 mb-2">مبدا و مقصد را وارد کنید</h3>
+                    <p class="text-gray-600 text-sm">نقطه سوار و پیاده شدن را مشخص کنید</p>
+                </div>
+                
+                <div class="text-center relative">
+                    <div class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
+                    <h3 class="font-semibold text-gray-800 mb-2">نوع سرویس را انتخاب کنید</h3>
+                    <p class="text-gray-600 text-sm">متناسب با نیاز خود سرویس مناسب را انتخاب کنید</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
+                    <h3 class="font-semibold text-gray-800 mb-2">درخواست خود را ثبت کنید</h3>
+                    <p class="text-gray-600 text-sm">با یک کلیک سفر خود را رزرو کنید</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">4</div>
+                    <h3 class="font-semibold text-gray-800 mb-2">سفر خود را آغاز کنید</h3>
+                    <p class="text-gray-600 text-sm">از سفر خود لذت ببرید</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- بخش نظرات کاربران -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">نظرات کاربران</h2>
+            <p class="text-gray-600">آنچه مسافران ما می‌گویند</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex items-center mb-4">
+                    <div class="text-yellow-400 flex">
+                        ★★★★★
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">"سفیر بهترین تجربه سفر من بود. راننده بسیار حرفه‌ای و خودرو تمیز."</p>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <div class="mr-3">
+                        <div class="font-semibold text-gray-800">محمد رضایی</div>
+                        <div class="text-sm text-gray-500">مسافر</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex items-center mb-4">
+                    <div class="text-yellow-400 flex">
+                        ★★★★★
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">"قیمت‌ها بسیار مناسب و پشتیبانی عالی. حتما سفارش میدم."</p>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <div class="mr-3">
+                        <div class="font-semibold text-gray-800">سارا احمدی</div>
+                        <div class="text-sm text-gray-500">مسافر</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex items-center mb-4">
+                    <div class="text-yellow-400 flex">
+                        ★★★★★
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">"سریع و به موقع رسیدن، واقعا عالی بود. حتما استفاده می‌کنم."</p>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <div class="mr-3">
+                        <div class="font-semibold text-gray-800">علی کریمی</div>
+                        <div class="text-sm text-gray-500">مسافر</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<script>-->
+<!--// فرم ثبت سفارش-->
+<!--document.getElementById('ride-form').addEventListener('submit', function(e) {-->
+<!--    e.preventDefault();-->
+<!--    -->
+<!--    const pickup = document.getElementById('pickup-location').value;-->
+<!--    const destination = document.getElementById('destination-location').value;-->
+<!--    const serviceType = document.querySelector('input[name="service-type"]:checked').value;-->
+<!--    -->
+<!--    if (!pickup || !destination) {-->
+<!--        alert('لطفا مبدا و مقصد را وارد کنید');-->
+<!--        return;-->
+<!--    }-->
+<!--    -->
+<!--    // نمایش پیام موفقیت-->
+<!--    alert(`سفر شما از ${pickup} به ${destination} با سرویس ${serviceType} با موفقیت ثبت شد!`);-->
+<!--    -->
+<!--    // می‌توانید اینجا درخواست AJAX بزنید-->
+<!--    console.log('سفر ثبت شد:', {pickup, destination, serviceType});-->
+<!--});-->
+
+<!--// استفاده از موقعیت فعلی-->
+<!--function useCurrentLocation() {-->
+<!--    if (navigator.geolocation) {-->
+<!--        navigator.geolocation.getCurrentPosition(function(position) {-->
+<!--            // اینجا می‌توانید با استفاده از API نقشه، آدرس را پیدا کنید-->
+<!--            document.getElementById('pickup-location').value = "موقعیت فعلی شما";-->
+<!--            alert("موقعیت فعلی شما دریافت شد");-->
+<!--        }, function(error) {-->
+<!--            alert("خطا در دریافت موقعیت: " + error.message);-->
+<!--        });-->
+<!--    } else {-->
+<!--        alert("مرورگر شما از موقعیت یابی پشتیبانی نمی‌کند");-->
+<!--    }-->
+<!--}-->
+
+<!--// استایل برای انتخاب سرویس-->
+<!--document.querySelectorAll('.service-radio').forEach(radio => {-->
+<!--    radio.addEventListener('change', function() {-->
+<!--        // حذف کلاس selected از همه کارت‌ها-->
+<!--        document.querySelectorAll('.service-card-content').forEach(card => {-->
+<!--            card.classList.remove('border-blue-500', 'bg-blue-50');-->
+<!--            card.classList.add('border-gray-200');-->
+<!--        });-->
+<!--        -->
+<!--        // اضافه کردن کلاس selected به کارت انتخاب شده-->
+<!--        if (this.checked) {-->
+<!--            const card = this.closest('.service-card').querySelector('.service-card-content');-->
+<!--            card.classList.remove('border-gray-200');-->
+<!--            card.classList.add('border-blue-500', 'bg-blue-50');-->
+<!--        }-->
+<!--    });-->
+<!--});-->
+
+<!--// انتخاب پیش‌فرض اولین سرویس-->
+<!--document.querySelector('.service-radio:checked').dispatchEvent(new Event('change'));-->
+
+
+<!--</script>-->
+
+<style>
+.service-card-content {
+    transition: all 0.3s ease;
+}
+
+.service-card-content:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+</style>
+{% endblock %}
+
+{% block script_js %}
+    <script src="{% static 'script/map.js' %}"></script>
+{% endblock  %}

@@ -46,3 +46,13 @@ class Image(ModifyMixin, ActiveMixin):
     @property
     def get_image_url(self):
         return self.image.url if self.image else None
+
+
+class MainSettings(ModifyMixin, ActiveMixin):
+    is_main_settings = models.BooleanField(default=True)
+    header_logo = models.ForeignKey(Image, on_delete=models.PROTECT, related_name="header_logo")
+    header_phone = models.CharField()
+    header_email = models.EmailField()
+
+    class Meta:
+        db_table = 'main_settings'

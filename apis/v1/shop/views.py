@@ -27,8 +27,8 @@ from .serializers import (
     OrderItemSerializer,
     AddOrderItemSerializer
 )
-from ..utils.custom_permissions import IsOwnerProductComment
-from ..utils.paginations import CustomPagination, LatestItemPagination
+from apis.utils.custom_permissions import IsOwnerProductComment
+from apis.utils.paginations import CustomPagination, LatestItemPagination
 
 
 class ShopCategoryViewSet(ReadOnlyModelViewSet):

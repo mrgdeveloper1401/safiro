@@ -1,7 +1,7 @@
 import httpx
 from rest_framework.exceptions import ValidationError
 
-from apis.v1.utils.custom_exceptions import (
+from apis.utils.custom_exceptions import (
     TimeOutException,
     ConnectionErrorException,
     NetworkErrorException

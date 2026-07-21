@@ -83,3 +83,9 @@ class NotDriverException(APIException):
     status_code = 403
     default_code = 20
     default_detail = "شما حساب راننده رو ندارید اگه تمایل به فعال سازی میتوانید ان را درخواست بدید"
+
+
+class RequestOtpType(APIException):
+    status_code = 400
+    default_code = 21
+    default_detail = 'نوع درخواست کد اعتبار سنحی بین (otp, forget_password) باشه'

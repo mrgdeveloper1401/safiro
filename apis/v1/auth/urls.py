@@ -1,24 +1,23 @@
 from rest_framework.urls import path
 from rest_framework.routers import SimpleRouter
 from rest_framework_nested.routers import NestedSimpleRouter
+from rest_framework_simplejwt.views import TokenVerifyView
 
 from .views import (
     RequestOtpView,
     OtpVerifyView,
     LoginPhonePasswordView,
-    RequestForgetPasswordView,
-    VerifyForgetPasswordView,
     UserNotificationView,
     DriverView,
     UploadImageView,
     DriverDocView,
     SignUpByPhoneView,
-    ResetPasswordView,
-    VerifyRequestVerifiedPhoneView,
     UserTypeViewSet,
     PassengerViewSet,
     UpdateUserView,
-    DriverCarViewSet
+    DriverCarViewSet,
+    CarBrandViewSet,
+    CarModelViewSet
 )
 
 app_name = "v1_auth"
@@ -28,6 +27,8 @@ router.register("user_notification", UserNotificationView, basename="user_notifi
 router.register("driver", DriverView, basename="driver")
 router.register("passenger", PassengerViewSet, basename="passenger")
 router.register('user_type', UserTypeViewSet, basename="user_type")
+router.register('car/brand', CarBrandViewSet, basename='car_brand')
+router.register('car/model', CarModelViewSet, basename='car_model')
 
 # driver router
 driver_router = NestedSimpleRouter(router, r"driver", lookup="driver")
@@ -40,10 +41,6 @@ urlpatterns = [
     path("login_phone_password/", LoginPhonePasswordView.as_view(), name="login_phone_password"),
     path("sing_up_by_phone/", SignUpByPhoneView.as_view(), name="signup_by_phone"),
     path("update_user/", UpdateUserView.as_view(), name="update_user"),
-    # path("request_forget_password/", RequestForgetPasswordView.as_view(), name='request_forget_password'),
-    # path("verify_forget_password/", VerifyForgetPasswordView.as_view(), name='verify_forget_password'),
-    # # path("request_verify_phone/", RequestLogVerifyPhoneView.as_view(), name='request_verify_phone'),
-    # path("verify_verify_phone/", VerifyRequestVerifiedPhoneView.as_view(), name='verify_verify_phone'),
-    # path("reset_password/", ResetPasswordView.as_view(), name="reset_password"),
     path("upload_image/", UploadImageView.as_view(), name="upload_image"),
+    path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ] + router.urls + driver_router.urls

@@ -1,9 +1,8 @@
 from celery import Celery
 import os
+from apps.auth_app.tasks import send_otp_sms_celery
 
-# from apps.shop_app.tasks import task_track_event
-
-app = Celery('dj_celery')
+app = Celery()
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings')
 
