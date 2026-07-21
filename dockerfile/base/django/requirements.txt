@@ -1,6 +1,6 @@
 adrf
 colorlog
-django<6
+django==6.0.7
 django-cors-headers
 django-redis
 djangorestframework

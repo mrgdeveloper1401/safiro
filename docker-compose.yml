@@ -20,7 +20,7 @@ services:
 
   redis:
     container_name: safiro_redis
-    image: docker.arvancloud.ir/redis:latest
+    image: docker.arvancloud.ir/redis:8-alpine
     command: >
       redis-server
       --loglevel warning

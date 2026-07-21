@@ -3,7 +3,10 @@ import multiprocessing
 
 bind = "0.0.0.0:8000"  # host
 workers = multiprocessing.cpu_count() * 2 + 1  # max worker number
-worker_class = "uvicorn.workers.UvicornWorker"  # worker type
+# worker_class = "uvicorn.workers.UvicornWorker"  # worker type
+worker_class = "gthread"  # worker type
+if worker_class == "gthread":
+    threads = 4 # for 1 core --> 4 * 5 = 20 (request concurrency)
 worker_connections = 1000  # max connection management per worker
 max_requests = 1000  # restart worker when process 10000 requests
 max_requests_jitter = 200
@@ -16,3 +19,9 @@ preload_app = True
 # Logging
 loglevel = "error"
 errorlog = "-"
+
+def post_fork(server, worker):
+    from django.db.backends.postgresql.base import DatabaseWrapper
+
+    # clear connection pool where preload_app equal true and inheritance worker
+    DatabaseWrapper._connection_pools.clear()
