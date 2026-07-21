@@ -10,6 +10,8 @@ RUN rm /etc/apt/sources.list.d/* && \
     apt update &&  \
     apt upgrade -y && \
     apt install curl vim procps net-tools -y && \
-    pip install --upgrade pip && \
-    pip install --index-url https://mirror-pypi.runflare.com/simple -r requirements.txt && \
+    pip config --user set global.index https://mirror-pypi.runflare.com/simple && \
+    pip config --user set global.index-url https://mirror-pypi.runflare.com/simple && \
+    pip config --user set global.trusted-host mirror-pypi.runflare.com && \
+    pip install  -r requirements.txt && \
     rm -rf /var/lib/apt/lists/*

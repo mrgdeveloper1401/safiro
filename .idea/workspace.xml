@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="update gunicorn.conf.py and image django">
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="update config nginx.conf">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerfile/base/django/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile/base/django/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,22 +137,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771346313804</updated>
-    </task>
-    <task id="LOCAL-00018" summary="edit image redis">
-      <option name="closed" value="true" />
-      <created>1776800272628</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1776800272628</updated>
-    </task>
-    <task id="LOCAL-00019" summary="remove depends_on">
-      <option name="closed" value="true" />
-      <created>1776800387200</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1776800387200</updated>
     </task>
     <task id="LOCAL-00020" summary="edit command redis">
       <option name="closed" value="true" />
@@ -529,12 +514,26 @@
       <option name="project" value="LOCAL" />
       <updated>1784619144824</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="add index-url in base_image django">
+      <option name="closed" value="true" />
+      <created>1784619849434</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1784619849434</updated>
+    </task>
+    <task id="LOCAL-00068" summary="update config nginx.conf">
+      <option name="closed" value="true" />
+      <created>1784620165341</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1784620165341</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit base_image django" />
-    <MESSAGE value="update base_image nginx" />
     <MESSAGE value="update prod image nginx" />
     <MESSAGE value="update docker-compose.yml service db" />
     <MESSAGE value="update docker-compose.yml service db and redis" />
@@ -558,6 +557,8 @@
     <MESSAGE value="remove template" />
     <MESSAGE value="update" />
     <MESSAGE value="update gunicorn.conf.py and image django" />
-    <option name="LAST_COMMIT_MESSAGE" value="update gunicorn.conf.py and image django" />
+    <MESSAGE value="add index-url in base_image django" />
+    <MESSAGE value="update config nginx.conf" />
+    <option name="LAST_COMMIT_MESSAGE" value="update config nginx.conf" />
   </component>
 </project>
