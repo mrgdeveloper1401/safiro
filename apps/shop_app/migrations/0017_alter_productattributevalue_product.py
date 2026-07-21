@@ -5,15 +5,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('shop_app', '0016_alter_productimage_image_alter_productimage_product'),
+        ("shop_app", "0016_alter_productimage_image_alter_productimage_product"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='productattributevalue',
-            name='product',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='product_attribute_values', to='shop_app.product'),
+            model_name="productattributevalue",
+            name="product",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="product_attribute_values",
+                to="shop_app.product",
+            ),
         ),
     ]

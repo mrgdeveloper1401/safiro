@@ -3,13 +3,15 @@ from rest_framework.exceptions import APIException
 
 class AuthenticationFailed(APIException):
     status_code = 403
-    default_detail = 'کاربر احراز هویت شده نمیتواند دسترسی پیدا کند'
+    default_detail = "کاربر احراز هویت شده نمیتواند دسترسی پیدا کند"
     default_code = 11
 
 
 class TimeOutException(APIException):
     status_code = 400
-    default_detail = "زمان درخواست بیش از حد طول کشیده شده هست لطفا دروباره درخواست بدید"
+    default_detail = (
+        "زمان درخواست بیش از حد طول کشیده شده هست لطفا دروباره درخواست بدید"
+    )
     default_code = 1
 
 
@@ -82,10 +84,12 @@ class NotActiveAccount(APIException):
 class NotDriverException(APIException):
     status_code = 403
     default_code = 20
-    default_detail = "شما حساب راننده رو ندارید اگه تمایل به فعال سازی میتوانید ان را درخواست بدید"
+    default_detail = (
+        "شما حساب راننده رو ندارید اگه تمایل به فعال سازی میتوانید ان را درخواست بدید"
+    )
 
 
 class RequestOtpType(APIException):
     status_code = 400
     default_code = 21
-    default_detail = 'نوع درخواست کد اعتبار سنحی بین (otp, forget_password) باشه'
+    default_detail = "نوع درخواست کد اعتبار سنحی بین (otp, forget_password) باشه"

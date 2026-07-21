@@ -5,16 +5,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core_app', '0001_initial'),
-        ('shop_app', '0008_product_is_amazing'),
+        ("core_app", "0001_initial"),
+        ("shop_app", "0008_product_is_amazing"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='category',
-            name='category_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='core_app.image'),
+            model_name="category",
+            name="category_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="core_app.image",
+            ),
         ),
     ]

@@ -8,7 +8,9 @@ class Category(ActiveMixin, ModifyMixin):
     name = models.CharField(max_length=50, unique=True)
     parent = models.ForeignKey("self", on_delete=models.PROTECT, null=True, blank=True)
     slug = models.SlugField(max_length=255, unique=True, allow_unicode=True)
-    category_image = models.ForeignKey(Image, on_delete=models.PROTECT, null=True, blank=True)
+    category_image = models.ForeignKey(
+        Image, on_delete=models.PROTECT, null=True, blank=True
+    )
 
     class Meta:
         db_table = "category"
@@ -20,7 +22,9 @@ class Product(ActiveMixin, ModifyMixin):
     product_slug = models.SlugField(max_length=255, allow_unicode=True)
     stock_number = models.PositiveIntegerField(default=0)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    new_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    new_price = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True
+    )
     sku = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True, null=True)
     is_amazing = models.BooleanField(default=False)
@@ -30,8 +34,12 @@ class Product(ActiveMixin, ModifyMixin):
 
 
 class ProductImage(ModifyMixin, ActiveMixin):
-    product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name="product_image")
-    image = models.ForeignKey(Image, on_delete=models.PROTECT, related_name="image_product")
+    product = models.ForeignKey(
+        Product, on_delete=models.PROTECT, related_name="product_image"
+    )
+    image = models.ForeignKey(
+        Image, on_delete=models.PROTECT, related_name="image_product"
+    )
     order = models.PositiveIntegerField(default=1)
 
     class Meta:
@@ -58,7 +66,9 @@ class AttributeValue(ModifyMixin, ActiveMixin):
 
 
 class ProductAttributeValue(ModifyMixin, ActiveMixin):
-    product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name="product_attribute_values")
+    product = models.ForeignKey(
+        Product, on_delete=models.PROTECT, related_name="product_attribute_values"
+    )
     attribute_value = models.ForeignKey(AttributeValue, on_delete=models.PROTECT)
 
     class Meta:
@@ -90,7 +100,9 @@ class Order(ModifyMixin, ActiveMixin):
 
 class OrderItem(ModifyMixin, ActiveMixin):
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
-    order = models.ForeignKey(Order, on_delete=models.PROTECT, related_name="order_items")
+    order = models.ForeignKey(
+        Order, on_delete=models.PROTECT, related_name="order_items"
+    )
     quantity = models.PositiveIntegerField(default=1)
 
     class Meta:

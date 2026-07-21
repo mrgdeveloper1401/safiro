@@ -5,36 +5,120 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('auth_app', '0001_initial'),
+        ("auth_app", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Trip',
+            name="Trip",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد فیلد')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='تاریخ اخرین بروزرسانی فیلد')),
-                ('is_active', models.BooleanField(default=True, verbose_name='قابل نمایش')),
-                ('from_lat', models.DecimalField(decimal_places=7, max_digits=10, null=True)),
-                ('from_lng', models.DecimalField(decimal_places=7, max_digits=10, null=True)),
-                ('to_lat', models.DecimalField(decimal_places=7, max_digits=10, null=True)),
-                ('to_lng', models.DecimalField(decimal_places=7, max_digits=10, null=True)),
-                ('number_of_passenger', models.PositiveIntegerField(default=4, verbose_name='تعداد مسافران')),
-                ('price_per_seat', models.DecimalField(decimal_places=0, max_digits=10, verbose_name='قیمت کل')),
-                ('status', models.CharField(choices=[('pending', 'در انتظار'), ('confirmed', 'تایید شده'), ('in_progress', 'در حال انجام'), ('completed', 'تکمیل شده'), ('cancelled', 'لغو شده'), ('reserve', 'رزور سفر')], default='pending', max_length=20, verbose_name='وضعیت سفر')),
-                ('departure_time', models.DateTimeField(blank=True, null=True, verbose_name='زمان سفر')),
-                ('reserve_for_other', models.BooleanField(default=False, verbose_name='رزور برای دیگر')),
-                ('phone_reserve_for_other', models.CharField(blank=True, null=True, verbose_name='شماره تماس رزور کننده دیگر')),
-                ('driver', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='auth_app.driver', verbose_name='راننده')),
-                ('passenger', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='auth_app.passenger', verbose_name='مسافر')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="تاریخ ایجاد فیلد"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="تاریخ اخرین بروزرسانی فیلد"
+                    ),
+                ),
+                (
+                    "is_active",
+                    models.BooleanField(default=True, verbose_name="قابل نمایش"),
+                ),
+                (
+                    "from_lat",
+                    models.DecimalField(decimal_places=7, max_digits=10, null=True),
+                ),
+                (
+                    "from_lng",
+                    models.DecimalField(decimal_places=7, max_digits=10, null=True),
+                ),
+                (
+                    "to_lat",
+                    models.DecimalField(decimal_places=7, max_digits=10, null=True),
+                ),
+                (
+                    "to_lng",
+                    models.DecimalField(decimal_places=7, max_digits=10, null=True),
+                ),
+                (
+                    "number_of_passenger",
+                    models.PositiveIntegerField(
+                        default=4, verbose_name="تعداد مسافران"
+                    ),
+                ),
+                (
+                    "price_per_seat",
+                    models.DecimalField(
+                        decimal_places=0, max_digits=10, verbose_name="قیمت کل"
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("pending", "در انتظار"),
+                            ("confirmed", "تایید شده"),
+                            ("in_progress", "در حال انجام"),
+                            ("completed", "تکمیل شده"),
+                            ("cancelled", "لغو شده"),
+                            ("reserve", "رزور سفر"),
+                        ],
+                        default="pending",
+                        max_length=20,
+                        verbose_name="وضعیت سفر",
+                    ),
+                ),
+                (
+                    "departure_time",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="زمان سفر"
+                    ),
+                ),
+                (
+                    "reserve_for_other",
+                    models.BooleanField(default=False, verbose_name="رزور برای دیگر"),
+                ),
+                (
+                    "phone_reserve_for_other",
+                    models.CharField(
+                        blank=True, null=True, verbose_name="شماره تماس رزور کننده دیگر"
+                    ),
+                ),
+                (
+                    "driver",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="auth_app.driver",
+                        verbose_name="راننده",
+                    ),
+                ),
+                (
+                    "passenger",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="auth_app.passenger",
+                        verbose_name="مسافر",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'trip',
+                "db_table": "trip",
             },
         ),
     ]

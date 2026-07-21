@@ -4,15 +4,27 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('shop_app', '0011_alter_userevent_event_type_alter_userevent_product_and_more'),
+        (
+            "shop_app",
+            "0011_alter_userevent_event_type_alter_userevent_product_and_more",
+        ),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='userevent',
-            name='event_type',
-            field=models.CharField(choices=[('view', 'Product View'), ('click', 'Product Click'), ('add_to_cart', 'Add To Cart'), ('remove_from_cart', 'Remove From Cart'), ('purchase', 'Purchase'), ('favorite', 'Favorite')], max_length=20),
+            model_name="userevent",
+            name="event_type",
+            field=models.CharField(
+                choices=[
+                    ("view", "Product View"),
+                    ("click", "Product Click"),
+                    ("add_to_cart", "Add To Cart"),
+                    ("remove_from_cart", "Remove From Cart"),
+                    ("purchase", "Purchase"),
+                    ("favorite", "Favorite"),
+                ],
+                max_length=20,
+            ),
         ),
     ]

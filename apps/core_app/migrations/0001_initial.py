@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -15,21 +14,67 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Image',
+            name="Image",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد فیلد')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='تاریخ اخرین بروزرسانی فیلد')),
-                ('is_active', models.BooleanField(default=True, verbose_name='قابل نمایش')),
-                ('image', models.ImageField(upload_to='images/%Y/%m/%d', verbose_name='عکس')),
-                ('width', models.IntegerField(blank=True, null=True, verbose_name='عرض')),
-                ('height', models.IntegerField(blank=True, null=True, verbose_name='ارتفاع')),
-                ('size', models.IntegerField(blank=True, null=True, verbose_name='حجم عکس')),
-                ('image_type', models.CharField(blank=True, max_length=10, null=True, verbose_name='فورمت عکس')),
-                ('created_by', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='user_images', to=settings.AUTH_USER_MODEL, verbose_name='توسط چه کسی ایجاد شده')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="تاریخ ایجاد فیلد"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="تاریخ اخرین بروزرسانی فیلد"
+                    ),
+                ),
+                (
+                    "is_active",
+                    models.BooleanField(default=True, verbose_name="قابل نمایش"),
+                ),
+                (
+                    "image",
+                    models.ImageField(upload_to="images/%Y/%m/%d", verbose_name="عکس"),
+                ),
+                (
+                    "width",
+                    models.IntegerField(blank=True, null=True, verbose_name="عرض"),
+                ),
+                (
+                    "height",
+                    models.IntegerField(blank=True, null=True, verbose_name="ارتفاع"),
+                ),
+                (
+                    "size",
+                    models.IntegerField(blank=True, null=True, verbose_name="حجم عکس"),
+                ),
+                (
+                    "image_type",
+                    models.CharField(
+                        blank=True, max_length=10, null=True, verbose_name="فورمت عکس"
+                    ),
+                ),
+                (
+                    "created_by",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="user_images",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="توسط چه کسی ایجاد شده",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'auth_image',
+                "db_table": "auth_image",
             },
         ),
     ]

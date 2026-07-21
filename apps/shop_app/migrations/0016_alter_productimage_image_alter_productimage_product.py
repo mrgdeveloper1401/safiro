@@ -5,21 +5,28 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core_app', '0001_initial'),
-        ('shop_app', '0015_sales'),
+        ("core_app", "0001_initial"),
+        ("shop_app", "0015_sales"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='productimage',
-            name='image',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='image_product', to='core_app.image'),
+            model_name="productimage",
+            name="image",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="image_product",
+                to="core_app.image",
+            ),
         ),
         migrations.AlterField(
-            model_name='productimage',
-            name='product',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='product_image', to='shop_app.product'),
+            model_name="productimage",
+            name="product",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="product_image",
+                to="shop_app.product",
+            ),
         ),
     ]

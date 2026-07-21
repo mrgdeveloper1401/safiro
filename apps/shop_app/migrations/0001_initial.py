@@ -5,26 +5,56 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد فیلد')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='تاریخ اخرین بروزرسانی فیلد')),
-                ('is_active', models.BooleanField(default=True, verbose_name='قابل نمایش')),
-                ('name', models.CharField(max_length=50, unique=True)),
-                ('slug', models.SlugField(allow_unicode=True, max_length=255, unique=True)),
-                ('parent', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='shop_app.category')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="تاریخ ایجاد فیلد"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="تاریخ اخرین بروزرسانی فیلد"
+                    ),
+                ),
+                (
+                    "is_active",
+                    models.BooleanField(default=True, verbose_name="قابل نمایش"),
+                ),
+                ("name", models.CharField(max_length=50, unique=True)),
+                (
+                    "slug",
+                    models.SlugField(allow_unicode=True, max_length=255, unique=True),
+                ),
+                (
+                    "parent",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="shop_app.category",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'category',
+                "db_table": "category",
             },
         ),
     ]

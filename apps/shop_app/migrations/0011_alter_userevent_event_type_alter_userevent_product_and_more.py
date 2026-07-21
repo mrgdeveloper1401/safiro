@@ -6,26 +6,42 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('shop_app', '0010_userevent'),
+        ("shop_app", "0010_userevent"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='userevent',
-            name='event_type',
-            field=models.CharField(choices=[('view', 'Product View'), ('click', 'Product Click'), ('add_to_cart', 'Add To Cart'), ('remove_from_cart', 'Remove From Cart'), ('purchase', 'Purchase'), ('favorite', 'Favorite')], db_index=True, max_length=20),
+            model_name="userevent",
+            name="event_type",
+            field=models.CharField(
+                choices=[
+                    ("view", "Product View"),
+                    ("click", "Product Click"),
+                    ("add_to_cart", "Add To Cart"),
+                    ("remove_from_cart", "Remove From Cart"),
+                    ("purchase", "Purchase"),
+                    ("favorite", "Favorite"),
+                ],
+                db_index=True,
+                max_length=20,
+            ),
         ),
         migrations.AlterField(
-            model_name='userevent',
-            name='product',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='shop_app.product'),
+            model_name="userevent",
+            name="product",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.DO_NOTHING, to="shop_app.product"
+            ),
         ),
         migrations.AlterField(
-            model_name='userevent',
-            name='user',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.DO_NOTHING, to=settings.AUTH_USER_MODEL),
+            model_name="userevent",
+            name="user",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

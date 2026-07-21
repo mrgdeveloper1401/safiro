@@ -4,7 +4,7 @@ from rest_framework.exceptions import ValidationError
 from apis.utils.custom_exceptions import (
     TimeOutException,
     ConnectionErrorException,
-    NetworkErrorException
+    NetworkErrorException,
 )
 
 
@@ -20,6 +20,7 @@ def request_error(func):
             raise NetworkErrorException()
         except Exception as e:
             raise ValidationError(str(e))
+
     return wrapper
 
 
@@ -35,4 +36,5 @@ def a_request_error(func):
             raise NetworkErrorException()
         except Exception as e:
             raise ValidationError(str(e))
+
     return wrapper

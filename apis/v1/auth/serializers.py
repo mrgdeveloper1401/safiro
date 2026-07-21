@@ -7,7 +7,8 @@ from rest_framework.exceptions import NotFound
 from apis.utils.custom_exceptions import (
     PasswordNotMathException,
     OldPasswordNotMathException,
-    NationCodeAlreadyExistsException, RequestOtpType,
+    NationCodeAlreadyExistsException,
+    RequestOtpType,
 )
 from apps.auth_app.models import (
     UserNotification,
@@ -19,25 +20,27 @@ from apps.auth_app.models import (
     Car,
     DriverCar,
     CarBrand,
-    CarModel
+    CarModel,
 )
 from apps.auth_app.validators import PhoneNumberValidator
 
 
 class RequestOtpSerializer(serializers.Serializer):
     phone = serializers.CharField(validators=(PhoneNumberValidator(),))
-    otp_type = serializers.CharField(default='otp', help_text='otp type you can set (otp, forget_password)')
+    otp_type = serializers.CharField(
+        default="otp", help_text="otp type you can set (otp, forget_password)"
+    )
 
     def validate(self, attrs):
         # validate oyp_type
-        otp_type = attrs.get('otp_type')
+        otp_type = attrs.get("otp_type")
         if otp_type not in ("otp", "forget_password"):
             raise RequestOtpType()
 
         # check user
-        phone = attrs.get('phone')
+        phone = attrs.get("phone")
         if not User.objects.filter(phone=phone).exists():
-            raise NotFound('user not found')
+            raise NotFound("user not found")
         return attrs
 
 
@@ -47,11 +50,7 @@ class OtpVerifySerializer(serializers.Serializer):
 
 
 class LoginPhonePasswordSerializer(serializers.Serializer):
-    phone = serializers.CharField(
-        validators=(
-            PhoneNumberValidator(),
-        )
-    )
+    phone = serializers.CharField(validators=(PhoneNumberValidator(),))
     password = serializers.CharField()
 
 
@@ -97,7 +96,7 @@ class DriverSerializer(serializers.ModelSerializer):
             "father_name",
             "license_number",
             "verification_status",
-            "disable_account"
+            "disable_account",
         )
         extra_kwargs = {
             "verification_status": {"read_only": True},
@@ -108,15 +107,17 @@ class DriverSerializer(serializers.ModelSerializer):
         }
 
     def validate_image(self, data):
-        user_id = self.context['request'].user.id
-        owner_image = Image.objects.only("id").filter(id=data.id, created_by_id=user_id, is_active=True)
+        user_id = self.context["request"].user.id
+        owner_image = Image.objects.only("id").filter(
+            id=data.id, created_by_id=user_id, is_active=True
+        )
         if not owner_image.exists():
             raise NotFound("image not found")
         return data
 
     def create(self, validated_data):
         try:
-            user_id = self.context['request'].user.id
+            user_id = self.context["request"].user.id
             return Driver.objects.create(user_id=user_id, **validated_data)
         except IntegrityError as e:
             error_ms = str(e)
@@ -133,9 +134,9 @@ class DriverSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['image'] = instance.image.get_image_url if instance.image else None
+        data["image"] = instance.image.get_image_url if instance.image else None
         # data['car'] = SimpleCarSerializer(instance.car).data if instance.car else None
-        data['user'] = UserInfoSerializer(instance.user).data
+        data["user"] = UserInfoSerializer(instance.user).data
         return data
 
 
@@ -150,8 +151,8 @@ class DriverCarSerializer(serializers.ModelSerializer):
         read_only_fields = ("driver",)
 
     def create(self, validated_data):
-        driver_pk = self.context['driver_pk']
-        user_id = self.context['request'].user.id
+        driver_pk = self.context["driver_pk"]
+        user_id = self.context["request"].user.id
 
         # check driver_pk
         if not Driver.objects.filter(id=driver_pk, user_id=user_id).exists():
@@ -172,8 +173,8 @@ class UserInfoSerializer(serializers.ModelSerializer):
             "last_name",
         )
         extra_kwargs = {
-            "phone": {'read_only': True},
-            "is_verify_phone": {'read_only': True},
+            "phone": {"read_only": True},
+            "is_verify_phone": {"read_only": True},
         }
 
 
@@ -185,7 +186,7 @@ class PassengerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Passenger
-        fields = '__all__'
+        fields = "__all__"
         extra_kwargs = {
             "user": {"read_only": True},
             "disable_account": {"read_only": True},
@@ -193,15 +194,17 @@ class PassengerSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['user'] = UserInfoSerializer(instance.user).data
+        data["user"] = UserInfoSerializer(instance.user).data
         return data
 
     def validate(self, attrs):
-        image = attrs.get('image', None)
+        image = attrs.get("image", None)
         if image:
             # check image
-            user_id = self.context['request'].user.id
-            check_img = Image.objects.filter(id=image.id, is_active=True, created_by_id=user_id).only("id")
+            user_id = self.context["request"].user.id
+            check_img = Image.objects.filter(
+                id=image.id, is_active=True, created_by_id=user_id
+            ).only("id")
             if not check_img.exists():
                 raise NotFound("image not found")
         return attrs
@@ -214,13 +217,10 @@ class PassengerSerializer(serializers.ModelSerializer):
 class UploadImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
-        fields = (
-            "id",
-            "image"
-        )
+        fields = ("id", "image")
 
     def create(self, validated_data):
-        user_id = self.context['request'].user.id
+        user_id = self.context["request"].user.id
         return Image.objects.create(created_by_id=user_id, **validated_data)
 
 
@@ -231,30 +231,22 @@ class DriverDocSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DriverDocument
-        fields = (
-            "id",
-            "doc_type",
-            "image",
-            "is_verified",
-            "verifier_note"
-        )
+        fields = ("id", "doc_type", "image", "is_verified", "verifier_note")
         extra_kwargs = {
             "is_verified": {"read_only": True},
-            "verifier_note": {'read_only': True}
+            "verifier_note": {"read_only": True},
         }
 
     def validate_image(self, data):
-        user_id = self.context['request'].user.id
+        user_id = self.context["request"].user.id
         if not Image.objects.filter(
-            is_active=True,
-            id=data.id,
-            created_by_id=user_id
+            is_active=True, id=data.id, created_by_id=user_id
         ).exists():
             raise NotFound("عکس مربوطه پیدا نشد")
         return data
 
     def create(self, validated_data):
-        user_id = self.context['request'].user.id
+        user_id = self.context["request"].user.id
 
         # check driver profile
         driver = Driver.objects.filter(user_id=user_id).only("id")
@@ -264,13 +256,12 @@ class DriverDocSerializer(serializers.ModelSerializer):
         # create driver doc
         driver_profile = driver.first()
         return DriverDocument.objects.create(
-            driver_id=driver_profile.pk,
-            **validated_data
+            driver_id=driver_profile.pk, **validated_data
         )
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['image'] = instance.image.get_image_url
+        data["image"] = instance.image.get_image_url
         return data
 
 
@@ -294,7 +285,7 @@ class ResetPasswordSerializer(serializers.Serializer):
         new_password = attrs.get("new_password")
         confirm_password = attrs.get("confirm_password")
         old_password = attrs.get("old_password")
-        user_id = self.context['request'].user.id
+        user_id = self.context["request"].user.id
 
         # check new password
         if new_password != confirm_password:
@@ -314,29 +305,21 @@ class ResetPasswordSerializer(serializers.Serializer):
 
 
 class RequestLogVerifyPhoneSerializer(AdrfSerializer):
-    phone = serializers.CharField(
-        validators=(
-            PhoneNumberValidator(),
-        )
-    )
+    phone = serializers.CharField(validators=(PhoneNumberValidator(),))
 
 
 class VerifyRequestVerifiedPhoneSerializer(AdrfSerializer):
-    phone = serializers.CharField(
-        validators=(
-            PhoneNumberValidator(),
-        )
-    )
+    phone = serializers.CharField(validators=(PhoneNumberValidator(),))
     code = serializers.CharField()
 
 
 class UserStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id","is_driver", "is_passenger", "phone", "email", "username")
+        fields = ("id", "is_driver", "is_passenger", "phone", "email", "username")
         extra_kwargs = {
             "is_passenger": {"read_only": True},
-            "phone": {"read_only": True}
+            "phone": {"read_only": True},
         }
 
     def update(self, instance, validated_data):
@@ -355,12 +338,20 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 class CarBrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = CarBrand
-        fields = ('id', 'brand_name', 'is_active', 'created_at', 'updated_at')
+        fields = ("id", "brand_name", "is_active", "created_at", "updated_at")
 
 
 class CarModelSerializer(serializers.ModelSerializer):
-    brand_name = serializers.CharField(source='brand.brand_name', read_only=True)
+    brand_name = serializers.CharField(source="brand.brand_name", read_only=True)
 
     class Meta:
         model = CarModel
-        fields = ('id', 'brand', 'brand_name', 'model_name', 'is_active', 'created_at', 'updated_at')
+        fields = (
+            "id",
+            "brand",
+            "brand_name",
+            "model_name",
+            "is_active",
+            "created_at",
+            "updated_at",
+        )

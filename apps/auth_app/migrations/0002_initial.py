@@ -6,58 +6,103 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('auth_app', '0001_initial'),
-        ('core_app', '0001_initial'),
+        ("auth_app", "0001_initial"),
+        ("core_app", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='driver',
-            name='image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='core_app.image', verbose_name='عکس پروفایل'),
+            model_name="driver",
+            name="image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="core_app.image",
+                verbose_name="عکس پروفایل",
+            ),
         ),
         migrations.AddField(
-            model_name='driver',
-            name='user',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, related_name='user_driver', to=settings.AUTH_USER_MODEL, verbose_name='کاربر'),
+            model_name="driver",
+            name="user",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="user_driver",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="کاربر",
+            ),
         ),
         migrations.AddField(
-            model_name='drivercar',
-            name='car',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, to='auth_app.car', verbose_name='ماشین'),
+            model_name="drivercar",
+            name="car",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="auth_app.car",
+                verbose_name="ماشین",
+            ),
         ),
         migrations.AddField(
-            model_name='drivercar',
-            name='driver',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='auth_app.driver', verbose_name='راننده'),
+            model_name="drivercar",
+            name="driver",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                to="auth_app.driver",
+                verbose_name="راننده",
+            ),
         ),
         migrations.AddField(
-            model_name='driverdocument',
-            name='driver',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='profile_docs', to='auth_app.driver', verbose_name='راننده'),
+            model_name="driverdocument",
+            name="driver",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="profile_docs",
+                to="auth_app.driver",
+                verbose_name="راننده",
+            ),
         ),
         migrations.AddField(
-            model_name='driverdocument',
-            name='image',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='image_driver_docs', to='core_app.image', verbose_name='عکس'),
+            model_name="driverdocument",
+            name="image",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="image_driver_docs",
+                to="core_app.image",
+                verbose_name="عکس",
+            ),
         ),
         migrations.AddField(
-            model_name='passenger',
-            name='image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='core_app.image', verbose_name='عکس کاربر'),
+            model_name="passenger",
+            name="image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="core_app.image",
+                verbose_name="عکس کاربر",
+            ),
         ),
         migrations.AddField(
-            model_name='passenger',
-            name='user',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, related_name='user_passengers', to=settings.AUTH_USER_MODEL, verbose_name='کاربر'),
+            model_name="passenger",
+            name="user",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="user_passengers",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="کاربر",
+            ),
         ),
         migrations.AddField(
-            model_name='usernotification',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='user_notifications', to=settings.AUTH_USER_MODEL, verbose_name='کاربر'),
+            model_name="usernotification",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="user_notifications",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="کاربر",
+            ),
         ),
     ]

@@ -6,25 +6,61 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('shop_app', '0009_category_category_image'),
+        ("shop_app", "0009_category_category_image"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='UserEvent',
+            name="UserEvent",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_active', models.BooleanField(default=True, verbose_name='قابل نمایش')),
-                ('event_type', models.CharField(choices=[('view', 'Product View'), ('click', 'Product Click'), ('add_to_cart', 'Add To Cart'), ('remove_from_cart', 'Remove From Cart'), ('purchase', 'Purchase'), ('favorite', 'Favorite')], max_length=20)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop_app.product')),
-                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "is_active",
+                    models.BooleanField(default=True, verbose_name="قابل نمایش"),
+                ),
+                (
+                    "event_type",
+                    models.CharField(
+                        choices=[
+                            ("view", "Product View"),
+                            ("click", "Product Click"),
+                            ("add_to_cart", "Add To Cart"),
+                            ("remove_from_cart", "Remove From Cart"),
+                            ("purchase", "Purchase"),
+                            ("favorite", "Favorite"),
+                        ],
+                        max_length=20,
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="shop_app.product",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'db_table': 'user_shop_event',
+                "db_table": "user_shop_event",
             },
         ),
     ]

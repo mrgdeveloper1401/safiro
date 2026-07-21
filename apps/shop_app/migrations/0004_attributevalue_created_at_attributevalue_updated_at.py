@@ -5,21 +5,26 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('shop_app', '0003_attribute_attributevalue'),
+        ("shop_app", "0003_attribute_attributevalue"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='attributevalue',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now, verbose_name='تاریخ ایجاد فیلد'),
+            model_name="attributevalue",
+            name="created_at",
+            field=models.DateTimeField(
+                auto_now_add=True,
+                default=django.utils.timezone.now,
+                verbose_name="تاریخ ایجاد فیلد",
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='attributevalue',
-            name='updated_at',
-            field=models.DateTimeField(auto_now=True, verbose_name='تاریخ اخرین بروزرسانی فیلد'),
+            model_name="attributevalue",
+            name="updated_at",
+            field=models.DateTimeField(
+                auto_now=True, verbose_name="تاریخ اخرین بروزرسانی فیلد"
+            ),
         ),
     ]

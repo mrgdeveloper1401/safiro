@@ -2,8 +2,16 @@ from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 from rest_framework.exceptions import NotFound, ValidationError
 
-from apps.shop_app.models import Category, Product, Sales, ProductImage, ProductAttributeValue, ProductComment, Order, \
-    OrderItem
+from apps.shop_app.models import (
+    Category,
+    Product,
+    Sales,
+    ProductImage,
+    ProductAttributeValue,
+    ProductComment,
+    Order,
+    OrderItem,
+)
 
 
 class ParentCategorySerializer(serializers.ModelSerializer):
@@ -14,11 +22,13 @@ class ParentCategorySerializer(serializers.ModelSerializer):
 
 class ShopCategorySerializer(serializers.ModelSerializer):
     parent = ParentCategorySerializer(many=False, allow_null=True)
-    category_image = serializers.URLField(source="category_image.image.url", allow_null=True)
+    category_image = serializers.URLField(
+        source="category_image.image.url", allow_null=True
+    )
 
     class Meta:
         model = Category
-        exclude = ('is_active',)
+        exclude = ("is_active",)
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
@@ -46,7 +56,7 @@ class RecommenderProductSerializer(serializers.ModelSerializer):
             "price",
             "new_price",
             "is_amazing",
-            "product_image"
+            "product_image",
         )
 
     @extend_schema_field(serializers.URLField())
@@ -71,7 +81,7 @@ class MostProductSaleSerializer(serializers.ModelSerializer):
             "product_slug",
             "price",
             "new_price",
-            "product_image"
+            "product_image",
         )
 
     @extend_schema_field(serializers.URLField())
@@ -91,8 +101,8 @@ class MostProductDiscountSerializer(RecommenderProductSerializer):
             "product_slug",
             "price",
             "new_price",
-            'discount_amount',
-            "product_image"
+            "discount_amount",
+            "product_image",
         )
 
     @extend_schema_field(serializers.DecimalField(max_digits=10, decimal_places=2))
@@ -101,7 +111,9 @@ class MostProductDiscountSerializer(RecommenderProductSerializer):
 
 
 class ProductAttributeValueSerializer(serializers.ModelSerializer):
-    attribute_name = serializers.CharField(source="attribute_value.attribute.attribute_name")
+    attribute_name = serializers.CharField(
+        source="attribute_value.attribute.attribute_name"
+    )
     attribute_value = serializers.CharField(source="attribute_value.attribute_value")
 
     class Meta:
@@ -121,7 +133,7 @@ class DetailProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        exclude = ('is_active', "sku")
+        exclude = ("is_active", "sku")
 
     @extend_schema_field(serializers.DecimalField(max_digits=10, decimal_places=2))
     def get_discount_amount(self, obj):
@@ -134,13 +146,15 @@ class ProductCommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductComment
-        exclude = ('is_active',)
-        read_only_fields = ('user', "product")
+        exclude = ("is_active",)
+        read_only_fields = ("user", "product")
 
     def create(self, validated_data):
         user_id = self.context["request"].user.id
         product_id = self.context["product_id"]
-        return ProductComment.objects.create(user_id=user_id, product_id=product_id, **validated_data)
+        return ProductComment.objects.create(
+            user_id=user_id, product_id=product_id, **validated_data
+        )
 
     @extend_schema_field(serializers.BooleanField())
     def get_is_owner(self, obj):
@@ -151,6 +165,7 @@ class CreateOrderSerializer(serializers.Serializer):
     product_id = serializers.IntegerField()
     quantity = serializers.IntegerField(min_value=1)
 
+
 class CreateOrderBatchSerializer(serializers.Serializer):
     items = CreateOrderSerializer(many=True, min_length=1)
 
@@ -160,16 +175,12 @@ class CreateOrderBatchSerializer(serializers.Serializer):
         order = Order.objects.create(user_id=user_id)
         item_list = [
             OrderItem(
-                product_id=i["product_id"],
-                quantity=i["quantity"],
-                order_id=order.pk
+                product_id=i["product_id"], quantity=i["quantity"], order_id=order.pk
             )
             for i in items
         ]
         OrderItem.objects.bulk_create(item_list)
-        return {
-            "items": items
-        }
+        return {"items": items}
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -180,11 +191,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderItem
-        exclude = (
-            'is_active',
-            "created_at",
-            "updated_at"
-        )
+        exclude = ("is_active", "created_at", "updated_at")
 
     @extend_schema_field(serializers.URLField())
     def get_product_image(self, obj):
@@ -212,25 +219,27 @@ class AddOrderItemSerializer(serializers.ModelSerializer):
         fields = ("product", "quantity")
 
     def create(self, validated_data):
-        order_id = self.context['order_id']
+        order_id = self.context["order_id"]
         user_id = self.context["request"].user.id
 
         # check order dose exists
-        order = Order.objects.filter(id=order_id, is_active=True, user_id=user_id).only("id")
+        order = Order.objects.filter(id=order_id, is_active=True, user_id=user_id).only(
+            "id"
+        )
         if not order.exists():
             raise NotFound("Order does not exist")
         else:
             # check product in order
             if OrderItem.objects.filter(
-                    order_id=order_id,
-                    product_id=validated_data["product"].id,
-                    is_active=True
+                order_id=order_id,
+                product_id=validated_data["product"].id,
+                is_active=True,
             ).exists():
                 raise ValidationError("product already added is order")
             else:
                 # create order
                 return OrderItem.objects.create(
-                    product_id=validated_data['product'].id,
-                    quantity=validated_data['quantity'],
-                    order_id=order_id
+                    product_id=validated_data["product"].id,
+                    quantity=validated_data["quantity"],
+                    order_id=order_id,
                 )

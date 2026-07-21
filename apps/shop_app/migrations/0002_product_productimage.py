@@ -5,45 +5,108 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core_app', '0001_initial'),
-        ('shop_app', '0001_initial'),
+        ("core_app", "0001_initial"),
+        ("shop_app", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد فیلد')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='تاریخ اخرین بروزرسانی فیلد')),
-                ('is_active', models.BooleanField(default=True, verbose_name='قابل نمایش')),
-                ('product_name', models.CharField(db_index=True, max_length=255)),
-                ('product_slug', models.SlugField(allow_unicode=True, max_length=255)),
-                ('stock_number', models.PositiveIntegerField(default=0)),
-                ('price', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('new_price', models.DecimalField(blank=True, decimal_places=2, max_digits=10, null=True)),
-                ('sku', models.CharField(max_length=255, unique=True)),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='shop_app.category')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="تاریخ ایجاد فیلد"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="تاریخ اخرین بروزرسانی فیلد"
+                    ),
+                ),
+                (
+                    "is_active",
+                    models.BooleanField(default=True, verbose_name="قابل نمایش"),
+                ),
+                ("product_name", models.CharField(db_index=True, max_length=255)),
+                ("product_slug", models.SlugField(allow_unicode=True, max_length=255)),
+                ("stock_number", models.PositiveIntegerField(default=0)),
+                ("price", models.DecimalField(decimal_places=2, max_digits=10)),
+                (
+                    "new_price",
+                    models.DecimalField(
+                        blank=True, decimal_places=2, max_digits=10, null=True
+                    ),
+                ),
+                ("sku", models.CharField(max_length=255, unique=True)),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="shop_app.category",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'product',
+                "db_table": "product",
             },
         ),
         migrations.CreateModel(
-            name='ProductImage',
+            name="ProductImage",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد فیلد')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='تاریخ اخرین بروزرسانی فیلد')),
-                ('is_active', models.BooleanField(default=True, verbose_name='قابل نمایش')),
-                ('order', models.PositiveIntegerField(default=1)),
-                ('image', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='core_app.image')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='shop_app.product')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="تاریخ ایجاد فیلد"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="تاریخ اخرین بروزرسانی فیلد"
+                    ),
+                ),
+                (
+                    "is_active",
+                    models.BooleanField(default=True, verbose_name="قابل نمایش"),
+                ),
+                ("order", models.PositiveIntegerField(default=1)),
+                (
+                    "image",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT, to="core_app.image"
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="shop_app.product",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'product_image',
+                "db_table": "product_image",
             },
         ),
     ]

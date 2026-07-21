@@ -5,24 +5,56 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('shop_app', '0004_attributevalue_created_at_attributevalue_updated_at'),
+        ("shop_app", "0004_attributevalue_created_at_attributevalue_updated_at"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ProductAttributeValue',
+            name="ProductAttributeValue",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد فیلد')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='تاریخ اخرین بروزرسانی فیلد')),
-                ('is_active', models.BooleanField(default=True, verbose_name='قابل نمایش')),
-                ('attribute_value', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='shop_app.attributevalue')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='shop_app.product')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="تاریخ ایجاد فیلد"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="تاریخ اخرین بروزرسانی فیلد"
+                    ),
+                ),
+                (
+                    "is_active",
+                    models.BooleanField(default=True, verbose_name="قابل نمایش"),
+                ),
+                (
+                    "attribute_value",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="shop_app.attributevalue",
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="shop_app.product",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'product_attribute_value',
+                "db_table": "product_attribute_value",
             },
         ),
     ]
