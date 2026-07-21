@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit depends_on in docker-compose.yml" />
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit redis">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -134,14 +137,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771346313804</updated>
-    </task>
-    <task id="LOCAL-00026" summary="replace mirror">
-      <option name="closed" value="true" />
-      <created>1776804510518</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1776804510518</updated>
     </task>
     <task id="LOCAL-00027" summary="replace mirror">
       <option name="closed" value="true" />
@@ -527,11 +522,18 @@
       <option name="project" value="LOCAL" />
       <updated>1784622712065</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="edit redis">
+      <option name="closed" value="true" />
+      <created>1784622990029</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1784622990030</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update nginx.conf" />
     <MESSAGE value="update user nginx.conf" />
     <MESSAGE value="update error_log nginx.conf" />
     <MESSAGE value="update ENTRYPOINT image nginx" />
@@ -556,6 +558,7 @@
     <MESSAGE value="add run command in prod" />
     <MESSAGE value="remove port" />
     <MESSAGE value="edit depends_on in docker-compose.yml" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit depends_on in docker-compose.yml" />
+    <MESSAGE value="edit redis" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit redis" />
   </component>
 </project>

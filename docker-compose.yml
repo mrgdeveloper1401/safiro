@@ -74,6 +74,20 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - /etc/ssl:/etc/ssl:ro
 
+  passenger:
+    container_name: next_passenger
+    image: next_passenger:1.0.0
+    restart: always
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: https://api.safiro.ir/v1
+      PORT: 3000
+    expose:
+      - 3000
+    depends_on:
+      nginx:
+        condition: service_started
+
 volumes:
   postgres_volume:
   static_files:

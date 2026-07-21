@@ -1,3 +1,5 @@
+from hashlib import sha1
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -37,12 +39,24 @@ class Image(ModifyMixin, ActiveMixin):
     class Meta:
         db_table = "image"
 
+    @property
+    def hash_image(self):
+        hasher = sha1()
+        for i in self.image.chunks():
+            hasher.update(i)
+        return hasher.hexdigest()
+
     def save(self, *args, **kwargs):
-        self.image_type = self.image.url.split(".")[-1]
-        self.width = self.image.width
-        self.height = self.image.height
-        self.size = self.image.size
-        super().save(*args, **kwargs)
+        if self.pk:
+            old = Image.objects.filter(pk=self.pk).only('image').first()
+            if old and old.image == self.image:
+                return super().save(*args, **kwargs)
+
+        self.image_size = self.image.size
+        self.image_width = self.image.width
+        self.image_height = self.image.height
+        # self.image_hash = self.hash_image
+        return super().save(*args, **kwargs)
 
     @property
     def get_image_url(self):
