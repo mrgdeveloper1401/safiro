@@ -20,6 +20,7 @@ swagger_urls = [
 
 v1_apis = [
     path("v1/api/auth/", include("apis.v1.auth.urls", namespace="v1_auth")),
+    path("v1/api/trip/", include("apis.v1.trip.urls", namespace="v1_trip")),
     # path("v1/api/shop/", include("apis.v1.shop.urls", namespace="v1_shop")),
 ]
 

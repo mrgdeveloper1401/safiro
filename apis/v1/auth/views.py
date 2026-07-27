@@ -649,7 +649,14 @@ class VerifyForgetPasswordView(APIView):
                 status_code=404,
             )
         else:
-            fields = ("phone", "is_active", "is_verify_phone", "is_staff", "is_passenger", "is_driver")
+            fields = (
+                "phone",
+                "is_active",
+                "is_verify_phone",
+                "is_staff",
+                "is_passenger",
+                "is_driver",
+            )
             user = User.objects.only(*fields).filter(phone=phone).first()
             if user is None:
                 raise NotFound("حساب کاربری وجود ندارد")

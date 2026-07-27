@@ -43,3 +43,17 @@ class Trip(ActiveMixin, ModifyMixin):
 
     class Meta:
         db_table = "trip"
+
+
+class TripType(ModifyMixin, ActiveMixin):
+    trip_name = models.CharField(max_length=255)
+    trip_image = models.ForeignKey(
+        "core_app.Image",
+        on_delete=models.PROTECT,
+        related_name="trip_image",
+        blank=True,
+        null=True,
+    )
+
+    class Meta:
+        db_table = "trip_type"

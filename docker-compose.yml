@@ -96,6 +96,11 @@ services:
       context: .
       dockerfile: dockerfile/prod/celery/Dockerfile
     restart: always
+    depends_on:
+      redis:
+        condition: service_healthy
+      auth-backend:
+        condition: service_started
 
 volumes:
   postgres_volume:
