@@ -432,7 +432,7 @@ if USE_CELERY:
     )  # فرمت serialize کردن نتیجه‌ی تسک
     CELERY_TASK_ACKS_LATE = config(
         "CELERY_TASK_ACKS_LATE", cast=bool, default=True
-    )  # اگر True باشد، تسک بعد از اجرا ack می‌شود نه قبل از اجرا
+    )  # تسک در صورت عدم انجام دوباره انجام میشود
     CELERY_WORKER_PREFETCH_MULTIPLIER = config(
         "WORKER_PREFETCH_MULTIPLIER", cast=int, default=1
     )  # هر Worker قبل از اتمام تسک فعلی چند تسک از صف بردارد

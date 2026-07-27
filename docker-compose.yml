@@ -89,6 +89,13 @@ services:
       nginx:
         condition: service_started
 
+  safir_celery:
+    container_name: safiro_celery
+    build:
+      context: .
+      dockerfile: dockerfile/prod/celery/Dockerfile
+    restart: always
+
 volumes:
   postgres_volume:
   static_files:
