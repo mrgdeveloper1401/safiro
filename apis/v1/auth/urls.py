@@ -18,6 +18,7 @@ from .views import (
     DriverCarViewSet,
     CarBrandViewSet,
     CarModelViewSet,
+    VerifyForgetPasswordView,
 )
 
 app_name = "v1_auth"
@@ -43,6 +44,11 @@ urlpatterns = (
             "login_phone_password/",
             LoginPhonePasswordView.as_view(),
             name="login_phone_password",
+        ),
+        path(
+            "verify_forget_password/",
+            VerifyForgetPasswordView.as_view(),
+            name="verify_forget_password",
         ),
         path("sing_up_by_phone/", SignUpByPhoneView.as_view(), name="signup_by_phone"),
         path("update_user/", UpdateUserView.as_view(), name="update_user"),

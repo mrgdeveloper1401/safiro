@@ -36,11 +36,6 @@ class RequestOtpSerializer(serializers.Serializer):
         otp_type = attrs.get("otp_type")
         if otp_type not in ("otp", "forget_password"):
             raise RequestOtpType()
-
-        # check user
-        phone = attrs.get("phone")
-        if not User.objects.filter(phone=phone).exists():
-            raise NotFound("user not found")
         return attrs
 
 
@@ -355,3 +350,19 @@ class CarModelSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         )
+
+
+class VerifyForgetPasswordSerializer(serializers.Serializer):
+    phone = serializers.CharField(validators=(PhoneNumberValidator(),))
+    code = serializers.CharField(max_length=6)
+    password = serializers.CharField()
+    confirm_password = serializers.CharField()
+
+    def validate(self, attrs):
+        password = attrs.get("password")
+        confirm_password = attrs.get("confirm_password")
+
+        if password != confirm_password:
+            raise PasswordNotMathException()
+
+        return attrs

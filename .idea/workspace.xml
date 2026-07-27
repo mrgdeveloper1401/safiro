@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add config pass nextjs">
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="update image passenger">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/auth/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/auth/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/auth/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/validators.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/validators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/core_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/core_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/gunicorn.conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/gunicorn.conf.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,14 +144,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771346313804</updated>
-    </task>
-    <task id="LOCAL-00029" summary="add package into requirements.txt">
-      <option name="closed" value="true" />
-      <created>1776805873190</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1776805873190</updated>
     </task>
     <task id="LOCAL-00030" summary="add mirror into requirements.txt">
       <option name="closed" value="true" />
@@ -530,11 +529,18 @@
       <option name="project" value="LOCAL" />
       <updated>1784633555448</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="update image passenger">
+      <option name="closed" value="true" />
+      <created>1784637413943</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1784637413944</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update ENTRYPOINT image nginx" />
     <MESSAGE value="update healthcheck and static volume" />
     <MESSAGE value="update healthcheck in service db" />
     <MESSAGE value="add expose in service nginx" />
@@ -559,6 +565,7 @@
     <MESSAGE value="edit redis" />
     <MESSAGE value="edit save image and add service passenger" />
     <MESSAGE value="add config pass nextjs" />
-    <option name="LAST_COMMIT_MESSAGE" value="add config pass nextjs" />
+    <MESSAGE value="update image passenger" />
+    <option name="LAST_COMMIT_MESSAGE" value="update image passenger" />
   </component>
 </project>

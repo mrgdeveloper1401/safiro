@@ -289,7 +289,7 @@ if USE_CORS:
     ADD_LOCAL = config("ADD_LOCAL", cast=bool, default=True)
     if ADD_LOCAL:
         CORS_ALLOWED_ORIGINS.append("http://localhost:3000")
-        CORS_ALLOWED_ORIGINS.append('http://localhost:3001')
+        CORS_ALLOWED_ORIGINS.append("http://localhost:3001")
 
 
 # config session cache
@@ -348,7 +348,11 @@ SIMPLE_JWT = {
         days=config("ACCESS_TOKEN_LIFETIME", cast=int, default=7)
     ),
     "ALGORITHM": "HS256",
-    "SIGNING_KEY": config("SIGNING_KEY", cast=str, default="test_projectjkfnbnjfgbjfgjkbjkfbjkf475746jkfgb"),
+    "SIGNING_KEY": config(
+        "SIGNING_KEY",
+        cast=str,
+        default="test_projectjkfnbnjfgbjfgjkbjkfbjkf475746jkfgb",
+    ),
     "VERIFYING_KEY": "",
     "AUDIENCE": config("AUDIENCE", cast=str, default=None),
     "ISSUER": config("ISSUER", cast=str, default=None),
@@ -411,6 +415,9 @@ if USE_CELERY:
     CELERY_BROKER_URL = config(
         "CELERY_BROKER_URL", cast=str, default="redis://localhost:6381/5"
     )
+    CELERY_RESULT_BACKEND = config(
+        "CELERY_RESULT_BACKEND", cast=str, default="redis://localhost:6381/6"
+    )  # نتیجه تسک در کجا ریخته شود
     CELERY_TIMEZONE = config(
         "CELERY_TIMEZONE", cast=str, default=TIME_ZONE
     )  # منطقه زمانی Celery برای زمان‌بندی تسک‌ها
@@ -427,7 +434,7 @@ if USE_CELERY:
         "CELERY_TASK_ACKS_LATE", cast=bool, default=True
     )  # اگر True باشد، تسک بعد از اجرا ack می‌شود نه قبل از اجرا
     CELERY_WORKER_PREFETCH_MULTIPLIER = config(
-        "WORKER_PREFETCH_MULTIPLIER", cast=int, default=4
+        "WORKER_PREFETCH_MULTIPLIER", cast=int, default=1
     )  # هر Worker قبل از اتمام تسک فعلی چند تسک از صف بردارد
     CELERY_TASK_ALWAYS_EAGER = config(
         "CELERY_TASK_ALWAYS_EAGER", cast=bool, default=False
@@ -438,9 +445,8 @@ if USE_CELERY:
     CELERY_ENABLE_UTC = config(
         "CELERY_ENABLE_UTC", cast=bool, default=True
     )  # اگر True باشد، Celery زمان‌ها را بر اساس UTC مدیریت می‌کند
-    # 2 core and 4 WORKER_PREFETCH_MULTIPLIER = 2 * 4 = 8 --> 8 task get in queue for every worker
     CELERY_WORKER_CONCURRENCY = config(
-        "WORKER_CONCURRENCY", cast=int, default=os.cpu_count()
+        "WORKER_CONCURRENCY", cast=int, default=os.cpu_count() * 2 + 1
     )  # تعداد پردازش/ورکر همزمان برای اجرای تسک‌ها
     CELERY_WORKER_MAX_TASKS_PER_CHILD = config(
         "WORKER_MAX_TASKS_PER_CHILD", cast=int, default=1000

@@ -22,7 +22,6 @@ from apis.v1.auth.serializers import (
     RequestOtpSerializer,
     OtpVerifySerializer,
     LoginPhonePasswordSerializer,
-    VerifyForgetPassword,
     UserNotificationSerializer,
     DriverSerializer,
     UploadImageSerializer,
@@ -36,6 +35,7 @@ from apis.v1.auth.serializers import (
     DriverCarSerializer,
     CarBrandSerializer,
     CarModelSerializer,
+    VerifyForgetPasswordSerializer,
 )
 from apis.utils.custom_exceptions import (
     UserExistsException,
@@ -127,9 +127,11 @@ class RequestOtpView(APIView):
 
         fields = ("is_active", "is_driver", "is_passenger", "is_verify_phone", "phone")
         user = User.objects.filter(phone=phone).only(*fields).first()
+
+        # check active account
         if not user:
-            user = User.objects.create_user(username=phone, phone=phone)
-        elif not user.is_active:
+            raise NotFound("حساب کاربری پیدا نشد")
+        if not user.is_active:
             raise NotActiveAccount()
 
         # generate otp
@@ -290,84 +292,6 @@ class RequestForgetPasswordView(AsyncAPIView):
                 error=False,
                 status_code=status.HTTP_200_OK,
             )
-
-
-class VerifyForgetPasswordView(AsyncAPIView):
-    permission_classes = (AsyncRemoveAuthenticationPermissions,)
-    serializer_class = VerifyForgetPassword
-
-    async def post(self, request):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        phone = serializer.validated_data["phone"]
-        code = serializer.validated_data["code"]
-        password = serializer.validated_data["password"]
-        confirm_password = serializer.validated_data["confirm_password"]
-
-        # check password
-        if password != confirm_password:
-            return response(
-                success=False,
-                result={},
-                status_code=400,
-                error="رمز عبور یکسان نمیباشد",
-            )
-
-        # check otp
-        get_ip = get_client_ip(request)
-        redis_key = f"reset_password_{phone}_{get_ip}_{code}"
-        check_key = await cache.aget(redis_key)
-        if check_key is None:
-            return response(
-                success=False,
-                result={},
-                error="کد اشتباه یا انقضا شده هست",
-                status_code=404,
-            )
-
-        else:
-            # check user
-            user = await sync_to_async(
-                User.objects.only(
-                    "is_active", "is_staff", "is_verify_phone", "phone", "is_passenger"
-                ).filter
-            )(phone=phone)
-            user_first = await user.afirst()
-            if user_first.is_active is False:
-                return response(
-                    success=False,
-                    result={},
-                    error="حساب کاربری شما مسدود هست",
-                    status_code=404,
-                )
-            else:
-                token = RefreshToken.for_user(user_first)
-                iran_timezone = pytz_timezone("Asia/Tehran")
-                expire_timestamp = (
-                    int(time.time()) + SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].seconds
-                )
-                expire_date = datetime.datetime.fromtimestamp(
-                    expire_timestamp, tz=iran_timezone
-                )
-                data = {
-                    "mobile": phone,
-                    "is_staff": user_first.is_staff,
-                    "is_verify_phone": user_first.is_verify_phone,
-                    "is_passenger": user_first.is_passenger,
-                    "access_token": str(token.access_token),
-                    "refresh_token": str(token),
-                    "jwt": "Bearer",
-                    "expire_timestamp_access_token": expire_timestamp,
-                    "expire_date_access_token": expire_date,
-                }
-                await cache.adelete(redis_key)  # delete redis key
-                # set new password
-                hash_password = make_password(password=password)
-                await user.aupdate(
-                    is_verify_phone=True, password=hash_password
-                )  # update user
-                return response(success=True, result=data, error=False, status_code=200)
 
 
 class UserNotificationView(
@@ -700,3 +624,55 @@ class CarModelViewSet(viewsets.ReadOnlyModelViewSet):
     search_fields = ("model_name", "brand__brand_name")
     ordering_fields = ("model_name", "brand__brand_name", "created_at")
     ordering = ("brand__brand_name", "model_name")
+
+
+class VerifyForgetPasswordView(APIView):
+    serializer_class = VerifyForgetPasswordSerializer
+    permission_classes = (NotAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        phone = serializer.validated_data.get("phone")
+        code = serializer.validated_data.get("code")
+        password = serializer.validated_data.get("password")
+        ip = get_client_ip(request)
+
+        cache_key = f"forget_password_{phone}_{ip}_{code}"
+        res = cache.get(cache_key)
+        if res is None:
+            return response(
+                success=False,
+                result={},
+                error="کد اشتباه هست یا منقضی شده هست",
+                status_code=404,
+            )
+        else:
+            fields = ("phone", "is_active", "is_verify_phone", "is_staff", "is_passenger", "is_driver")
+            user = User.objects.only(*fields).filter(phone=phone).first()
+            if user is None:
+                raise NotFound("حساب کاربری وجود ندارد")
+            else:
+                user.password = make_password(password)
+                user.is_verify_phone = True
+                user.save()
+
+                # delete cache
+                cache.delete(cache_key)
+
+                token = generate_token(user)
+                data = {
+                    "mobile": phone,
+                    "is_verify_phone": user.is_verify_phone,
+                    "is_staff": user.is_staff,
+                    "is_passenger": user.is_passenger,
+                    "is_driver": user.is_driver,
+                    "token": token,
+                }
+                return response(
+                    success=True,
+                    result=data,
+                    error=False,
+                    status_code=200,
+                )

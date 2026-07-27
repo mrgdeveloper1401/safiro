@@ -48,7 +48,7 @@ class Image(ModifyMixin, ActiveMixin):
 
     def save(self, *args, **kwargs):
         if self.pk:
-            old = Image.objects.filter(pk=self.pk).only('image').first()
+            old = Image.objects.filter(pk=self.pk).only("image").first()
             if old and old.image == self.image:
                 return super().save(*args, **kwargs)
 
