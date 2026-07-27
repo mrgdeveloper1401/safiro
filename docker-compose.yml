@@ -91,6 +91,7 @@ services:
 
   safir_celery:
     container_name: safiro_celery
+    env_file: "env_folder/celery.env"
     build:
       context: .
       dockerfile: dockerfile/prod/celery/Dockerfile
