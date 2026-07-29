@@ -15,23 +15,23 @@ STATUS_CHOICES = [
 
 
 class Trip(ActiveMixin, ModifyMixin):
-    driver = models.ForeignKey(
-        Driver,
-        verbose_name=_("راننده"),
-        on_delete=models.PROTECT,
-    )
+    # TODO, when clean migration, remove null and blank
     passenger = models.ForeignKey(
         Passenger,
         verbose_name=_("مسافر"),
         on_delete=models.PROTECT,
         related_name="passenger_trips",
     )
+    trip_type = models.ForeignKey("TripType", on_delete=models.PROTECT, null=True)
+
     from_lat = models.DecimalField(max_digits=10, decimal_places=7, null=True)
     from_lng = models.DecimalField(max_digits=10, decimal_places=7, null=True)
+    from_address = models.CharField(max_length=255, null=True)
+
     to_lat = models.DecimalField(max_digits=10, decimal_places=7, null=True)
     to_lng = models.DecimalField(max_digits=10, decimal_places=7, null=True)
-    number_of_passenger = models.PositiveIntegerField(_("تعداد مسافران"), default=4)
-    price_per_seat = models.DecimalField(_("قیمت کل"), max_digits=10, decimal_places=0)
+    to_address = models.CharField(max_length=255, null=True)
+
     status = models.CharField(
         _("وضعیت سفر"), max_length=20, choices=STATUS_CHOICES, default="pending"
     )
@@ -43,6 +43,14 @@ class Trip(ActiveMixin, ModifyMixin):
 
     class Meta:
         db_table = "trip"
+
+
+class TripReservation(ActiveMixin, ModifyMixin):
+    trip = models.ForeignKey(Trip, on_delete=models.PROTECT, related_name="trip_reservations")
+    driver = models.ForeignKey(Driver, on_delete=models.PROTECT, related_name="driver_reservations")
+
+    class Meta:
+        db_table = "reservation"
 
 
 class TripType(ModifyMixin, ActiveMixin):
@@ -57,3 +65,53 @@ class TripType(ModifyMixin, ActiveMixin):
 
     class Meta:
         db_table = "trip_type"
+
+
+class TripPrice(ActiveMixin, ModifyMixin):
+    trip = models.OneToOneField(
+        "Trip",
+        on_delete=models.CASCADE,
+        related_name="price",
+        verbose_name=_("سفر"),
+    )
+    base_price = models.DecimalField(
+        _("قیمت پایه"),
+        max_digits=10,
+        decimal_places=2,
+        default=0.00,
+    )
+    distance_km = models.DecimalField(
+        _("فاصله (کیلومتر)"),
+        max_digits=10,
+        decimal_places=2,
+        default=0.00,
+    )
+    price_per_km = models.DecimalField(
+        _("قیمت هر کیلومتر"),
+        max_digits=6,
+        decimal_places=2,
+        default=0.00,
+    )
+    price_per_minute = models.DecimalField(
+        _("قیمت هر دقیقه"),
+        max_digits=6,
+        decimal_places=2,
+        default=0.00,
+    )
+    total_price = models.DecimalField(
+        _("قیمت کل"),
+        max_digits=10,
+        decimal_places=2,
+        default=0.00,
+    )
+    traffic_factor = models.DecimalField(
+        _("فاکتور ترافیک"),
+        max_digits=4,
+        decimal_places=2,
+        default=1.00,
+    )
+
+    class Meta:
+        db_table = "trip_price"
+        verbose_name = _("قیمت سفر")
+        verbose_name_plural = _("قیمت‌های سفر")

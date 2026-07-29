@@ -1,10 +1,10 @@
 import httpx
-from rest_framework.exceptions import ValidationError
 
 from apis.utils.custom_exceptions import (
     TimeOutException,
     ConnectionErrorException,
     NetworkErrorException,
+    HttpStatusException,
 )
 
 
@@ -19,7 +19,7 @@ def request_error(func):
         except httpx.NetworkError:
             raise NetworkErrorException()
         except Exception as e:
-            raise ValidationError(str(e))
+            raise HttpStatusException(detail=str(e))
 
     return wrapper
 
@@ -35,6 +35,6 @@ def a_request_error(func):
         except httpx.NetworkError:
             raise NetworkErrorException()
         except Exception as e:
-            raise ValidationError(str(e))
+            raise HttpStatusException(detail=str(e))
 
     return wrapper

@@ -173,6 +173,7 @@ class PassengerAdmin(admin.ModelAdmin):
         "get_user_phone",
         "first_name",
         "last_name",
+        "is_active_account",
         "created_at",
     )
     search_fields = ("user__phone",)
@@ -192,6 +193,10 @@ class PassengerAdmin(admin.ModelAdmin):
     def last_name(self, obj):
         return obj.user.last_name
 
+    def is_active_account(self, obj):
+        return obj.user.is_active
+    is_active_account.boolean = True
+
     def get_queryset(self, request):
         return (
             super()
@@ -201,6 +206,7 @@ class PassengerAdmin(admin.ModelAdmin):
                 "user__phone",
                 "user__first_name",
                 "user__last_name",
+                "user__is_active",
                 "created_at",
                 "updated_at",
                 "image_id",
