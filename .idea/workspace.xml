@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit celery and add flower service" />
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add server flower in nginx.conf" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -134,14 +134,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771346313804</updated>
-    </task>
-    <task id="LOCAL-00035" summary="edit Dockerfile nginx">
-      <option name="closed" value="true" />
-      <created>1776890122974</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1776890122974</updated>
     </task>
     <task id="LOCAL-00036" summary="edit nginx.conf">
       <option name="closed" value="true" />
@@ -527,11 +519,18 @@
       <option name="project" value="LOCAL" />
       <updated>1785418798685</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="add server flower in nginx.conf">
+      <option name="closed" value="true" />
+      <created>1785419205097</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1785419205097</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit image postgres" />
     <MESSAGE value="add package process and netstat" />
     <MESSAGE value="edit asgi" />
     <MESSAGE value="use worker unicorn" />
@@ -556,6 +555,7 @@
     <MESSAGE value="add celery service" />
     <MESSAGE value="add api trip_type" />
     <MESSAGE value="edit celery and add flower service" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit celery and add flower service" />
+    <MESSAGE value="add server flower in nginx.conf" />
+    <option name="LAST_COMMIT_MESSAGE" value="add server flower in nginx.conf" />
   </component>
 </project>

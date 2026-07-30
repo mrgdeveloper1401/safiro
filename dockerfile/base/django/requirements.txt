@@ -27,3 +27,4 @@ django-filter
 drf-nested-routers
 msgpack
 puremagic
+flower
