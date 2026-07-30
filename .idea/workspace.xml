@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add api trip_type">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/auth_app/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/dj_celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/dj_celery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
-    </list>
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit celery and add flower service" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -143,14 +134,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771346313804</updated>
-    </task>
-    <task id="LOCAL-00034" summary="edit Dockerfile">
-      <option name="closed" value="true" />
-      <created>1776855924508</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1776855924508</updated>
     </task>
     <task id="LOCAL-00035" summary="edit Dockerfile nginx">
       <option name="closed" value="true" />
@@ -536,11 +519,18 @@
       <option name="project" value="LOCAL" />
       <updated>1785191781285</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="edit celery and add flower service">
+      <option name="closed" value="true" />
+      <created>1785418798683</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1785418798685</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit gunicorn" />
     <MESSAGE value="edit image postgres" />
     <MESSAGE value="add package process and netstat" />
     <MESSAGE value="edit asgi" />
@@ -565,6 +555,7 @@
     <MESSAGE value="edit logic forget-password" />
     <MESSAGE value="add celery service" />
     <MESSAGE value="add api trip_type" />
-    <option name="LAST_COMMIT_MESSAGE" value="add api trip_type" />
+    <MESSAGE value="edit celery and add flower service" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit celery and add flower service" />
   </component>
 </project>
