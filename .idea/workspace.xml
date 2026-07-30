@@ -6,15 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add api trip_type">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/utils/custom_exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/utils/custom_exceptions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/trip/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/trip/serializer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/trip/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/trip/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/trip/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/trip/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/auth_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/utils/custom_exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/utils/custom_exceptions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/utils/neshan.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/utils/neshan.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/auth_app/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/dj_celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/dj_celery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,11 +97,11 @@
       <recent name="$PROJECT_DIR$/static/media" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/dockerfile/prod/celery" />
       <recent name="$PROJECT_DIR$/apis" />
       <recent name="$PROJECT_DIR$/static/media" />
       <recent name="$PROJECT_DIR$/dockerfile/prod/django" />
-      <recent name="$PROJECT_DIR$/dockerfile/base/django" />
     </key>
   </component>
   <component name="RunManager">

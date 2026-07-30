@@ -89,7 +89,7 @@ services:
       nginx:
         condition: service_started
 
-  safir_celery:
+  safiro_celery:
     container_name: safiro_celery
     env_file: "env_folder/celery.env"
     build:
@@ -100,6 +100,22 @@ services:
       redis:
         condition: service_healthy
       auth-backend:
+        condition: service_started
+
+  safiro_flower:
+    container_name: safiro_flower
+    env_file: "env_folder/flower.env"
+    build:
+      context: .
+      dockerfile: dockerfile/prod/celery/Dockerfile
+    restart: always
+    entrypoint: 'celery -A base flower'
+    depends_on:
+      redis:
+        condition: service_healthy
+      auth-backend:
+        condition: service_started
+      safiro_celery:
         condition: service_started
 
 volumes:

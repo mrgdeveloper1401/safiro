@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
     # third_party package,
     "rest_framework",
     "rest_framework_simplejwt",
@@ -42,11 +43,12 @@ INSTALLED_APPS = [
     "drf_spectacular_sidecar",
     "django_extensions",
     "django_filters",
+
     # third party app
-    "apps.auth_app.apps.AuthAppConfig",
-    "apps.core_app.apps.CoreAppConfig",
-    "apps.trip_app.apps.TripAppConfig",
-    "apps.shop_app.apps.ShopAppConfig",
+    "apps.auth_app",
+    "apps.core_app",
+    "apps.trip_app",
+    "apps.shop_app",
 ]
 
 MIDDLEWARE = [
@@ -440,7 +442,7 @@ if USE_CELERY:
         "CELERY_TASK_ALWAYS_EAGER", cast=bool, default=False
     )  # اگر True باشد، تسک‌ها واقعاً async اجرا نمی‌شوند و همان لحظه محلی اجرا می‌شوند
     CELERY_TASK_TIME_LIMIT = config(
-        "CELERY_TASK_TIME_LIMIT", cast=int, default=20
+        "CELERY_TASK_TIME_LIMIT", cast=int, default=30
     )  # حداکثر زمان مجاز اجرای هر تسک (ثانیه)
     CELERY_ENABLE_UTC = config(
         "CELERY_ENABLE_UTC", cast=bool, default=True
@@ -456,7 +458,7 @@ if USE_CELERY:
     )  # اگر مصرف حافظه Worker child از این مقدار (کیلوبایت) بیشتر شد، ری‌استارت شود
 
     # celery queue
-    CELERY_TASK_QUEUES = (Queue("send_otp"), Queue("shop_event"))
+    CELERY_TASK_QUEUES = (Queue("send_otp"), Queue("notifications"))
 
 # use email
 USE_EMAIL = config("USE_EMAIL", cast=bool, default=False)
