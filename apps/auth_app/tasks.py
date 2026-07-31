@@ -14,6 +14,7 @@ def send_otp_sms_celery(self, phone, otp_code):
         logging.error("failed to send otp code", exc_info=e)
         raise self.retry(exc=e, countdown=5)
 
+
 @shared_task(bind=True, max_retries=2, queue="notifications")
 def create_notification_celery(self, title, body, user_id):
     try:

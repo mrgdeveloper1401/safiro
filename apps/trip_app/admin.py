@@ -6,8 +6,15 @@ from .models import Trip, TripType, TripReservation, TripPrice
 @admin.register(Trip)
 class TripAdmin(admin.ModelAdmin):
     raw_id_fields = ("passenger", "trip_type")
-    readonly_fields = ("from_lat", "from_lng", "to_lat", "to_lng", "from_address", "to_address")
-    list_display = ("id", "passenger_id", 'passenger_phone', "trip_type_name", "status")
+    readonly_fields = (
+        "from_lat",
+        "from_lng",
+        "to_lat",
+        "to_lng",
+        "from_address",
+        "to_address",
+    )
+    list_display = ("id", "passenger_id", "passenger_phone", "trip_type_name", "status")
     list_select_related = ("passenger__user", "trip_type")
     list_filter = ("status", "is_active", "created_at")
     list_per_page = 30
@@ -23,7 +30,7 @@ class TripAdmin(admin.ModelAdmin):
         fields = (
             "status",
             "passenger__user__phone",
-            'trip_type__trip_name',
+            "trip_type__trip_name",
         )
         return super().get_queryset(request).only(*fields)
 
@@ -47,6 +54,14 @@ class TripReservationAdmin(admin.ModelAdmin):
 
 @admin.register(TripPrice)
 class TripPriceAdmin(admin.ModelAdmin):
-    list_display = ("id", "distance_km", "price_per_km", "traffic_factor", "is_active", "created_at", "calc_final_price")
+    list_display = (
+        "id",
+        "distance_km",
+        "price_per_km",
+        "traffic_factor",
+        "is_active",
+        "created_at",
+        "calc_final_price",
+    )
     list_per_page = 30
     list_display_links = ("id", "distance_km", "price_per_km")

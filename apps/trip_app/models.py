@@ -48,8 +48,12 @@ class Trip(ActiveMixin, ModifyMixin):
 
 
 class TripReservation(ActiveMixin, ModifyMixin):
-    trip = models.ForeignKey(Trip, on_delete=models.PROTECT, related_name="trip_reservations")
-    driver = models.ForeignKey(Driver, on_delete=models.PROTECT, related_name="driver_reservations")
+    trip = models.ForeignKey(
+        Trip, on_delete=models.PROTECT, related_name="trip_reservations"
+    )
+    driver = models.ForeignKey(
+        Driver, on_delete=models.PROTECT, related_name="driver_reservations"
+    )
 
     class Meta:
         db_table = "reservation"

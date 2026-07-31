@@ -1,4 +1,6 @@
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.validators import UnicodeUsernameValidator
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 
@@ -10,20 +12,48 @@ class User(AbstractUser):
     """
     کاربر
     """
+    username_validator = UnicodeUsernameValidator()
 
-    # id = models.UUIDField(primary_key=True, default=uuid_7_timestamp, editable=False, verbose_name=_("کلید اصلی"))
     phone = models.CharField(_("شماره تلفن"), max_length=15, unique=True)
     is_verify_phone = models.BooleanField(_("شماره تایید شده!"), default=False)
     is_passenger = models.BooleanField(
         _("ایا مسافر هست!"), default=True, db_default=True
     )
     is_driver = models.BooleanField(_("ایا راننده هست!"), default=False)
+    is_developer = models.BooleanField(_("توسعه دهنده"), default=False)
     email = models.EmailField(_("ایمیل"), blank=True, null=True)
     first_name = models.CharField(_("نام"), max_length=100, blank=True)
     last_name = models.CharField(_("نام خوانوادگی"), max_length=100, blank=True)
+    username = models.CharField(
+        _("username"),
+        max_length=150,
+        help_text=_(
+            "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+        ),
+        validators=[username_validator],
+    )
 
     USERNAME_FIELD = "phone"
-    REQUIRED_FIELDS = ("email", "username")
+    REQUIRED_FIELDS = ("email", "username", "is_developer")
+
+    def clean(self):
+        # چک برای هر دو حالت ایجاد و ویرایش
+        if self.email:
+            # در زمان ویرایش، خود شیء را از کوئری خارج می‌کنیم
+            existing = User.objects.filter(email=self.email)
+            if self.pk:
+                existing = existing.exclude(pk=self.pk)
+            if existing.exists():
+                raise ValidationError({"email": "ایمیل از قبل وجود دارد"})
+
+        if self.username:
+            existing = User.objects.filter(username=self.username)
+            if self.pk:
+                existing = existing.exclude(pk=self.pk)
+            if existing.exists():
+                raise ValidationError({"username": "نام کاربری از قبل وجود دارد"})
+
+        return super().clean()
 
     class Meta:
         db_table = "auth_user"

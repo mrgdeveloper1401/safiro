@@ -5,25 +5,59 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('auth_app', '0002_initial'),
-        ('trip_app', '0007_remove_trip_driver'),
+        ("auth_app", "0002_initial"),
+        ("trip_app", "0007_remove_trip_driver"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='TripReservation',
+            name="TripReservation",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد فیلد')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='تاریخ اخرین بروزرسانی فیلد')),
-                ('is_active', models.BooleanField(default=True, verbose_name='قابل نمایش')),
-                ('driver', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='driver_reservations', to='auth_app.driver')),
-                ('trip', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='trip_reservations', to='trip_app.trip')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="تاریخ ایجاد فیلد"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="تاریخ اخرین بروزرسانی فیلد"
+                    ),
+                ),
+                (
+                    "is_active",
+                    models.BooleanField(default=True, verbose_name="قابل نمایش"),
+                ),
+                (
+                    "driver",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="driver_reservations",
+                        to="auth_app.driver",
+                    ),
+                ),
+                (
+                    "trip",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="trip_reservations",
+                        to="trip_app.trip",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'reservation',
+                "db_table": "reservation",
             },
         ),
     ]

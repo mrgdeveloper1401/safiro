@@ -18,12 +18,14 @@ class TripTypeView(APIView):
         serializer = self.serializer_class(queryset, many=True)
 
         # check in cache
-        res = cache.get('trip_type')
+        res = cache.get("trip_type")
         if res:
             return response(success=True, result=res, error=False, status_code=200)
         else:
-            cache.set('trip_type', serializer.data)
-            return response(success=True, result=serializer.data, error=False, status_code=200)
+            cache.set("trip_type", serializer.data)
+            return response(
+                success=True, result=serializer.data, error=False, status_code=200
+            )
 
 
 class ReverseGeocodeView(APIView):
@@ -35,7 +37,7 @@ class ReverseGeocodeView(APIView):
         serializer.is_valid(raise_exception=True)
 
         # request into api
-        lat, lng = serializer.validated_data['lat'], serializer.validated_data['lng']
+        lat, lng = serializer.validated_data["lat"], serializer.validated_data["lng"]
         result = reverse_geocode(lat, lng)
 
         return response(success=True, result=result, error=False, status_code=200)
@@ -52,13 +54,16 @@ class TripView(ModelViewSet):
 
     trip_type --> رزور سفر
     """
+
     serializer_class = TripSerializer
     permission_classes = (IsAuthenticated,)
     pagination_class = CustomPagination
 
     def get_queryset(self):
         user_id = self.request.user.id
-        return Trip.objects.filter(is_active=True, passenger__user_id=user_id).order_by('-id')
+        return Trip.objects.filter(is_active=True, passenger__user_id=user_id).order_by(
+            "-id"
+        )
 
     def perform_destroy(self, instance):
         instance.is_active = False

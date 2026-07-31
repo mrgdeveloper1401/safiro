@@ -9,7 +9,8 @@ from apps.trip_app.tasks import create_notification_trip_celery
 
 @receiver(post_save, sender=TripType)
 def clear_cache_trip_type(sender, created, **kwargs):
-    cache.delete('trip_type')
+    cache.delete("trip_type")
+
 
 @receiver(post_save, sender=Trip)
 def send_notification_after_save_trip(sender, created, instance, **kwargs):
@@ -17,5 +18,5 @@ def send_notification_after_save_trip(sender, created, instance, **kwargs):
     status = instance.status
 
     transaction.on_commit(
-        lambda : create_notification_trip_celery.delay(user_id=user_id, status=status)
+        lambda: create_notification_trip_celery.delay(user_id=user_id, status=status)
     )

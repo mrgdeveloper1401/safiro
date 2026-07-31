@@ -24,7 +24,7 @@ class TripSerializer(ModelSerializer):
 
     def validate(self, attrs):
         user_id = self.context["request"].user.id
-        passenger = Passenger.objects.filter(user_id=user_id).values('id').first()
+        passenger = Passenger.objects.filter(user_id=user_id).values("id").first()
         if not passenger:
             raise NotFound("Passenger not found")
 

@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     # third_party package,
     "rest_framework",
     "rest_framework_simplejwt",
@@ -43,7 +42,6 @@ INSTALLED_APPS = [
     "drf_spectacular_sidecar",
     "django_extensions",
     "django_filters",
-
     # third party app
     "apps.auth_app",
     "apps.core_app",

@@ -8,6 +8,6 @@ router = SimpleRouter()
 router.register("trips", TripView, basename="trips")
 
 urlpatterns = [
-    path('trip_type', TripTypeView.as_view(), name="trip_type"),
+    path("trip_type", TripTypeView.as_view(), name="trip_type"),
     path("reverse_geocode", ReverseGeocodeView.as_view(), name="reverse_geocode"),
 ] + router.urls

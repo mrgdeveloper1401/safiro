@@ -1,9 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.core.exceptions import ValidationError
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from .enums import VerificationStatus
+from .forms import AdminUserCreationForm
 from .models import (
     User,
     Passenger,
@@ -28,6 +30,7 @@ class DriverDocumentInline(admin.TabularInline):
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
+    add_form = AdminUserCreationForm
     list_editable = ("is_active", "is_verify_phone", "is_passenger", "is_driver")
     filter_horizontal = ()
     ordering = ("-id",)
@@ -58,8 +61,7 @@ class UserAdmin(BaseUserAdmin):
     )
 
     fieldsets = (
-        (_("اطلاعات ورود"), {"fields": ("phone", "password")}),
-        (_("مشخصات شخصی"), {"fields": ("email", "username")}),
+        (_("مشخصات شخصی"), {"fields": ("email", "username", "phone", "password")}),
         (
             _("نقش‌ها و وضعیت"),
             {
@@ -70,6 +72,7 @@ class UserAdmin(BaseUserAdmin):
                     "is_active",
                     "is_staff",
                     "is_superuser",
+                    "is_developer",
                 )
             },
         ),
@@ -90,18 +93,16 @@ class UserAdmin(BaseUserAdmin):
                     "password2",
                     "email",
                     "username",
-                    "is_verify_phone",
                     "is_passenger",
                     "is_driver",
                     "is_active",
                     "is_staff",
-                    "is_superuser",
                 ),
             },
         ),
     )
     actions = ("disable_user", "enable_user")
-    readonly_fields = ("last_login", "date_joined")
+    readonly_fields = ("last_login", "date_joined", "password")
     list_per_page = 25
 
     @admin.action(description="disable user")
@@ -111,6 +112,18 @@ class UserAdmin(BaseUserAdmin):
     @admin.action(description="enable user")
     def enable_user(self, request, queryset):
         queryset.update(is_active=True)
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+
+        if not request.user.is_developer:
+            if "is_superuser" in form.base_fields:
+                form.base_fields["is_superuser"].disabled = True
+
+            if "is_developer" in form.base_fields:
+                form.base_fields["is_developer"].disabled = True
+
+        return form
 
 
 @admin.register(Image)
@@ -195,6 +208,7 @@ class PassengerAdmin(admin.ModelAdmin):
 
     def is_active_account(self, obj):
         return obj.user.is_active
+
     is_active_account.boolean = True
 
     def get_queryset(self, request):

@@ -5,31 +5,107 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('trip_app', '0009_remove_trip_price_per_seat'),
+        ("trip_app", "0009_remove_trip_price_per_seat"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='TripPrice',
+            name="TripPrice",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد فیلد')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='تاریخ اخرین بروزرسانی فیلد')),
-                ('is_active', models.BooleanField(default=True, verbose_name='قابل نمایش')),
-                ('base_price', models.DecimalField(decimal_places=2, default=0.0, max_digits=10, verbose_name='قیمت پایه')),
-                ('distance_km', models.DecimalField(decimal_places=2, default=0.0, max_digits=10, verbose_name='فاصله (کیلومتر)')),
-                ('price_per_km', models.DecimalField(decimal_places=2, default=0.0, max_digits=6, verbose_name='قیمت هر کیلومتر')),
-                ('price_per_minute', models.DecimalField(decimal_places=2, default=0.0, max_digits=6, verbose_name='قیمت هر دقیقه')),
-                ('total_price', models.DecimalField(decimal_places=2, default=0.0, max_digits=10, verbose_name='قیمت کل')),
-                ('traffic_factor', models.DecimalField(decimal_places=2, default=1.0, max_digits=4, verbose_name='فاکتور ترافیک')),
-                ('trip', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='price', to='trip_app.trip', verbose_name='سفر')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="تاریخ ایجاد فیلد"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="تاریخ اخرین بروزرسانی فیلد"
+                    ),
+                ),
+                (
+                    "is_active",
+                    models.BooleanField(default=True, verbose_name="قابل نمایش"),
+                ),
+                (
+                    "base_price",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=0.0,
+                        max_digits=10,
+                        verbose_name="قیمت پایه",
+                    ),
+                ),
+                (
+                    "distance_km",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=0.0,
+                        max_digits=10,
+                        verbose_name="فاصله (کیلومتر)",
+                    ),
+                ),
+                (
+                    "price_per_km",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=0.0,
+                        max_digits=6,
+                        verbose_name="قیمت هر کیلومتر",
+                    ),
+                ),
+                (
+                    "price_per_minute",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=0.0,
+                        max_digits=6,
+                        verbose_name="قیمت هر دقیقه",
+                    ),
+                ),
+                (
+                    "total_price",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=0.0,
+                        max_digits=10,
+                        verbose_name="قیمت کل",
+                    ),
+                ),
+                (
+                    "traffic_factor",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=1.0,
+                        max_digits=4,
+                        verbose_name="فاکتور ترافیک",
+                    ),
+                ),
+                (
+                    "trip",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="price",
+                        to="trip_app.trip",
+                        verbose_name="سفر",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'قیمت سفر',
-                'verbose_name_plural': 'قیمت\u200cهای سفر',
-                'db_table': 'trip_price',
+                "verbose_name": "قیمت سفر",
+                "verbose_name_plural": "قیمت\u200cهای سفر",
+                "db_table": "trip_price",
             },
         ),
     ]

@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('trip_app', '0013_remove_tripprice_price_per_minute_and_more'),
+        ("trip_app", "0013_remove_tripprice_price_per_minute_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='tripprice',
-            name='night_factor',
-            field=models.BooleanField(default=False, verbose_name='فاکتور برای شب'),
+            model_name="tripprice",
+            name="night_factor",
+            field=models.BooleanField(default=False, verbose_name="فاکتور برای شب"),
         ),
     ]

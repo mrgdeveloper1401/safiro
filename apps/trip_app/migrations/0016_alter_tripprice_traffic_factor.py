@@ -5,15 +5,21 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('trip_app', '0015_remove_tripprice_night_factor'),
+        ("trip_app", "0015_remove_tripprice_night_factor"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='tripprice',
-            name='traffic_factor',
-            field=models.PositiveSmallIntegerField(default=1.0, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(100)], verbose_name='فاکتور ترافیک'),
+            model_name="tripprice",
+            name="traffic_factor",
+            field=models.PositiveSmallIntegerField(
+                default=1.0,
+                validators=[
+                    django.core.validators.MinValueValidator(0),
+                    django.core.validators.MaxValueValidator(100),
+                ],
+                verbose_name="فاکتور ترافیک",
+            ),
         ),
     ]
