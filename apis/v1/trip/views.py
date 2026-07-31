@@ -59,3 +59,7 @@ class TripView(ModelViewSet):
     def get_queryset(self):
         user_id = self.request.user.id
         return Trip.objects.filter(is_active=True, passenger__user_id=user_id).order_by('-id')
+
+    def perform_destroy(self, instance):
+        instance.is_active = False
+        instance.save()

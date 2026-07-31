@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -7,7 +8,6 @@ from apps.core_app.models import ActiveMixin, ModifyMixin
 STATUS_CHOICES = [
     ("pending", "در انتظار"),
     ("confirmed", "تایید شده"),
-    ("in_progress", "در حال انجام"),
     ("completed", "تکمیل شده"),
     ("cancelled", "لغو شده"),
     ("reserve", "رزور سفر"),
@@ -70,18 +70,6 @@ class TripType(ModifyMixin, ActiveMixin):
 
 
 class TripPrice(ActiveMixin, ModifyMixin):
-    trip = models.OneToOneField(
-        "Trip",
-        on_delete=models.CASCADE,
-        related_name="price",
-        verbose_name=_("سفر"),
-    )
-    base_price = models.DecimalField(
-        _("قیمت پایه"),
-        max_digits=10,
-        decimal_places=2,
-        default=0.00,
-    )
     distance_km = models.DecimalField(
         _("فاصله (کیلومتر)"),
         max_digits=10,
@@ -94,24 +82,18 @@ class TripPrice(ActiveMixin, ModifyMixin):
         decimal_places=2,
         default=0.00,
     )
-    price_per_minute = models.DecimalField(
-        _("قیمت هر دقیقه"),
-        max_digits=6,
-        decimal_places=2,
-        default=0.00,
-    )
-    total_price = models.DecimalField(
-        _("قیمت کل"),
-        max_digits=10,
-        decimal_places=2,
-        default=0.00,
-    )
-    traffic_factor = models.DecimalField(
+    traffic_factor = models.PositiveSmallIntegerField(
         _("فاکتور ترافیک"),
-        max_digits=4,
-        decimal_places=2,
         default=1.00,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
     )
+
+    @property
+    def calc_final_price(self):
+        price = self.distance_km * self.price_per_km
+        traffic_price = price * self.traffic_factor / 100
+        price += traffic_price
+        return price
 
     class Meta:
         db_table = "trip_price"

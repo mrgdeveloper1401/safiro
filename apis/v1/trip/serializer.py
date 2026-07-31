@@ -24,13 +24,9 @@ class TripSerializer(ModelSerializer):
 
     def validate(self, attrs):
         user_id = self.context["request"].user.id
-        passenger_id = Passenger.objects.filter(user_id=user_id).only('user_id')
-        if not passenger_id:
+        passenger = Passenger.objects.filter(user_id=user_id).values('id').first()
+        if not passenger:
             raise NotFound("Passenger not found")
 
-        attrs["passenger_id"] = passenger_id
+        attrs["passenger_id"] = passenger.get("id")
         return attrs
-
-    def create(self, validated_data):
-        passenger_id = self.validated_data.pop("passenger_id")
-        return Trip.objects.create(passenger_id=passenger_id, **validated_data)

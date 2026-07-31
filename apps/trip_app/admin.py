@@ -47,6 +47,6 @@ class TripReservationAdmin(admin.ModelAdmin):
 
 @admin.register(TripPrice)
 class TripPriceAdmin(admin.ModelAdmin):
-    raw_id_fields = ("trip",)
-    list_display = ("id", "trip_id", "total_price", "is_active", "created_at")
+    list_display = ("id", "distance_km", "price_per_km", "traffic_factor", "is_active", "created_at", "calc_final_price")
     list_per_page = 30
+    list_display_links = ("id", "distance_km", "price_per_km")
