@@ -1,11 +1,13 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from django.core.cache import cache
+from rest_framework.viewsets import ModelViewSet
 
-from apps.trip_app.models import TripType
+from apps.trip_app.models import TripType, Trip
 from base.utils.neshan import reverse_geocode
-from .serializer import TripTypeSerializer, ReverseGeocodeSerializer
+from .serializer import TripTypeSerializer, ReverseGeocodeSerializer, TripSerializer
 from ...utils.custom_response import response
+from ...utils.paginations import CustomPagination
 
 
 class TripTypeView(APIView):
@@ -37,3 +39,23 @@ class ReverseGeocodeView(APIView):
         result = reverse_geocode(lat, lng)
 
         return response(success=True, result=result, error=False, status_code=200)
+
+
+class TripView(ModelViewSet):
+    """
+    status -->     ("pending", "در انتظار"),
+    ("confirmed", "تایید شده"),
+    ("in_progress", "در حال انجام"),
+    ("completed", "تکمیل شده"),
+    ("cancelled", "لغو شده"),
+    ("reserve", "رزور سفر"), \n
+
+    trip_type --> رزور سفر
+    """
+    serializer_class = TripSerializer
+    permission_classes = (IsAuthenticated,)
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        user_id = self.request.user.id
+        return Trip.objects.filter(is_active=True, passenger__user_id=user_id).order_by('-id')

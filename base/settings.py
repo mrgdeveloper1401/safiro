@@ -6,7 +6,7 @@ from pathlib import Path
 from decouple import config, Csv
 from django.utils import timezone
 from django.utils.csp import CSP
-from kombu import Queue
+from kombu import Queue, Exchange
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -458,7 +458,28 @@ if USE_CELERY:
     )  # اگر مصرف حافظه Worker child از این مقدار (کیلوبایت) بیشتر شد، ری‌استارت شود
 
     # celery queue
-    CELERY_TASK_QUEUES = (Queue("send_otp"), Queue("notifications"))
+    CELERY_TASK_QUEUES = (
+        Queue(
+            "send_otp",
+            Exchange("send_otp", type="direct"),
+            routing_key="send_otp",
+        ),
+        Queue(
+            "notifications",
+            Exchange("notifications", type="direct"),
+            routing_key="notifications",
+        ),
+    )
+    CELERY_TASK_ROUTES = {
+        "apps.auth_app.tasks.send_otp_sms_celery": {
+            "queue": "send_otp",
+            "routing_key": "send_otp",
+        },
+        "apps.auth_app.tasks.create_notification_celery": {
+            "queue": "notifications",
+            "routing_key": "notifications",
+        },
+    }
 
 # use email
 USE_EMAIL = config("USE_EMAIL", cast=bool, default=False)

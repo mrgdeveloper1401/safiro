@@ -41,6 +41,8 @@ class Trip(ActiveMixin, ModifyMixin):
         _("شماره تماس رزور کننده دیگر"), blank=True, null=True
     )
 
+    description = models.TextField(blank=True, null=True)
+
     class Meta:
         db_table = "trip"
 

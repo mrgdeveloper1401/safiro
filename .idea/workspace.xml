@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add package flower into requirements.txt" />
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="uncomment Dockerfile">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/trip/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/trip/serializer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/trip/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/trip/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/v1/trip/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/trip/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/trip_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -134,22 +141,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771346313804</updated>
-    </task>
-    <task id="LOCAL-00037" summary="edit base_image dockerfile">
-      <option name="closed" value="true" />
-      <created>1776951745677</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1776951745677</updated>
-    </task>
-    <task id="LOCAL-00038" summary="edit base_image django">
-      <option name="closed" value="true" />
-      <created>1777718721675</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1777718721675</updated>
     </task>
     <task id="LOCAL-00039" summary="update base_image nginx">
       <option name="closed" value="true" />
@@ -527,12 +518,26 @@
       <option name="project" value="LOCAL" />
       <updated>1785419472707</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="comment Dockerfile">
+      <option name="closed" value="true" />
+      <created>1785419694166</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1785419694166</updated>
+    </task>
+    <task id="LOCAL-00087" summary="uncomment Dockerfile">
+      <option name="closed" value="true" />
+      <created>1785419956206</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1785419956207</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit asgi" />
-    <MESSAGE value="use worker unicorn" />
     <MESSAGE value="comment get_clickhouse_client" />
     <MESSAGE value="add sms config sorna" />
     <MESSAGE value="remove template" />
@@ -556,6 +561,8 @@
     <MESSAGE value="edit celery and add flower service" />
     <MESSAGE value="add server flower in nginx.conf" />
     <MESSAGE value="add package flower into requirements.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="add package flower into requirements.txt" />
+    <MESSAGE value="comment Dockerfile" />
+    <MESSAGE value="uncomment Dockerfile" />
+    <option name="LAST_COMMIT_MESSAGE" value="uncomment Dockerfile" />
   </component>
 </project>
