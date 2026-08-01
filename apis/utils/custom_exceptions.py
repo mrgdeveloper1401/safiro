@@ -93,3 +93,9 @@ class RequestOtpType(APIException):
     status_code = 400
     default_code = "request_otp_type"
     default_detail = "نوع درخواست کد اعتبار سنحی بین (otp, forget_password) باشه"
+
+
+class TripPermissionException(APIException):
+    status_code = 403
+    default_code = "trip_permission"
+    default_detail = 'سفری که لغو شده هست و اجازه تغییر ان را ندارید'

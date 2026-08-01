@@ -1,6 +1,7 @@
 from rest_framework.exceptions import NotFound
 from rest_framework.serializers import ModelSerializer, Serializer, FloatField
 
+from apis.utils.custom_exceptions import TripPermissionException
 from apps.auth_app.models import Passenger
 from apps.trip_app.models import TripType, Trip
 
@@ -30,3 +31,12 @@ class TripSerializer(ModelSerializer):
 
         attrs["passenger_id"] = passenger.get("id")
         return attrs
+
+    def save(self, **kwargs):
+        trip_id = self.context['pk']
+        trip = Trip.objects.filter(id=trip_id, status='cancelled').values('id')
+
+        if trip:
+            raise TripPermissionException()
+
+        return super().save(**kwargs)

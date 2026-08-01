@@ -47,7 +47,6 @@ class TripView(ModelViewSet):
     """
     status -->     ("pending", "در انتظار"),
     ("confirmed", "تایید شده"),
-    ("in_progress", "در حال انجام"),
     ("completed", "تکمیل شده"),
     ("cancelled", "لغو شده"),
     ("reserve", "رزور سفر"), \n
@@ -68,3 +67,8 @@ class TripView(ModelViewSet):
     def perform_destroy(self, instance):
         instance.is_active = False
         instance.save()
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['pk'] = self.kwargs.get('pk')
+        return context

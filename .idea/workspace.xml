@@ -4,35 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add notification and edit price trip model">
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add field is_developer and update admin user">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/utils/custom_exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/utils/custom_exceptions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/v1/trip/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/trip/serializer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/trip/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/trip/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/v1/trip/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/trip/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/auth_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/auth_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/auth_app/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/signals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/auth_app/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/auth_app/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0005_trip_from_address_trip_to_address_trip_trip_type.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/migrations/0005_trip_from_address_trip_to_address_trip_trip_type.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0006_remove_trip_number_of_passenger.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/migrations/0006_remove_trip_number_of_passenger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0007_remove_trip_driver.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/migrations/0007_remove_trip_driver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0008_tripreservation.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/migrations/0008_tripreservation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0009_remove_trip_price_per_seat.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/migrations/0009_remove_trip_price_per_seat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0010_tripprice.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/migrations/0010_tripprice.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0011_trip_description.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/migrations/0011_trip_description.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0012_remove_tripprice_trip.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/migrations/0012_remove_tripprice_trip.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0013_remove_tripprice_price_per_minute_and_more.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/migrations/0013_remove_tripprice_price_per_minute_and_more.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0014_tripprice_night_factor.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/migrations/0014_tripprice_night_factor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0015_remove_tripprice_night_factor.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/migrations/0015_remove_tripprice_night_factor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0016_alter_tripprice_traffic_factor.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/migrations/0016_alter_tripprice_traffic_factor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/migrations/0017_remove_tripprice_base_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/migrations/0017_remove_tripprice_base_price.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/signal.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/signal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/dj_celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/dj_celery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/utils/neshan.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/utils/neshan.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,14 +139,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771346313804</updated>
-    </task>
-    <task id="LOCAL-00041" summary="update docker-compose.yml service db">
-      <option name="closed" value="true" />
-      <created>1777719568294</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1777719568294</updated>
     </task>
     <task id="LOCAL-00042" summary="update docker-compose.yml service db and redis">
       <option name="closed" value="true" />
@@ -556,11 +524,18 @@
       <option name="project" value="LOCAL" />
       <updated>1785525023694</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="add field is_developer and update admin user">
+      <option name="closed" value="true" />
+      <created>1785531298995</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1785531298995</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove template" />
     <MESSAGE value="update" />
     <MESSAGE value="update gunicorn.conf.py and image django" />
     <MESSAGE value="add index-url in base_image django" />
@@ -585,6 +560,7 @@
     <MESSAGE value="uncomment Dockerfile" />
     <MESSAGE value="add api trips and fild description" />
     <MESSAGE value="add notification and edit price trip model" />
-    <option name="LAST_COMMIT_MESSAGE" value="add notification and edit price trip model" />
+    <MESSAGE value="add field is_developer and update admin user" />
+    <option name="LAST_COMMIT_MESSAGE" value="add field is_developer and update admin user" />
   </component>
 </project>
