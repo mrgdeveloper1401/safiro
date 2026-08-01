@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add condition cancel_trip">
-      <change beforePath="$PROJECT_DIR$/apps/trip_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/models.py" afterDir="false" />
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="edit serializer verify otp phone">
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,22 +136,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771346313804</updated>
-    </task>
-    <task id="LOCAL-00043" summary="add folder env_folder">
-      <option name="closed" value="true" />
-      <created>1777719909400</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1777719909400</updated>
-    </task>
-    <task id="LOCAL-00044" summary="update settings.py">
-      <option name="closed" value="true" />
-      <created>1777724031786</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1777724031786</updated>
     </task>
     <task id="LOCAL-00045" summary="remove fast in gunicorn requirements.txt">
       <option name="closed" value="true" />
@@ -529,12 +513,26 @@
       <option name="project" value="LOCAL" />
       <updated>1785575449924</updated>
     </task>
-    <option name="localTasksCounter" value="92" />
+    <task id="LOCAL-00092" summary="update decimal">
+      <option name="closed" value="true" />
+      <created>1785583626373</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1785583626373</updated>
+    </task>
+    <task id="LOCAL-00093" summary="edit serializer verify otp phone">
+      <option name="closed" value="true" />
+      <created>1785585546054</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1785585546055</updated>
+    </task>
+    <option name="localTasksCounter" value="94" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update gunicorn.conf.py and image django" />
-    <MESSAGE value="add index-url in base_image django" />
     <MESSAGE value="update config nginx.conf" />
     <MESSAGE value="add global pip" />
     <MESSAGE value="add start.sh" />
@@ -558,6 +556,8 @@
     <MESSAGE value="add notification and edit price trip model" />
     <MESSAGE value="add field is_developer and update admin user" />
     <MESSAGE value="add condition cancel_trip" />
-    <option name="LAST_COMMIT_MESSAGE" value="add condition cancel_trip" />
+    <MESSAGE value="update decimal" />
+    <MESSAGE value="edit serializer verify otp phone" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit serializer verify otp phone" />
   </component>
 </project>

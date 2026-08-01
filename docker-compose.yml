@@ -83,6 +83,7 @@ services:
       NEXT_PUBLIC_API_URL: https://api.safiro.ir/v1/
       DOMAIN_URL: https://safiro.ir
       PORT: 3000
+      AXIOS_TIMEOUT: 15000
     expose:
       - 3000
     depends_on:
