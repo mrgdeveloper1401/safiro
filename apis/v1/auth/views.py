@@ -173,7 +173,7 @@ class OtpVerifyView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        phone = serializer.validated_data["mobile_phone"]
+        phone = serializer.validated_data["phone"]
         otp = serializer.validated_data["otp"]
 
         # get in redis

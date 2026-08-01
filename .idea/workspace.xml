@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add field is_developer and update admin user">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/utils/custom_exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/utils/custom_exceptions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/trip/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/trip/serializer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/v1/trip/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apis/v1/trip/views.py" afterDir="false" />
+    <list default="true" id="b579f8de-9ee0-46f3-9498-7252dde36c92" name="Changes" comment="add condition cancel_trip">
+      <change beforePath="$PROJECT_DIR$/apps/trip_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/trip_app/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,14 +136,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771346313804</updated>
-    </task>
-    <task id="LOCAL-00042" summary="update docker-compose.yml service db and redis">
-      <option name="closed" value="true" />
-      <created>1777719823528</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1777719823528</updated>
     </task>
     <task id="LOCAL-00043" summary="add folder env_folder">
       <option name="closed" value="true" />
@@ -532,11 +521,18 @@
       <option name="project" value="LOCAL" />
       <updated>1785531298995</updated>
     </task>
-    <option name="localTasksCounter" value="91" />
+    <task id="LOCAL-00091" summary="add condition cancel_trip">
+      <option name="closed" value="true" />
+      <created>1785575449924</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1785575449924</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update" />
     <MESSAGE value="update gunicorn.conf.py and image django" />
     <MESSAGE value="add index-url in base_image django" />
     <MESSAGE value="update config nginx.conf" />
@@ -561,6 +557,7 @@
     <MESSAGE value="add api trips and fild description" />
     <MESSAGE value="add notification and edit price trip model" />
     <MESSAGE value="add field is_developer and update admin user" />
-    <option name="LAST_COMMIT_MESSAGE" value="add field is_developer and update admin user" />
+    <MESSAGE value="add condition cancel_trip" />
+    <option name="LAST_COMMIT_MESSAGE" value="add condition cancel_trip" />
   </component>
 </project>

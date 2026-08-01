@@ -40,7 +40,7 @@ class RequestOtpSerializer(serializers.Serializer):
 
 
 class OtpVerifySerializer(serializers.Serializer):
-    mobile_phone = serializers.CharField(validators=(PhoneNumberValidator(),))
+    phone = serializers.CharField(validators=(PhoneNumberValidator(),))
     otp = serializers.CharField()
 
 
