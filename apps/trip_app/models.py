@@ -24,12 +24,12 @@ class Trip(ActiveMixin, ModifyMixin):
     )
     trip_type = models.ForeignKey("TripType", on_delete=models.PROTECT, null=True)
 
-    from_lat = models.DecimalField(max_digits=10, decimal_places=7, null=True)
-    from_lng = models.DecimalField(max_digits=10, decimal_places=7, null=True)
+    from_lat = models.DecimalField(max_digits=17, decimal_places=15, null=True)
+    from_lng = models.DecimalField(max_digits=17, decimal_places=15, null=True)
     from_address = models.CharField(max_length=255, null=True)
 
-    to_lat = models.DecimalField(max_digits=10, decimal_places=7, null=True)
-    to_lng = models.DecimalField(max_digits=10, decimal_places=7, null=True)
+    to_lat = models.DecimalField(max_digits=17, decimal_places=15, null=True)
+    to_lng = models.DecimalField(max_digits=17, decimal_places=15, null=True)
     to_address = models.CharField(max_length=255, null=True)
 
     status = models.CharField(
