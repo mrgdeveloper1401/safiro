@@ -82,7 +82,7 @@ class TripPrice(ActiveMixin, ModifyMixin):
     )
     price_per_km = models.DecimalField(
         _("قیمت هر کیلومتر"),
-        max_digits=6,
+        max_digits=12,
         decimal_places=2,
         default=0.00,
     )
